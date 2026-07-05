@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLM for Webex Assistant — AbhavTech</title>
+<link rel="icon" type="image/svg+xml" href="abhavtech-logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --accent:#4F46E5;--accent-l:#818CF8;--accent-xl:#C7D2FE;
+  --ink:#0B1120;--ink2:#1E293B;--mid:#475569;--faint:#94A3B8;
+  --rule:#E5E7EB;--bg:#F6F7FB;--white:#FFFFFF;
+  --code-bg:#0E1424;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);
+  background:var(--white);font-size:15px;line-height:1.65;overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Archivo',sans-serif;letter-spacing:-0.025em;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;
+  background:linear-gradient(135deg,#0B1120 0%,#1E1B4B 55%,#312E81 100%);}
+.nav-in{max-width:1180px;margin:0 auto;padding:1rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:'Archivo',sans-serif;
+  font-weight:900;font-size:1.2rem;color:#fff;text-decoration:none;}
+.logo svg{width:40px;height:40px;}
+.logo .t{color:var(--accent-l);}
+.back-link{color:rgba(255,255,255,.75);text-decoration:none;font-size:.8rem;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:color .2s;}
+.back-link:hover{color:#fff;}
+
+/* HEADER */
+.phead{position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0B1120 0%,#1E1B4B 60%,#312E81 100%);
+  padding:9rem 2.5rem 4rem;}
+.phead-glow{position:absolute;width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle,rgba(99,102,241,.4),transparent 70%);
+  top:-160px;right:-100px;filter:blur(10px);}
+.phead-in{position:relative;z-index:1;max-width:1180px;margin:0 auto;}
+.phead-badge{display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--accent);color:#fff;font-family:'Archivo',sans-serif;
+  font-weight:800;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.4rem .9rem;border-radius:20px;margin-bottom:1.4rem;}
+.phead h1{font-weight:900;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.04;
+  color:#fff;margin-bottom:1.2rem;letter-spacing:-0.035em;}
+.phead p{color:rgba(226,232,240,.78);font-size:1.05rem;line-height:1.7;max-width:60ch;}
+.phead-tags{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.6rem;}
+.phead-tags span{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.6);
+  border:1px solid rgba(255,255,255,.2);padding:.35rem .8rem;border-radius:6px;}
+
+/* SUBNAV */
+.subnav{position:sticky;top:57px;z-index:90;background:#fff;
+  border-bottom:1px solid var(--rule);}
+.subnav-in{max-width:1180px;margin:0 auto;padding:0 2.5rem;
+  display:flex;gap:2rem;overflow-x:auto;}
+.subnav a{padding:1rem 0;color:var(--mid);text-decoration:none;
+  font-family:'Archivo',sans-serif;font-weight:700;font-size:.78rem;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
+.subnav a:hover{color:var(--accent);border-color:var(--accent);}
+
+/* SECTION SHELL */
+.sec{max-width:1180px;margin:0 auto;padding:4.5rem 2.5rem;}
+.sec-tag{font-size:.73rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+.sec h2{font-weight:900;font-size:clamp(1.7rem,3.4vw,2.4rem);
+  line-height:1.1;margin-bottom:1rem;}
+.sec > p.lead{color:var(--mid);font-size:1rem;line-height:1.75;
+  max-width:70ch;margin-bottom:2.4rem;}
+.alt{background:var(--bg);}
+.alt-wrap{max-width:1180px;margin:0 auto;padding:4.5rem 2.5rem;}
+
+/* NOTE BOX */
+.note{display:flex;gap:1rem;background:#EEF2FF;border:1px solid #C7D2FE;
+  border-radius:12px;padding:1.3rem 1.5rem;margin:2rem 0;}
+.note svg{flex-shrink:0;width:22px;height:22px;stroke:var(--accent);}
+.note p{font-size:.9rem;color:var(--ink2);line-height:1.6;}
+.note strong{color:var(--accent);}
+
+/* DEMO */
+.demo-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;
+  align-items:start;}
+.demo-side h3{font-weight:800;font-size:1.1rem;margin-bottom:.6rem;}
+.demo-side p{color:var(--mid);font-size:.9rem;line-height:1.7;margin-bottom:1.4rem;}
+.chip{display:block;width:100%;text-align:left;cursor:pointer;
+  background:#fff;border:1.5px solid var(--rule);border-radius:10px;
+  padding:.85rem 1rem;margin-bottom:.7rem;font-family:'DM Sans',sans-serif;
+  font-size:.88rem;color:var(--ink2);font-weight:500;
+  transition:border-color .2s,background .2s,transform .15s;}
+.chip:hover{border-color:var(--accent-l);background:#F5F5FF;transform:translateX(3px);}
+.chip::before{content:'→ ';color:var(--accent);font-weight:700;}
+.chatbox{background:#fff;border:1px solid var(--rule);border-radius:16px;
+  box-shadow:0 8px 30px rgba(15,23,42,.08);overflow:hidden;
+  display:flex;flex-direction:column;height:520px;}
+.chat-head{background:var(--ink);padding:.9rem 1.2rem;display:flex;
+  align-items:center;gap:.6rem;}
+.chat-dot{width:9px;height:9px;border-radius:50%;background:#34D399;
+  box-shadow:0 0 8px #34D399;}
+.chat-head span{color:#fff;font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:.82rem;letter-spacing:.04em;}
+.chat-head em{color:var(--faint);font-size:.7rem;font-style:normal;margin-left:auto;}
+.chat-log{flex-grow:1;overflow-y:auto;padding:1.4rem;display:flex;
+  flex-direction:column;gap:1rem;}
+.msg{max-width:85%;padding:.8rem 1rem;border-radius:12px;font-size:.88rem;
+  line-height:1.6;animation:pop .3s ease;}
+@keyframes pop{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.msg-user{align-self:flex-end;background:var(--accent);color:#fff;
+  border-bottom-right-radius:3px;}
+.msg-bot{align-self:flex-start;background:var(--bg);color:var(--ink2);
+  border:1px solid var(--rule);border-bottom-left-radius:3px;}
+.msg-bot strong{color:var(--accent);}
+.chat-empty{margin:auto;text-align:center;color:var(--faint);font-size:.85rem;}
+.chat-empty svg{width:40px;height:40px;stroke:var(--rule);margin-bottom:.8rem;}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:.9rem 1rem;}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--accent-l);
+  animation:bounce 1s infinite;}
+.typing i:nth-child(2){animation-delay:.15s;}
+.typing i:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4;}
+  30%{transform:translateY(-6px);opacity:1;}}
+
+/* COMPARISON TABLE */
+.cmp{width:100%;border-collapse:collapse;font-size:.88rem;
+  border:1px solid var(--rule);border-radius:12px;overflow:hidden;}
+.cmp th{background:var(--ink);color:#fff;font-family:'Archivo',sans-serif;
+  font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;
+  padding:.9rem 1.1rem;text-align:left;}
+.cmp td{padding:.85rem 1.1rem;border-top:1px solid var(--rule);
+  color:var(--mid);vertical-align:top;}
+.cmp td:first-child{font-weight:600;color:var(--ink);}
+.cmp tr:nth-child(even) td{background:var(--bg);}
+
+/* APPROACH CARDS */
+.appr-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1rem;}
+.appr{background:#fff;border:1px solid var(--rule);border-radius:16px;
+  padding:2rem;box-shadow:0 1px 2px rgba(15,23,42,.04),0 8px 20px rgba(15,23,42,.05);}
+.appr-label{display:inline-block;font-family:'Archivo',sans-serif;font-weight:800;
+  font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;background:var(--accent);padding:.3rem .75rem;border-radius:6px;
+  margin-bottom:1rem;}
+.appr-label.b{background:var(--ink2);}
+.appr h3{font-weight:800;font-size:1.15rem;margin-bottom:.7rem;}
+.appr p{color:var(--mid);font-size:.9rem;line-height:1.7;}
+
+/* FLOW DIAGRAM */
+.flow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0;}
+.flow-box{background:#fff;border:1.5px solid var(--accent-l);border-radius:10px;
+  padding:.8rem 1rem;font-size:.8rem;font-weight:600;color:var(--ink2);
+  text-align:center;min-width:110px;}
+.flow-box.dark{background:var(--ink);color:#fff;border-color:var(--ink);}
+.flow-box.accent{background:var(--accent);color:#fff;border-color:var(--accent);}
+.flow-box small{display:block;font-weight:400;font-size:.68rem;
+  color:var(--faint);margin-top:.2rem;}
+.flow-box.dark small,.flow-box.accent small{color:rgba(255,255,255,.6);}
+.flow-arrow{color:var(--accent);font-size:1.3rem;font-weight:700;}
+
+/* STEPS */
+.steps-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.step{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--rule);}
+.step:last-child{border-bottom:none;}
+.step-n{flex-shrink:0;width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-l));
+  color:#fff;font-family:'Archivo',sans-serif;font-weight:800;font-size:.82rem;
+  display:flex;align-items:center;justify-content:center;}
+.step-body h4{font-weight:800;font-size:.92rem;margin-bottom:.2rem;}
+.step-body p{color:var(--mid);font-size:.85rem;line-height:1.6;}
+.steps-head{font-family:'Archivo',sans-serif;font-weight:800;font-size:1rem;
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.6rem;}
+.steps-head::before{content:'';width:24px;height:3px;background:var(--accent);}
+
+/* CODE */
+.code-block{background:var(--code-bg);border-radius:12px;overflow:hidden;
+  margin:1.2rem 0;border:1px solid #1E293B;}
+.code-head{background:#161E33;padding:.6rem 1.1rem;display:flex;
+  align-items:center;gap:.6rem;border-bottom:1px solid #1E293B;}
+.code-head .cd{width:9px;height:9px;border-radius:50%;}
+.code-head .cd.r{background:#EF4444;}
+.code-head .cd.y{background:#F59E0B;}
+.code-head .cd.g{background:#10B981;}
+.code-head span{margin-left:.5rem;color:#64748B;font-family:'JetBrains Mono',monospace;
+  font-size:.74rem;}
+.code-block pre{padding:1.2rem;overflow-x:auto;}
+.code-block code{font-family:'JetBrains Mono',monospace;font-size:.78rem;
+  line-height:1.7;color:#CBD5E1;white-space:pre;}
+.code-block .cm{color:#5B6B8C;}
+.code-block .kw{color:#C792EA;}
+.code-block .st{color:#C3E88D;}
+.code-label{font-family:'Archivo',sans-serif;font-weight:800;font-size:.85rem;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink);
+  margin:2rem 0 .3rem;}
+
+/* FOOTER */
+.site-footer{background:linear-gradient(135deg,#0B1120 0%,#161342 55%,#1E1B4B 100%);
+  color:rgba(255,255,255,.55);position:relative;overflow:hidden;}
+.foot-glow{position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(99,102,241,.22),transparent 70%);
+  top:-180px;right:-80px;filter:blur(14px);}
+.foot-main{position:relative;z-index:1;max-width:1180px;margin:0 auto;
+  padding:3.2rem 2.5rem 2rem;display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;}
+.foot-brand-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;}
+.foot-brand-row svg{width:34px;height:34px;}
+.foot-brand-name{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.2rem;color:#fff;}
+.foot-brand-name .t{color:var(--accent-l);}
+.foot-tagline{color:rgba(226,232,240,.6);font-size:.9rem;line-height:1.6;max-width:42ch;}
+.foot-prac{display:flex;align-items:center;gap:1rem;}
+.foot-prac-avatar{width:58px;height:58px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#6366F1,#312E81);display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo',sans-serif;font-weight:900;font-size:1.3rem;color:#fff;letter-spacing:-0.03em;
+  box-shadow:0 8px 20px rgba(99,102,241,.4);border:2px solid rgba(255,255,255,.15);}
+.foot-prac-label{font-family:'Archivo',sans-serif;font-size:.66rem;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent-xl);margin-bottom:.2rem;}
+.foot-prac-name{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.15rem;color:#fff;line-height:1.1;}
+.foot-prac-role{color:rgba(226,232,240,.65);font-size:.82rem;line-height:1.4;margin-top:.2rem;}
+.foot-bar{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.1);
+  max-width:1180px;margin:0 auto;padding:1.3rem 2.5rem;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.78rem;color:rgba(255,255,255,.4);}
+.foot-bar a{color:var(--accent-l);text-decoration:none;}
+.foot-bar a:hover{color:#fff;}
+@media(max-width:780px){.foot-main{grid-template-columns:1fr;gap:2rem;}.foot-bar{justify-content:center;text-align:center;}}
+
+@media(max-width:900px){
+  .demo-wrap{grid-template-columns:1fr;}
+  .appr-grid,.steps-col{grid-template-columns:1fr;}
+  .nav-in,.phead,.sec,.alt-wrap{padding-left:1.4rem;padding-right:1.4rem;}
+  .chatbox{height:440px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="21" fill="rgba(99,102,241,.12)" stroke="#6366F1" stroke-width="2.5"/>
+        <g stroke="#C7D2FE" stroke-width="2.6" stroke-linecap="round">
+          <line x1="24" y1="13" x2="16" y2="35"/>
+          <line x1="24" y1="13" x2="32" y2="35"/>
+          <line x1="19.2" y1="27" x2="28.8" y2="27"/>
+        </g>
+        <circle cx="24" cy="13" r="3.2" fill="#6366F1" stroke="#fff" stroke-width="1.3"/>
+        <circle cx="16" cy="35" r="3.2" fill="#6366F1" stroke="#fff" stroke-width="1.3"/>
+        <circle cx="32" cy="35" r="3.2" fill="#6366F1" stroke="#fff" stroke-width="1.3"/>
+        <circle cx="24" cy="27" r="3.9" fill="#fff" stroke="#818CF8" stroke-width="1.5"/>
+      </svg>
+      ABHAV<span class="t">TECH</span>
+    </a>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="phead">
+  <div class="phead-glow"></div>
+  <div class="phead-in">
+    <span class="phead-badge">★ Interactive Demo · AI Hub</span>
+    <h1>SLM for Webex Assistant</h1>
+    <p>A lightweight, tightly-scoped language-model assistant for Webex Calling and Contact Center — helping engineers explore configuration, troubleshoot flows, and plan migrations. This page includes a working demo and the full build approach: high-level design, low-level design, and reference code.</p>
+    <div class="phead-tags">
+      <span>Webex Calling</span>
+      <span>Contact Center</span>
+      <span>Migration Planning</span>
+      <span>RAG + Fine-tuning</span>
+    </div>
+  </div>
+</header>
+
+<!-- SUBNAV -->
+<div class="subnav">
+  <div class="subnav-in">
+    <a href="#demo">Demo</a>
+    <a href="#overview">Overview</a>
+    <a href="#hld">HLD</a>
+    <a href="#lld">LLD</a>
+    <a href="#steps">Build Steps</a>
+    <a href="#code">Reference Code</a>
+  </div>
+</div>
+
+<!-- DEMO -->
+<section class="sec" id="demo">
+  <div class="sec-tag">Try It</div>
+  <h2>Interactive Demo</h2>
+  <p class="lead">Click any sample question to see how the assistant responds. This demo runs on pre-written, expert-reviewed answers — no live model calls — so it is free to run and safe to share.</p>
+  <div class="demo-wrap">
+    <div class="demo-side">
+      <h3>Sample Questions</h3>
+      <p>These mirror the kind of queries the assistant is designed to handle.</p>
+      <button class="chip" data-q="0">How do I migrate an Avaya hunt group to Webex Calling?</button>
+      <button class="chip" data-q="1">What's the difference between Webex Calling and Webex Contact Center?</button>
+      <button class="chip" data-q="2">How do I configure a queue in Webex Contact Center?</button>
+      <button class="chip" data-q="3">What network ports does Webex Calling need open?</button>
+      <button class="chip" data-q="4">How should I phase an Avaya-to-Webex cutover?</button>
+    </div>
+    <div class="chatbox">
+      <div class="chat-head">
+        <span class="chat-dot"></span>
+        <span>SLM for Webex Assistant</span>
+        <em>Demo mode</em>
+      </div>
+      <div class="chat-log" id="log">
+        <div class="chat-empty" id="empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div>Pick a question on the left to start.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+    <p><strong>Planning document.</strong> The design and code below describe how this assistant will be built. Full implementation documentation will be published once the tool is developed and lab-validated.</p>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<div class="alt">
+  <div class="alt-wrap" id="overview">
+    <div class="sec-tag">Overview</div>
+    <h2>Two Ways to Build It</h2>
+    <p class="lead">"SLM" — Small Language Model — refers to a deliberately narrow, focused assistant rather than a general chatbot. There are two viable build paths, and this project documents both so the right one can be chosen for the deployment context.</p>
+    <div class="appr-grid">
+      <div class="appr">
+        <span class="appr-label">Approach A</span>
+        <h3>Hosted API + RAG</h3>
+        <p>Use a hosted model (e.g. Claude Haiku) behind a secure proxy, grounded with Retrieval-Augmented Generation over Webex documentation. The "small" comes from tight scoping and retrieval, not model size. Fast to stand up, broad coverage, pay-per-use.</p>
+      </div>
+      <div class="appr">
+        <span class="appr-label b">Approach B</span>
+        <h3>Local LLM + Fine-tuning</h3>
+        <p>Run a genuinely small open model (1–4B parameters) on local hardware, fine-tuned on a Webex corpus with QLoRA. Fully on-premise, no per-query cost, no data leaving the network — at the cost of training effort and infrastructure.</p>
+      </div>
+    </div>
+    <h3 style="font-family:'Archivo';font-weight:800;margin:2.5rem 0 1rem;">Side-by-Side Comparison</h3>
+    <table class="cmp">
+      <thead><tr><th>Factor</th><th>A · Hosted API + RAG</th><th>B · Local LLM + Fine-tuning</th></tr></thead>
+      <tbody>
+        <tr><td>Setup speed</td><td>Fast — days</td><td>Slower — weeks</td></tr>
+        <tr><td>Cost model</td><td>Pay-per-query (low with Haiku)</td><td>Upfront compute, then free inference</td></tr>
+        <tr><td>Data privacy</td><td>Queries leave your network</td><td>Fully on-premise</td></tr>
+        <tr><td>Answer quality</td><td>High — frontier model</td><td>Good for the trained domain</td></tr>
+        <tr><td>Hardware</td><td>None required</td><td>GPU for training; modest box for serving</td></tr>
+        <tr><td>Maintenance</td><td>Low — vendor maintains model</td><td>Higher — retrain, host, monitor</td></tr>
+        <tr><td>Best fit</td><td>Quick demo, broad coverage</td><td>Offline, privacy-sensitive deployments</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HLD -->
+<section class="sec" id="hld">
+  <div class="sec-tag">Architecture</div>
+  <h2>High-Level Design (HLD)</h2>
+  <p class="lead">The HLD describes the major components and how data flows through the system for each approach.</p>
+
+  <div class="code-label">Approach A — Hosted API + RAG</div>
+  <p style="color:var(--mid);font-size:.92rem;">The browser never touches the model directly. An edge proxy holds the API key, enforces limits, and grounds each query with retrieved Webex documentation before calling the model.</p>
+  <div class="flow">
+    <div class="flow-box">Chat UI<small>Static page</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box accent">Edge Proxy<small>Key + rate limit</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">Retriever<small>Top-k chunks</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">Vector Store<small>Webex docs</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box dark">Hosted LLM<small>Claude Haiku</small></div>
+  </div>
+
+  <div class="code-label">Approach B — Local LLM + Fine-tuning</div>
+  <p style="color:var(--mid);font-size:.92rem;">Two pipelines: an offline <em>training</em> pipeline that produces a fine-tuned model, and an <em>inference</em> pipeline that serves it locally.</p>
+  <div class="flow">
+    <div class="flow-box">Webex Docs<small>Source corpus</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">Data Prep<small>Q/A pairs</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box accent">QLoRA Fine-tune<small>Base model</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box">Evaluate<small>Held-out set</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box dark">GGUF Model<small>Quantized</small></div>
+  </div>
+  <div class="flow">
+    <div class="flow-box">Chat UI<small>Local app</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box accent">API Wrapper<small>FastAPI</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box dark">Ollama / llama.cpp<small>Fine-tuned SLM</small></div>
+  </div>
+</section>
+
+<!-- LLD -->
+<div class="alt">
+  <div class="alt-wrap" id="lld">
+    <div class="sec-tag">Detailed Design</div>
+    <h2>Low-Level Design (LLD)</h2>
+    <p class="lead">The LLD breaks each component into concrete, implementable detail.</p>
+    <div class="appr-grid">
+      <div class="appr">
+        <span class="appr-label">Approach A — Component Detail</span>
+        <h3 style="font-size:1rem;margin-top:.5rem;">Edge Proxy</h3>
+        <p>Cloudflare Pages Function. API key stored as an encrypted environment secret. Validates request shape, enforces per-IP daily rate limit via KV, caps <code>max_tokens</code>.</p>
+        <h3 style="font-size:1rem;margin-top:1rem;">RAG Pipeline</h3>
+        <p>Webex docs chunked (~400 words), embedded with a sentence-transformer, stored in a vector index. At query time the top 3–4 chunks are retrieved and injected as grounding context.</p>
+        <h3 style="font-size:1rem;margin-top:1rem;">Prompt &amp; Guardrails</h3>
+        <p>System prompt locks scope to Webex topics, instructs the model to answer only from retrieved context and to recommend verifying against Cisco documentation. Off-topic queries are politely declined.</p>
+      </div>
+      <div class="appr">
+        <span class="appr-label b">Approach B — Component Detail</span>
+        <h3 style="font-size:1rem;margin-top:.5rem;">Base Model</h3>
+        <p>A 1–4B instruction model — e.g. Phi-3-mini, Llama 3.2 3B, or Qwen 2.5 3B — small enough to fine-tune on a single GPU and serve on a modest box.</p>
+        <h3 style="font-size:1rem;margin-top:1rem;">Training Data</h3>
+        <p>Webex documentation converted into instruction/response pairs (JSONL). Cleaned, de-duplicated, and split into train and held-out evaluation sets.</p>
+        <h3 style="font-size:1rem;margin-top:1rem;">Fine-tuning &amp; Serving</h3>
+        <p>QLoRA — 4-bit quantization plus low-rank adapters — keeps memory low. The trained adapter is merged, converted to GGUF, and served via Ollama or llama.cpp behind a small FastAPI wrapper.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPS -->
+<section class="sec" id="steps">
+  <div class="sec-tag">Approach</div>
+  <h2>Build Steps</h2>
+  <p class="lead">The end-to-end sequence for each path, from raw documentation to a working assistant.</p>
+  <div class="steps-col">
+    <div>
+      <div class="steps-head">Approach A · Hosted API</div>
+      <div class="step"><div class="step-n">1</div><div class="step-body"><h4>Collect Webex docs</h4><p>Gather Webex Calling and Contact Center documentation as the knowledge source.</p></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><h4>Chunk &amp; embed</h4><p>Split docs into passages and generate embeddings.</p></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><h4>Build vector index</h4><p>Store embeddings in a searchable vector store.</p></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-body"><h4>Build edge proxy</h4><p>Create the function that holds the key and calls the model.</p></div></div>
+      <div class="step"><div class="step-n">5</div><div class="step-body"><h4>Add guardrails</h4><p>Rate limits, token caps, topic scoping, off-topic refusal.</p></div></div>
+      <div class="step"><div class="step-n">6</div><div class="step-body"><h4>Wire the chat UI</h4><p>Connect the front-end to the proxy endpoint.</p></div></div>
+      <div class="step"><div class="step-n">7</div><div class="step-body"><h4>Test &amp; deploy</h4><p>Validate answers, set a Console spend cap, ship.</p></div></div>
+    </div>
+    <div>
+      <div class="steps-head">Approach B · Local LLM</div>
+      <div class="step"><div class="step-n">1</div><div class="step-body"><h4>Select base model</h4><p>Choose a 1–4B instruction model that fits available hardware.</p></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><h4>Build training data</h4><p>Convert Webex docs into instruction/response pairs.</p></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><h4>Clean &amp; split</h4><p>De-duplicate and separate train vs evaluation sets.</p></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-body"><h4>QLoRA fine-tune</h4><p>Train low-rank adapters on the quantized base model.</p></div></div>
+      <div class="step"><div class="step-n">5</div><div class="step-body"><h4>Evaluate</h4><p>Score answers on the held-out set; iterate if needed.</p></div></div>
+      <div class="step"><div class="step-n">6</div><div class="step-body"><h4>Merge &amp; quantize</h4><p>Merge the adapter and export to GGUF format.</p></div></div>
+      <div class="step"><div class="step-n">7</div><div class="step-body"><h4>Serve &amp; connect</h4><p>Run via Ollama, wrap with an API, link the UI.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CODE -->
+<div class="alt">
+  <div class="alt-wrap" id="code">
+    <div class="sec-tag">Implementation</div>
+    <h2>Reference Code</h2>
+    <p class="lead">Starter snippets for the core of each approach. These are illustrative — production use requires testing, error handling, and validation.</p>
+
+    <div class="code-label">A · Secure Edge Proxy — Cloudflare Pages Function</div>
+    <div class="code-block">
+      <div class="code-head"><span class="cd r"></span><span class="cd y"></span><span class="cd g"></span><span>functions/api/ask.js</span></div>
+<pre><code><span class="cm">// API key stays server-side as an encrypted env secret.</span>
+<span class="kw">const</span> RATE = 5; <span class="cm">// questions per IP per day</span>
+
+<span class="kw">export async function</span> onRequestPost({ request, env }) {
+  <span class="kw">const</span> ip  = request.headers.get(<span class="st">'CF-Connecting-IP'</span>) || <span class="st">'anon'</span>;
+  <span class="kw">const</span> day = <span class="kw">new</span> Date().toISOString().slice(0, 10);
+  <span class="kw">const</span> key = <span class="st">`rl:${ip}:${day}`</span>;
+
+  <span class="cm">// per-IP daily rate limit via Workers KV</span>
+  <span class="kw">const</span> used = parseInt(<span class="kw">await</span> env.RL.get(key) || <span class="st">'0'</span>, 10);
+  <span class="kw">if</span> (used &gt;= RATE)
+    <span class="kw">return</span> Response.json({ error: <span class="st">'Daily demo limit reached.'</span> }, { status: 429 });
+
+  <span class="kw">const</span> { question, context } = <span class="kw">await</span> request.json();
+
+  <span class="kw">const</span> r = <span class="kw">await</span> fetch(<span class="st">'https://api.anthropic.com/v1/messages'</span>, {
+    method: <span class="st">'POST'</span>,
+    headers: {
+      <span class="st">'content-type'</span>:     <span class="st">'application/json'</span>,
+      <span class="st">'x-api-key'</span>:        env.ANTHROPIC_API_KEY,
+      <span class="st">'anthropic-version'</span>: <span class="st">'2023-06-01'</span>
+    },
+    body: JSON.stringify({
+      model:      <span class="st">'claude-haiku-4-5-20251001'</span>,
+      max_tokens: 350,                       <span class="cm">// hard output cap</span>
+      system:     <span class="st">'You are a Webex assistant. Answer ONLY Webex '</span> +
+                  <span class="st">'Calling and Contact Center questions, grounded in '</span> +
+                  <span class="st">'the supplied context. Decline anything off-topic.'</span>,
+      messages: [{ role: <span class="st">'user'</span>,
+                   content: <span class="st">`Context:\n${context}\n\nQ: ${question}`</span> }]
+    })
+  });
+
+  <span class="kw">const</span> data = <span class="kw">await</span> r.json();
+  <span class="kw">await</span> env.RL.put(key, String(used + 1), { expirationTtl: 86400 });
+  <span class="kw">return</span> Response.json({ answer: data.content?.[0]?.text || <span class="st">''</span> });
+}</code></pre>
+    </div>
+
+    <div class="code-label">A · Build the RAG Index</div>
+    <div class="code-block">
+      <div class="code-head"><span class="cd r"></span><span class="cd y"></span><span class="cd g"></span><span>build_index.py</span></div>
+<pre><code><span class="kw">import</span> glob, json
+<span class="kw">from</span> sentence_transformers <span class="kw">import</span> SentenceTransformer
+
+embed = SentenceTransformer(<span class="st">'all-MiniLM-L6-v2'</span>)
+chunks = []
+
+<span class="kw">for</span> path <span class="kw">in</span> glob.glob(<span class="st">'webex_docs/*.md'</span>):
+    words = open(path).read().split()
+    <span class="cm"># chunk into ~400-word passages</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(0, len(words), 400):
+        chunks.append(<span class="st">' '</span>.join(words[i:i + 400]))
+
+vectors = embed.encode(chunks).tolist()
+json.dump([{<span class="st">'text'</span>: c, <span class="st">'vec'</span>: v} <span class="kw">for</span> c, v <span class="kw">in</span> zip(chunks, vectors)],
+          open(<span class="st">'index.json'</span>, <span class="st">'w'</span>))</code></pre>
+    </div>
+
+    <div class="code-label">B · Training Data Format — instruction pairs (JSONL)</div>
+    <div class="code-block">
+      <div class="code-head"><span class="cd r"></span><span class="cd y"></span><span class="cd g"></span><span>webex_train.jsonl</span></div>
+<pre><code>{<span class="st">"instruction"</span>: <span class="st">"How do I migrate an Avaya hunt group to Webex Calling?"</span>,
+ <span class="st">"output"</span>: <span class="st">"Map it to a Webex Calling Hunt Group or Call Queue ..."</span>}
+{<span class="st">"instruction"</span>: <span class="st">"What ports does Webex Calling use?"</span>,
+ <span class="st">"output"</span>: <span class="st">"SIP signalling, a UDP media range, and HTTPS ..."</span>}</code></pre>
+    </div>
+
+    <div class="code-label">B · QLoRA Fine-tuning Script</div>
+    <div class="code-block">
+      <div class="code-head"><span class="cd r"></span><span class="cd y"></span><span class="cd g"></span><span>train.py</span></div>
+<pre><code><span class="kw">from</span> transformers <span class="kw">import</span> AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+<span class="kw">from</span> peft <span class="kw">import</span> LoraConfig, get_peft_model
+<span class="kw">from</span> datasets <span class="kw">import</span> load_dataset
+<span class="kw">from</span> trl <span class="kw">import</span> SFTTrainer
+
+BASE = <span class="st">'microsoft/Phi-3-mini-4k-instruct'</span>   <span class="cm"># ~3.8B params</span>
+
+<span class="cm"># 4-bit quantization keeps GPU memory low</span>
+bnb = BitsAndBytesConfig(load_in_4bit=<span class="kw">True</span>, bnb_4bit_quant_type=<span class="st">'nf4'</span>)
+model = AutoModelForCausalLM.from_pretrained(BASE, quantization_config=bnb,
+                                             device_map=<span class="st">'auto'</span>)
+tok = AutoTokenizer.from_pretrained(BASE)
+
+<span class="cm"># low-rank adapters — only these weights are trained</span>
+lora = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,
+                  target_modules=[<span class="st">'q_proj'</span>, <span class="st">'v_proj'</span>],
+                  task_type=<span class="st">'CAUSAL_LM'</span>)
+model = get_peft_model(model, lora)
+
+data = load_dataset(<span class="st">'json'</span>, data_files=<span class="st">'webex_train.jsonl'</span>)[<span class="st">'train'</span>]
+
+trainer = SFTTrainer(model=model, tokenizer=tok, train_dataset=data,
+                     max_seq_length=1024)
+trainer.train()
+model.save_pretrained(<span class="st">'webex-slm-adapter'</span>)</code></pre>
+    </div>
+
+    <div class="code-label">B · Serve the Fine-tuned Model — Ollama</div>
+    <div class="code-block">
+      <div class="code-head"><span class="cd r"></span><span class="cd y"></span><span class="cd g"></span><span>Modelfile</span></div>
+<pre><code><span class="cm"># after merging the adapter and exporting to GGUF</span>
+FROM ./webex-slm-merged.gguf
+
+PARAMETER temperature 0.3
+PARAMETER num_ctx 4096
+
+SYSTEM <span class="st">"""You are the SLM for Webex Assistant. Answer Webex
+Calling and Contact Center questions concisely, and recommend
+verifying against official Cisco documentation."""</span></code></pre>
+    </div>
+    <div class="code-block">
+      <div class="code-head"><span class="cd r"></span><span class="cd y"></span><span class="cd g"></span><span>terminal</span></div>
+<pre><code><span class="cm"># register and run the model locally</span>
+ollama create webex-slm -f Modelfile
+ollama run webex-slm</code></pre>
+    </div>
+
+    <div class="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <p><strong>Next step.</strong> Once the assistant is built and lab-validated, this page will expand into full documentation — covering data sourcing, evaluation results, deployment, and operations — and convert into the standard AbhavTech documentation framework.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="foot-glow"></div>
+  <div class="foot-main">
+    <div class="foot-brand">
+      <div class="foot-brand-row"><svg viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="21" fill="rgba(99,102,241,.12)" stroke="#6366F1" stroke-width="2.5"/>
+          <g stroke="#C7D2FE" stroke-width="2.6" stroke-linecap="round">
+            <line x1="24" y1="13" x2="16" y2="35"/><line x1="24" y1="13" x2="32" y2="35"/>
+            <line x1="19.2" y1="27" x2="28.8" y2="27"/></g>
+          <circle cx="24" cy="13" r="3.2" fill="#6366F1" stroke="#fff" stroke-width="1.3"/>
+          <circle cx="16" cy="35" r="3.2" fill="#6366F1" stroke="#fff" stroke-width="1.3"/>
+          <circle cx="32" cy="35" r="3.2" fill="#6366F1" stroke="#fff" stroke-width="1.3"/>
+          <circle cx="24" cy="27" r="3.9" fill="#fff" stroke="#818CF8" stroke-width="1.5"/>
+        </svg>
+        <span class="foot-brand-name">ABHAV<span class="t">TECH</span></span>
+      </div>
+      <p class="foot-tagline">A practitioner's portfolio of AI-assisted enterprise documentation — across collaboration, networking, cybersecurity, and AI integration.</p>
+    </div>
+    <div class="foot-prac">
+      <div class="foot-prac-avatar">RM</div>
+      <div>
+        <div class="foot-prac-label">Built by</div>
+        <div class="foot-prac-name">Rajmohan M</div>
+        <div class="foot-prac-role">Principal Consultant — Unified Communications, Contact Center &amp; Artificial Intelligence</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <span>© 2025–2026 abhavtech.com · All content is AI-assisted and provided for demonstration purposes.</span>
+    <a href="index.html">← Return to the portfolio</a>
+  </div>
+</footer>
+
+<script>
+  const ANSWERS = [
+    "Map the Avaya hunt group to a Webex Calling <strong>Hunt Group</strong> or <strong>Call Queue</strong>, depending on the distribution pattern. Inventory the members, pilot number, and routing logic (circular, linear, longest-idle), then recreate it in Control Hub — assign users or workspaces, attach the pilot number, and set the matching routing type. Pilot it with a small group before cutover, since Avaya and Webex name their distribution options differently.",
+    "<strong>Webex Calling</strong> is a cloud business phone system — extensions, hunt groups, voicemail, and PSTN connectivity for everyday telephony. <strong>Webex Contact Center</strong> is an omnichannel customer-engagement platform — queues, IVR flows, skills-based routing, an agent desktop, and detailed reporting. They use separate licences and admin surfaces, though both are managed from Control Hub.",
+    "In the Contact Center admin, create a <strong>Queue</strong> and set its channel type (for example, voice). Assign one or more Teams of agents, choose a routing type such as longest-available-agent, and define the service-level threshold. Finally, reference the queue from a routing flow using the <strong>Queue Contact</strong> node so calls are delivered into it.",
+    "Webex Calling uses <strong>SIP</strong> for signalling, a <strong>UDP range</strong> for RTP media, and <strong>HTTPS</strong> for the control and management channels. Exact port numbers and IP ranges change over time, so always confirm the current values in Cisco's official Webex network requirements documentation before opening anything on the firewall.",
+    "A typical phased plan runs: <strong>discovery and inventory</strong>, <strong>design mapping</strong> (legacy feature to Webex equivalent), a <strong>pilot group</strong>, then site-by-site migration with number-porting coordination. Keep a parallel-run window where possible, validate each site before moving on, and decommission the legacy platform only after the final site is stable."
+  ];
+  const QUESTIONS = [...document.querySelectorAll('.chip')].map(c => c.textContent);
+  const log = document.getElementById('log');
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const i = +chip.dataset.q;
+      const empty = document.getElementById('empty');
+      if (empty) empty.remove();
+
+      const u = document.createElement('div');
+      u.className = 'msg msg-user';
+      u.textContent = QUESTIONS[i];
+      log.appendChild(u);
+      log.scrollTop = log.scrollHeight;
+
+      const t = document.createElement('div');
+      t.className = 'typing';
+      t.innerHTML = '<i></i><i></i><i></i>';
+      log.appendChild(t);
+      log.scrollTop = log.scrollHeight;
+
+      setTimeout(() => {
+        t.remove();
+        const b = document.createElement('div');
+        b.className = 'msg msg-bot';
+        b.innerHTML = ANSWERS[i];
+        log.appendChild(b);
+        log.scrollTop = log.scrollHeight;
+      }, 900);
+    });
+  });
+</script>
+</body>
+</html>
