@@ -1,0 +1,19 @@
+Pool Name,Pool Type,IPv6 Prefix,Prefix Length,IPv6 Gateway,DNS Server Primary IPv6,DNS Server Secondary IPv6,DNS Domain,Site Hierarchy,VLAN ID,Description
+IPv6-MUM-CORPORATE-F1,Generic,2001:db8:abc1:2001::/64,64,2001:db8:abc1:2001::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ/Floor-1,1011,Mumbai Floor 1 Corporate VLAN - Dual-stack SLAAC
+IPv6-MUM-CORPORATE-F2,Generic,2001:db8:abc1:2002::/64,64,2001:db8:abc1:2002::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ/Floor-2,1012,Mumbai Floor 2 Corporate VLAN - Dual-stack SLAAC
+IPv6-MUM-CORPORATE-F3,Generic,2001:db8:abc1:2003::/64,64,2001:db8:abc1:2003::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ/Floor-3,1013,Mumbai Floor 3 Corporate VLAN - Dual-stack SLAAC
+IPv6-MUM-CORPORATE-F4,Generic,2001:db8:abc1:2004::/64,64,2001:db8:abc1:2004::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ/Floor-4,1014,Mumbai Floor 4 Corporate VLAN - Dual-stack SLAAC
+IPv6-MUM-CORPORATE-F5,Generic,2001:db8:abc1:2005::/64,64,2001:db8:abc1:2005::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ/Floor-5,1015,Mumbai Floor 5 Corporate VLAN - Dual-stack SLAAC
+IPv6-MUM-CORPORATE-F6,Generic,2001:db8:abc1:2006::/64,64,2001:db8:abc1:2006::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ/Floor-6,1016,Mumbai Floor 6 Corporate VLAN - Dual-stack SLAAC
+IPv6-MUM-GUEST,Generic,2001:db8:abc1:3001::/64,64,2001:db8:abc1:3001::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ,1021,Mumbai Guest VLAN - Dual-stack SLAAC
+IPv6-MUM-IOT,Generic,2001:db8:abc1:4001::/64,64,2001:db8:abc1:4001::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ,1031,Mumbai IoT VLAN - DHCPv6 Stateful
+IPv6-MUM-SERVERS,Generic,2001:db8:abc1:5001::/64,64,2001:db8:abc1:5001::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ,1041,Mumbai Server VLAN - Static IPv6
+IPv6-MUM-VOICE,Generic,2001:db8:abc1:6001::/64,64,2001:db8:abc1:6001::1,2001:db8:abc1:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Mumbai/HQ,1051,Mumbai Voice VLAN - Dual-stack SLAAC for Webex
+IPv6-CHN-CORPORATE-F1,Generic,2001:db8:abc2:2001::/64,64,2001:db8:abc2:2001::1,2001:db8:abc2:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Chennai/HQ/Floor-1,1011,Chennai Floor 1 Corporate VLAN
+IPv6-CHN-CORPORATE-F2,Generic,2001:db8:abc2:2002::/64,64,2001:db8:abc2:2002::1,2001:db8:abc2:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Chennai/HQ/Floor-2,1012,Chennai Floor 2 Corporate VLAN
+IPv6-CHN-CORPORATE-F3,Generic,2001:db8:abc2:2003::/64,64,2001:db8:abc2:2003::1,2001:db8:abc2:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Chennai/HQ/Floor-3,1013,Chennai Floor 3 Corporate VLAN
+IPv6-CHN-CORPORATE-F4,Generic,2001:db8:abc2:2004::/64,64,2001:db8:abc2:2004::1,2001:db8:abc2:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Chennai/HQ/Floor-4,1014,Chennai Floor 4 Corporate VLAN
+IPv6-CHN-GUEST,Generic,2001:db8:abc2:3001::/64,64,2001:db8:abc2:3001::1,2001:db8:abc2:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Chennai/HQ,1021,Chennai Guest VLAN
+IPv6-CHN-IOT,Generic,2001:db8:abc2:4001::/64,64,2001:db8:abc2:4001::1,2001:db8:abc2:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Chennai/HQ,1031,Chennai IoT VLAN
+IPv6-HYD-CORPORATE,Generic,2001:db8:abc6:2001::/64,64,2001:db8:abc6:2001::1,2001:db8:abc6:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Hyderabad,1011,Hyderabad Corporate VLAN (Fabric-in-a-Box)
+IPv6-HYD-GUEST,Generic,2001:db8:abc6:3001::/64,64,2001:db8:abc6:3001::1,2001:db8:abc6:1000::53,2001:4860:4860::8888,abhavtech.com,Global/India/Hyderabad,1021,Hyderabad Guest VLAN (Fabric-in-a-Box)

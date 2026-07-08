@@ -1,0 +1,242 @@
+{
+  "templateName": "Edge-Switch-Dual-Stack-IPv6",
+  "templateDescription": "SD-Access Edge Switch with IPv6 dual-stack overlay configuration",
+  "deviceTypes": [
+    {
+      "productFamily": "Switches and Hubs",
+      "productSeries": "Cisco Catalyst 9300 Series Switches"
+    }
+  ],
+  "softwareType": "IOS-XE",
+  "softwareVersion": "17.15.1",
+  "templateContent": "!\n! ═══════════════════════════════════════════════════════════════════\n! ABHAVTECH SD-ACCESS EDGE SWITCH — DUAL-STACK IPv6\n! Template Version: 1.0\n! ═══════════════════════════════════════════════════════════════════\n!\nhostname $hostname\n!\n! Enable IPv6\nipv6 unicast-routing\nipv6 cef\n!\n! ═══════════════════════════════════════════════════════════════════\n! LOOPBACK (RLOC) — DUAL-STACK\n! ═══════════════════════════════════════════════════════════════════\n!\ninterface Loopback0\n  description SD-ACCESS-RLOC\n  ip address $loopback_ipv4 255.255.255.255\n  ipv6 address $loopback_ipv6/128\n  no shutdown\n!\n! ═══════════════════════════════════════════════════════════════════\n! LISP CONFIGURATION — DUAL-STACK\n! ═══════════════════════════════════════════════════════════════════\n!\nrouter lisp\n  !\n  locator-set RLOC-SET\n    ipv4-interface Loopback0 priority 1 weight 50\n    ipv6-interface Loopback0 priority 1 weight 50\n    exit-locator-set\n  !\n  instance-id $lisp_instance_id\n    !\n    ! IPv4 service\n    service ipv4\n      eid-table vrf $vrf_name\n      database-mapping $ipv4_eid_prefix locator-set RLOC-SET\n      map-cache $ipv4_map_cache map-request\n      map-server $map_server_ipv4 key $lisp_key\n      map-resolver $map_server_ipv4\n      exit-service-ipv4\n    !\n    ! IPv6 service\n    service ipv6\n      eid-table vrf $vrf_name\n      database-mapping $ipv6_eid_prefix locator-set RLOC-SET\n      map-cache $ipv6_map_cache map-request\n      map-server $map_server_ipv6 key $lisp_key\n      map-resolver $map_server_ipv6\n      exit-service-ipv6\n    !\n  exit-instance-id\n  !\n  exit-router-lisp\n!\n! ═══════════════════════════════════════════════════════════════════\n! VRF DEFINITION — DUAL-STACK\n! ═══════════════════════════════════════════════════════════════════\n!\nvrf definition $vrf_name\n  rd $route_distinguisher\n  !\n  address-family ipv4\n    route-target export $route_target\n    route-target import $route_target\n  exit-address-family\n  !\n  address-family ipv6\n    route-target export $route_target\n    route-target import $route_target\n  exit-address-family\n!\n! ═══════════════════════════════════════════════════════════════════\n! VXLAN (NVE INTERFACE)\n! ═══════════════════════════════════════════════════════════════════\n!\ninterface nve1\n  description FABRIC-VXLAN-TUNNEL\n  no ip address\n  source-interface Loopback0\n  host-reachability protocol lisp\n  member vni $vni vrf $vrf_name\n  member vni $vni mcast-group $multicast_group\n  member vni $l2vni vlan-based\n  no shutdown\n!\n! ═══════════════════════════════════════════════════════════════════\n! OVERLAY SVI — ANYCAST GATEWAY DUAL-STACK\n! ═══════════════════════════════════════════════════════════════════\n!\nvlan $vlan_id\n  name $vlan_name\n!\ninterface Vlan$vlan_id\n  description ANYCAST-GW-$vrf_name-DUAL-STACK\n  vrf forwarding $vrf_name\n  !\n  ! IPv4 gateway\n  ip address $ipv4_gateway $ipv4_mask\n  ip helper-address $dhcp_server_ipv4\n  !\n  ! IPv6 gateway\n  ipv6 address $ipv6_gateway/$ipv6_prefix_len\n  ipv6 enable\n  !\n  ! IPv6 Router Advertisement (SLAAC)\n  ipv6 nd managed-config-flag\n  ipv6 nd other-config-flag\n  ipv6 nd ra interval 200\n  ipv6 nd ra lifetime 1800\n  !\n  ! DNS via RA (RFC 8106)\n  ipv6 nd ra dns server $dns_server_ipv6 lifetime 1800\n  ipv6 nd ra dns search-list $dns_domain lifetime 1800\n  !\n  ! Anycast MAC (same for IPv4 and IPv6)\n  mac-address $anycast_mac\n  !\n  ! LISP mobility\n  lisp mobility dynamic-eid DYNAMIC_EID_v4\n  lisp mobility dynamic-eid DYNAMIC_EID_v6\n  !\n  no ip redirects\n  no ipv6 redirects\n  no shutdown\n!\nvlan configuration $vlan_id\n  member evpn-instance $vni vni $l2vni\n!\n! ═══════════════════════════════════════════════════════════════════\n! IPv6 DEVICE TRACKING POLICY\n! ═══════════════════════════════════════════════════════════════════\n!\nipv6 device-tracking policy IPDT-POLICY-v6\n  description IPv6-First-Hop-Security\n  tracking enable\n  security-level glean\n  prefix-list $ipv6_eid_prefix\n  protocol ndp\n  protocol dhcp\n  limit address-count 10\n  exit\n!\n! ═══════════════════════════════════════════════════════════════════\n! RA GUARD POLICY\n! ═══════════════════════════════════════════════════════════════════\n!\nipv6 nd raguard policy RA-GUARD-POLICY\n  description Block-Rogue-RAs-From-Endpoints\n  device-role host\n  exit\n!\n! ═══════════════════════════════════════════════════════════════════\n! ACCESS PORT CONFIGURATION (TEMPLATE)\n! ═══════════════════════════════════════════════════════════════════\n!\n#INTERACTIVE\ninterface range $access_port_range\n  description USER-ACCESS-DUAL-STACK\n  switchport mode access\n  switchport access vlan $vlan_id\n  !\n  ! 802.1X authentication\n  authentication host-mode multi-auth\n  authentication order dot1x mab\n  authentication priority dot1x mab\n  authentication port-control auto\n  authentication periodic\n  authentication timer reauthenticate server\n  mab\n  dot1x pae authenticator\n  dot1x timeout tx-period 7\n  !\n  ! TrustSec\n  cts role-based enforcement\n  !\n  ! IPv4 + IPv6 source guard\n  ip verify source\n  ipv6 verify source\n  !\n  ! IPv6 device tracking\n  ipv6 device-tracking attach-policy IPDT-POLICY-v6\n  !\n  ! RA Guard\n  ipv6 nd raguard attach-policy RA-GUARD-POLICY\n  !\n  ! DHCP snooping\n  ip dhcp snooping limit rate 10\n  !\n  ! Spanning tree\n  spanning-tree portfast\n  spanning-tree bpduguard enable\n  !\n  no shutdown\n#END_INTERACTIVE\n!\nend",
+  "templateParams": [
+    {
+      "parameterName": "hostname",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "Switch hostname (e.g., MUM-ED-F1-01)",
+      "required": true,
+      "order": 1
+    },
+    {
+      "parameterName": "loopback_ipv4",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "Loopback0 IPv4 address (e.g., 10.250.1.10)",
+      "required": true,
+      "order": 2
+    },
+    {
+      "parameterName": "loopback_ipv6",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "Loopback0 IPv6 address (e.g., 2001:db8:abc1:0::10)",
+      "required": true,
+      "order": 3
+    },
+    {
+      "parameterName": "lisp_instance_id",
+      "dataType": "STRING",
+      "defaultValue": "8001",
+      "description": "LISP instance ID (default: 8001 for VN_CORPORATE)",
+      "required": true,
+      "order": 4
+    },
+    {
+      "parameterName": "vrf_name",
+      "dataType": "STRING",
+      "defaultValue": "VN_CORPORATE",
+      "description": "VRF name",
+      "required": true,
+      "order": 5
+    },
+    {
+      "parameterName": "ipv4_eid_prefix",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "IPv4 EID prefix with mask (e.g., 10.100.1.0 255.255.255.0)",
+      "required": true,
+      "order": 6
+    },
+    {
+      "parameterName": "ipv6_eid_prefix",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "IPv6 EID prefix (e.g., 2001:db8:abc1:2001::/64)",
+      "required": true,
+      "order": 7
+    },
+    {
+      "parameterName": "ipv4_map_cache",
+      "dataType": "STRING",
+      "defaultValue": "10.100.0.0 255.255.0.0",
+      "description": "IPv4 map-cache prefix",
+      "required": true,
+      "order": 8
+    },
+    {
+      "parameterName": "ipv6_map_cache",
+      "dataType": "STRING",
+      "defaultValue": "2001:db8:abc1:2000::/52",
+      "description": "IPv6 map-cache prefix",
+      "required": true,
+      "order": 9
+    },
+    {
+      "parameterName": "map_server_ipv4",
+      "dataType": "STRING",
+      "defaultValue": "10.250.1.3",
+      "description": "Map-Server IPv4 address",
+      "required": true,
+      "order": 10
+    },
+    {
+      "parameterName": "map_server_ipv6",
+      "dataType": "STRING",
+      "defaultValue": "2001:db8:abc1:0::3",
+      "description": "Map-Server IPv6 address",
+      "required": true,
+      "order": 11
+    },
+    {
+      "parameterName": "lisp_key",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "LISP authentication key",
+      "required": true,
+      "order": 12
+    },
+    {
+      "parameterName": "route_distinguisher",
+      "dataType": "STRING",
+      "defaultValue": "1:8001",
+      "description": "VRF route distinguisher",
+      "required": true,
+      "order": 13
+    },
+    {
+      "parameterName": "route_target",
+      "dataType": "STRING",
+      "defaultValue": "1:8001",
+      "description": "VRF route target",
+      "required": true,
+      "order": 14
+    },
+    {
+      "parameterName": "vni",
+      "dataType": "STRING",
+      "defaultValue": "8001",
+      "description": "VNI for L3 VRF",
+      "required": true,
+      "order": 15
+    },
+    {
+      "parameterName": "l2vni",
+      "dataType": "STRING",
+      "defaultValue": "10011",
+      "description": "L2 VNI for VLAN",
+      "required": true,
+      "order": 16
+    },
+    {
+      "parameterName": "multicast_group",
+      "dataType": "STRING",
+      "defaultValue": "239.1.1.1",
+      "description": "Multicast group for VXLAN",
+      "required": true,
+      "order": 17
+    },
+    {
+      "parameterName": "vlan_id",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "VLAN ID (e.g., 1011)",
+      "required": true,
+      "order": 18
+    },
+    {
+      "parameterName": "vlan_name",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "VLAN name (e.g., VN_CORPORATE_F1_DATA)",
+      "required": true,
+      "order": 19
+    },
+    {
+      "parameterName": "ipv4_gateway",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "IPv4 anycast gateway (e.g., 10.100.1.1)",
+      "required": true,
+      "order": 20
+    },
+    {
+      "parameterName": "ipv4_mask",
+      "dataType": "STRING",
+      "defaultValue": "255.255.255.0",
+      "description": "IPv4 subnet mask",
+      "required": true,
+      "order": 21
+    },
+    {
+      "parameterName": "ipv6_gateway",
+      "dataType": "STRING",
+      "defaultValue": null,
+      "description": "IPv6 anycast gateway (e.g., 2001:db8:abc1:2001::1)",
+      "required": true,
+      "order": 22
+    },
+    {
+      "parameterName": "ipv6_prefix_len",
+      "dataType": "STRING",
+      "defaultValue": "64",
+      "description": "IPv6 prefix length",
+      "required": true,
+      "order": 23
+    },
+    {
+      "parameterName": "dhcp_server_ipv4",
+      "dataType": "STRING",
+      "defaultValue": "10.252.31.11",
+      "description": "DHCP server IPv4 address (ISE)",
+      "required": true,
+      "order": 24
+    },
+    {
+      "parameterName": "dns_server_ipv6",
+      "dataType": "STRING",
+      "defaultValue": "2001:db8:abc1:1000::53",
+      "description": "DNS server IPv6 address",
+      "required": true,
+      "order": 25
+    },
+    {
+      "parameterName": "dns_domain",
+      "dataType": "STRING",
+      "defaultValue": "abhavtech.com",
+      "description": "DNS domain name",
+      "required": true,
+      "order": 26
+    },
+    {
+      "parameterName": "anycast_mac",
+      "dataType": "STRING",
+      "defaultValue": "0000.0c9f.f001",
+      "description": "Anycast MAC address",
+      "required": true,
+      "order": 27
+    },
+    {
+      "parameterName": "access_port_range",
+      "dataType": "STRING",
+      "defaultValue": "GigabitEthernet1/0/1-48",
+      "description": "Access port range for user connectivity",
+      "required": false,
+      "order": 28
+    }
+  ],
+  "version": "1.0",
+  "createTime": 1705968000000,
+  "lastUpdateTime": 1705968000000
+}

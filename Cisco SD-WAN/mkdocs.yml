@@ -1,0 +1,351 @@
+# ============================================================================
+# CISCO CATALYST SD-WAN IMPLEMENTATION GUIDE
+# ============================================================================
+# Based on: mkdocs-framework-template-v2.yml
+# Project: SD-WAN Documentation
+# Organization: AbhavTech
+# Version: 1.0
+# Last Updated: March 2026
+# ============================================================================
+
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "Cisco Catalyst SD-WAN Implementation Guide"
+site_description: "Comprehensive enterprise SD-WAN deployment guide covering architecture, security, implementation, operations, and automation"
+site_author: "AbhavTech Network Architecture Team"
+site_url: https://sdwan.abhavtech.com
+
+# Copyright footer
+copyright: Copyright &copy; 2025-2026 AbhavTech
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  # Color palette with dark/light mode toggle
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  # Navigation and UI features
+  features:
+    # Navigation
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+
+    # Search
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+    # Table of contents
+    - toc.follow
+
+  # Icons
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mermaid-zoom.js
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+  # Social links in footer
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://abhavtech.com
+      name: AbhavTech
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  # CHAPTER 1: DISCOVERY & ASSESSMENT
+  - "Discovery":
+      - "Chapter Overview": chapter-01-discovery/README.md
+      - "1.1 Current WAN Infrastructure Inventory": chapter-01-discovery/1-1-current-wan-infrastructure-inventory.md
+      - "1.2 WAN Traffic Analysis": chapter-01-discovery/1-2-wan-traffic-analysis.md
+      - "1.3 Application Requirements": chapter-01-discovery/1-3-application-requirements.md
+      - "1.4 Transport Assessment": chapter-01-discovery/1-4-transport-assessment.md
+      - "1.5 Security Requirements": chapter-01-discovery/1-5-security-requirements.md
+      - "1.6 SD-WAN Readiness Assessment": chapter-01-discovery/1-6-sd-wan-readiness-assessment.md
+      - "1.7 Business Requirements": chapter-01-discovery/1-7-business-requirements.md
+      - "1.8 Success Criteria & KPIs": chapter-01-discovery/1-8-success-criteria-kpis.md
+      - "1.9 Risk Assessment": chapter-01-discovery/1-9-risk-assessment.md
+
+  # CHAPTER 2: ARCHITECTURE DESIGN
+  - "Architecture":
+      - "Chapter Overview": chapter-02-architecture/README.md
+      - "2.1 SD-WAN Solution Overview": chapter-02-architecture/2-1-sd-wan-solution-overview.md
+      - "2.2 Control Plane Design": chapter-02-architecture/2-2-control-plane-design.md
+      - "2.3 Data Plane Design": chapter-02-architecture/2-3-data-plane-design.md
+      - "2.4 Overlay Topology Design": chapter-02-architecture/2-4-overlay-topology-design.md
+      - "2.5 Transport Design": chapter-02-architecture/2-5-transport-design.md
+      - "2.6 Multi-Region Fabric Design": chapter-02-architecture/2-6-multi-region-fabric-design.md
+      - "2.7 SD-Access Integration Design": chapter-02-architecture/2-7-sd-access-integration-design.md
+      - "2.8 Cloud OnRamp Design": chapter-02-architecture/2-8-cloud-onramp-design.md
+      - "2.9 SASE Integration Design": chapter-02-architecture/2-9-sase-integration-design.md
+      - "2.10 High Availability Design": chapter-02-architecture/2-10-high-availability-design.md
+      - "2.11 Sizing & Scalability Design": chapter-02-architecture/2-11-sizing-scalability-design.md
+      - "2.12 IP Addressing Design": chapter-02-architecture/2-12-ip-addressing-design.md
+      - "2.13 Modern SD-WAN Features": chapter-02-architecture/2-13-modern-sdwan-features.md
+      - "2.14 Wireless WAN Design": chapter-02-architecture/2-14-wireless-wan-design.md
+      - "2.15 Catalyst Center for SD-WAN": chapter-02-architecture/2-15-catalyst-center-sdwan.md
+
+  # CHAPTER 3: SECURITY ARCHITECTURE
+  - "Security":
+      - "Chapter Overview": chapter-03-security/README.md
+      - "3.1 Security Overview": chapter-03-security/3-1-security-overview.md
+      - "3.2 Control Plane Security": chapter-03-security/3-2-control-plane-security.md
+      - "3.3 Data Plane Security": chapter-03-security/3-3-data-plane-security.md
+      - "3.4 Segmentation Design": chapter-03-security/3-4-segmentation-design.md
+      - "3.5 TrustSec/SGT Integration": chapter-03-security/3-5-trustsec-sgt-integration.md
+      - "3.6 Enterprise Firewall Deep Dive": chapter-03-security/3-6-enterprise-firewall-deep-dive.md
+      - "3.7 URL Filtering & DNS Security": chapter-03-security/3-7-url-filtering-dns-security.md
+      - "3.8 Threat Detection (UTD)": chapter-03-security/3-8-threat-detection-utd.md
+      - "3.9 DDoS Protection": chapter-03-security/3-9-ddos-protection.md
+      - "3.10 Compliance Mapping": chapter-03-security/3-10-compliance-mapping.md
+      - "3.11 Zero Trust WAN": chapter-03-security/3-11-zero-trust-wan.md
+      - "3.12 End-to-End Zero Trust": chapter-03-security/3-12-end-to-end-zero-trust.md
+      - "3.13 Security Operations & Threat Response": chapter-03-security/3-13-security-operations-threat-response.md
+
+  # CHAPTER 4: POLICIES & TRAFFIC ENGINEERING
+  - "Policies":
+      - "Chapter Overview": chapter-04-policies/README.md
+      - "4.1 Policy Framework Overview": chapter-04-policies/4-1-policy-framework-overview.md
+      - "4.2 Application-Aware Routing": chapter-04-policies/4-2-application-aware-routing.md
+      - "4.3 QoS Policy Design": chapter-04-policies/4-3-qos-policy-design.md
+      - "4.4 Data Policy Design": chapter-04-policies/4-4-data-policy-design.md
+      - "4.5 Control Policy Design": chapter-04-policies/4-5-control-policy-design.md
+      - "4.6 Access Control Lists": chapter-04-policies/4-6-access-control-lists.md
+      - "4.7 Direct Internet Access": chapter-04-policies/4-7-direct-internet-access.md
+      - "4.8 Service Insertion": chapter-04-policies/4-8-service-insertion.md
+      - "4.9 Forward Error Correction": chapter-04-policies/4-9-forward-error-correction.md
+      - "4.10 TCP Optimization": chapter-04-policies/4-10-tcp-optimization.md
+      - "4.11 Multicast Policy": chapter-04-policies/4-11-multicast-policy.md
+      - "4.12 Policy Troubleshooting & Validation": chapter-04-policies/4-12-policy-troubleshooting-validation.md
+
+  # CHAPTER 5: IMPLEMENTATION & DEPLOYMENT
+  - "Implementation":
+      - "Chapter Overview": chapter-05-implementation/README.md
+      - "5.1 Deployment Strategy Overview": chapter-05-implementation/5-1-deployment-strategy-overview.md
+      - "5.2 Pre-Deployment Checklist": chapter-05-implementation/5-2-pre-deployment-checklist.md
+      - "5.3 SD-WAN Manager Deployment": chapter-05-implementation/5-3-sdwan-manager-deployment.md
+      - "5.4 SD-WAN Controller Deployment": chapter-05-implementation/5-4-sdwan-controller-deployment.md
+      - "5.5 SD-WAN Validator Configuration": chapter-05-implementation/5-5-sdwan-validator-configuration.md
+      - "5.6 Certificate Management": chapter-05-implementation/5-6-certificate-management.md
+      - "5.7 WAN Edge Onboarding (ZTP)": chapter-05-implementation/5-7-wan-edge-onboarding-ztp.md
+      - "5.8 Device Templates": chapter-05-implementation/5-8-device-templates.md
+      - "5.9 Configuration Groups & Profiles": chapter-05-implementation/5-9-configuration-groups-profiles.md
+      - "5.10 Hub Site Deployment": chapter-05-implementation/5-10-hub-site-deployment.md
+      - "5.11 Branch Site Deployment": chapter-05-implementation/5-11-branch-site-deployment.md
+      - "5.12 SD-Access Handoff Configuration": chapter-05-implementation/5-12-sdaccess-handoff-configuration.md
+      - "5.13 Catalyst Center Integration": chapter-05-implementation/5-13-catalyst-center-integration.md
+      - "5.14 Testing & Validation": chapter-05-implementation/5-14-testing-validation.md
+      - "5.15 Go-Live Cutover Runbook": chapter-05-implementation/5-15-golive-cutover-runbook.md
+      - "5.16 Rollback Procedures": chapter-05-implementation/5-16-rollback-procedures.md
+      - "5.17 Multi-Vendor Integration": chapter-05-implementation/5-17-multi-vendor-integration.md
+      - "5.18 Fabric Handoff Implementation": chapter-05-implementation/5-18-fabric-handoff-implementation.md
+      - "5.19 Detailed Test Cases": chapter-05-implementation/5-19-detailed-test-cases.md
+      - "5.20 Lab Validation Checklist": chapter-05-implementation/5-20-lab-validation-checklist.md
+
+  # CHAPTER 6: OPERATIONS & MONITORING
+  - "Operations":
+      - "Chapter Overview": chapter-06-operations/README.md
+      - "6.1 Operations Overview": chapter-06-operations/6-1-operations-overview.md
+      - "6.2 vManage Dashboards": chapter-06-operations/6-2-vmanage-dashboards.md
+      - "6.3 Monitoring Framework": chapter-06-operations/6-3-monitoring-framework.md
+      - "6.4 Alerting Configuration": chapter-06-operations/6-4-alerting-configuration.md
+      - "6.5 Analytics Deep Dive": chapter-06-operations/6-5-analytics-deep-dive.md
+      - "6.6 Troubleshooting Guide": chapter-06-operations/6-6-troubleshooting-guide.md
+      - "6.7 Backup & Restore": chapter-06-operations/6-7-backup-restore.md
+      - "6.8 Software Upgrades": chapter-06-operations/6-8-software-upgrades.md
+      - "6.9 Configuration Management": chapter-06-operations/6-9-configuration-management.md
+      - "6.10 Change Management": chapter-06-operations/6-10-change-management.md
+      - "6.11 Incident Management": chapter-06-operations/6-11-incident-management.md
+      - "6.12 Performance Optimization": chapter-06-operations/6-12-performance-optimization.md
+      - "6.13 Operational Runbooks": chapter-06-operations/6-13-operational-runbooks.md
+      - "6.14 HA Failover Procedures": chapter-06-operations/6-14-ha-failover-procedures.md
+      - "6.15 SLA Monitoring Framework": chapter-06-operations/6-15-sla-monitoring.md
+      - "6.16 Capacity Planning": chapter-06-operations/6-16-capacity-planning.md
+      - "6.17 Cost Optimization": chapter-06-operations/6-17-cost-optimization.md
+      - "6.18 ITSM Integration": chapter-06-operations/6-18-itsm-integration.md
+      - "6.19 NOC Operations": chapter-06-operations/6-19-noc-operations.md
+      - "6.20 Compliance Auditing": chapter-06-operations/6-20-compliance-auditing.md
+
+  # CHAPTER 7: MIGRATION & BUSINESS CASE
+  - "Migration":
+      - "Chapter Overview": chapter-07-migration/README.md
+      - "7.1 Migration Strategy Overview": chapter-07-migration/7-1-migration-strategy-overview.md
+      - "7.2 MPLS Migration": chapter-07-migration/7-2-mpls-migration.md
+      - "7.3 Site-by-Site Migration Plan": chapter-07-migration/7-3-site-migration-procedures.md
+      - "7.4-7.7 Rollback, Testing, TCO & ROI": chapter-07-migration/7-4-to-7-7-rollback-testing-tco-roi.md
+      - "7.8-7.10 Business Case, Vendor & Training": chapter-07-migration/7-8-to-7-10-business-case-vendor-training.md
+      - "7.11-7.13 Hardware, Circuit & Post-Migration": chapter-07-migration/7-11-to-7-13-hardware-circuit-postmigration.md
+
+  # CHAPTER 8: ADVANCED FEATURES & AUTOMATION
+  - "Advanced":
+      - "Chapter Overview": chapter-08-advanced/README.md
+      - "8.1-8.3 AI, Analytics & Python SDK": chapter-08-advanced/8-1-to-8-3-ai-analytics-python.md
+      - "8.4-8.8 API, Terraform & Ansible": chapter-08-advanced/8-4-to-8-8-api-terraform-ansible-remediation.md
+      - "8.9-8.14 Events, Webhooks & SIEM": chapter-08-advanced/8-9-to-8-14-events-webhooks-siem-twin.md
+      - "8.15-8.18 Digital Twin, GitOps & Roadmap": chapter-08-advanced/8-15-to-8-18-twin-gitops-cicd-roadmap.md
+
+  # CHAPTER 9: CAPACITY DESIGN
+  - "Capacity Design":
+      - "Detailed Capacity Planning & Traffic Flow Design": chapter-09-capacity-design/abhavtech-sdwan-detailed-capacity-design.md
+
+  # CHAPTER 10: MIGRATION TEMPLATES
+  - "Migration Templates":
+      - "Greenfield Deployment Template": chapter-10-migration-templates/sdwan-greenfield-deployment-template.md
+      - "SD-WAN Migration Project Template": chapter-10-migration-templates/sdwan-migration-project-template.md
+
+  # APPENDICES
+  - "Appendices":
+      - "Appendices Overview": appendices/README.md
+      - "Appendix A-D: Glossary, CLI, Templates & Certificates": appendices/appendix-a-to-d.md
+      - "Appendix E-H: Troubleshooting, API, Migration & Compliance": appendices/appendix-e-to-h.md
+      - "Appendix I-L: Contacts, Design, Lab & SD-Access": appendices/appendix-i-to-l.md
+      - "Appendix M: Capacity Planning & Design Guide": appendices/appendix-m-capacity-design.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  # Table of contents
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  # Admonitions
+  - admonition
+  - pymdownx.details
+
+  # Code blocks with syntax highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # Lists and tasks
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Text formatting
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  # Smart symbols
+  - pymdownx.smartsymbols
+
+  # Emoji support
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Tables
+  - tables
+
+  # HTML and attributes
+  - attr_list
+  - md_in_html
+  - meta
+
+  # Abbreviations
+  - abbr
+
+  # Footnotes
+  - footnotes

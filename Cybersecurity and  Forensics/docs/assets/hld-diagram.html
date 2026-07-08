@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhavtech Base Reference Architecture</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f7fafc; padding: 20px; }
+        .container { max-width: 1650px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 30px; }
+        h1 { text-align: center; font-size: 24px; color: #1a365d; margin-bottom: 5px; }
+        .subtitle { text-align: center; font-size: 13px; color: #4a5568; margin-bottom: 20px; }
+        .info-box { background: #ebf8ff; border-left: 4px solid #3182ce; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px; }
+        .info-box p { font-size: 12px; color: #2c5282; margin: 4px 0; }
+        .info-box strong { color: #1a365d; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div style="margin-bottom:16px;">
+      <a href="../" style="font-size:13px;color:#3182ce;text-decoration:none;">← Back to Infrastructure Overview</a>
+    </div>
+    <h1>Abhavtech Global Enterprise - Base Reference Architecture</h1>
+    <p class="subtitle">Foundational Infrastructure for All Project Layers | AbhavTech | Author: Rajmohan M</p>
+    
+    <div class="info-box">
+        <p><strong> PURPOSE:</strong> This is the BASE infrastructure foundation. Specialized layers (AI/ML Observability, Edge Compute, AgenticOps Automation) are added per project scope.</p>
+        <p><strong> SCALE:</strong> 6 Hub Sites + 13 Branches | 12,400 Users | 238 Access Switches | 590 APs | 14 ISE Nodes | 6 DNAC Nodes | 18 FTD Firewalls</p>
+    </div>
+    
+    <svg viewBox="0 0 1600 1150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#4299e1"/><stop offset="100%" style="stop-color:#2b6cb0"/>
+            </linearGradient>
+            <linearGradient id="green" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#48bb78"/><stop offset="100%" style="stop-color:#276749"/>
+            </linearGradient>
+            <linearGradient id="orange" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#ed8936"/><stop offset="100%" style="stop-color:#c05621"/>
+            </linearGradient>
+            <linearGradient id="red" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#fc8181"/><stop offset="100%" style="stop-color:#c53030"/>
+            </linearGradient>
+            <linearGradient id="purple" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#9f7aea"/><stop offset="100%" style="stop-color:#6b46c1"/>
+            </linearGradient>
+            <linearGradient id="teal" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#4fd1c5"/><stop offset="100%" style="stop-color:#319795"/>
+            </linearGradient>
+            <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+                <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+            </filter>
+        </defs>
+        
+        <!-- ======== SECTION 1: CLOUD & MANAGEMENT ======== -->
+        <text x="800" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1a365d">CLOUD SERVICES &amp; MANAGEMENT PLANE</text>
+        
+        <!-- SaaS Apps -->
+        <g transform="translate(40, 45)">
+            <rect width="180" height="85" rx="10" fill="#ebf8ff" stroke="#4299e1" stroke-width="2" filter="url(#shadow)"/>
+            <text x="90" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#2c5282">SaaS Applications</text>
+            <g transform="translate(15, 32)">
+                <rect width="42" height="38" rx="5" fill="#D83B01"/>
+                <text x="21" y="24" text-anchor="middle" fill="white" font-size="10" font-weight="bold">O365</text>
+            </g>
+            <g transform="translate(67, 32)">
+                <rect width="42" height="38" rx="5" fill="#00A1E0"/>
+                <text x="21" y="24" text-anchor="middle" fill="white" font-size="9" font-weight="bold">SFDC</text>
+            </g>
+            <g transform="translate(119, 32)">
+                <rect width="42" height="38" rx="5" fill="#0061D5"/>
+                <text x="21" y="24" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Box</text>
+            </g>
+        </g>
+        
+        <!-- Webex Cloud -->
+        <g transform="translate(250, 45)">
+            <rect width="220" height="85" rx="10" fill="#faf5ff" stroke="#9f7aea" stroke-width="2" filter="url(#shadow)"/>
+            <text x="110" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#553c9a">Webex Cloud UC</text>
+            <g transform="translate(25, 30)">
+                <circle cx="20" cy="20" r="18" fill="#07C160"/>
+                <text x="20" y="25" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Call</text>
+            </g>
+            <text x="45" y="70" text-anchor="middle" font-size="8" fill="#718096">3,200 Users</text>
+            <g transform="translate(85, 30)">
+                <circle cx="20" cy="20" r="18" fill="#6264A7"/>
+                <text x="20" y="25" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Meet</text>
+            </g>
+            <g transform="translate(145, 30)">
+                <circle cx="20" cy="20" r="18" fill="#FF5722"/>
+                <text x="20" y="25" text-anchor="middle" fill="white" font-size="8" font-weight="bold">WxCC</text>
+            </g>
+            <text x="165" y="70" text-anchor="middle" font-size="8" fill="#718096">175 Agents</text>
+        </g>
+        
+        <!-- Security Cloud -->
+        <g transform="translate(500, 45)">
+            <rect width="250" height="85" rx="10" fill="#fff5f5" stroke="#fc8181" stroke-width="2" filter="url(#shadow)"/>
+            <text x="125" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#c53030">Cisco Security Cloud</text>
+            <g transform="translate(20, 30)">
+                <circle cx="18" cy="20" r="16" fill="#049fd9"/>
+                <text x="18" y="17" text-anchor="middle" fill="white" font-size="11">☂</text>
+                <text x="18" y="27" text-anchor="middle" fill="white" font-size="6">SIG</text>
+            </g>
+            <text x="38" y="68" text-anchor="middle" font-size="8" fill="#718096">Umbrella</text>
+            <g transform="translate(70, 30)">
+                <circle cx="18" cy="20" r="16" fill="#e53e3e"/>
+                <text x="18" y="25" text-anchor="middle" fill="white" font-size="9" font-weight="bold">XDR</text>
+            </g>
+            <text x="88" y="68" text-anchor="middle" font-size="8" fill="#718096">SecureX</text>
+            <g transform="translate(120, 30)">
+                <circle cx="18" cy="20" r="16" fill="#48bb78"/>
+                <text x="18" y="25" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Duo</text>
+            </g>
+            <text x="138" y="68" text-anchor="middle" font-size="8" fill="#718096">MFA</text>
+            <g transform="translate(170, 32)">
+                <rect width="55" height="36" rx="5" fill="url(#red)"/>
+                <text x="27" y="18" text-anchor="middle" fill="white" font-size="9" font-weight="bold">FMC</text>
+                <text x="27" y="30" text-anchor="middle" fill="white" font-size="7">NJ + LON</text>
+            </g>
+        </g>
+        
+        <!-- Management Plane -->
+        <g transform="translate(780, 45)">
+            <rect width="320" height="85" rx="10" fill="#f0fff4" stroke="#48bb78" stroke-width="2" filter="url(#shadow)"/>
+            <text x="160" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#276749">Management Plane</text>
+            <g transform="translate(15, 32)">
+                <rect width="85" height="42" rx="5" fill="url(#blue)"/>
+                <text x="42" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">DNAC</text>
+                <text x="42" y="32" text-anchor="middle" fill="white" font-size="8">6-Node (NJ+LON)</text>
+            </g>
+            <g transform="translate(115, 32)">
+                <rect width="85" height="42" rx="5" fill="url(#orange)"/>
+                <text x="42" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">ISE</text>
+                <text x="42" y="32" text-anchor="middle" fill="white" font-size="8">14 Nodes</text>
+            </g>
+            <g transform="translate(215, 32)">
+                <rect width="85" height="42" rx="5" fill="url(#green)"/>
+                <text x="42" y="18" text-anchor="middle" fill="white" font-size="10" font-weight="bold">vManage</text>
+                <text x="42" y="32" text-anchor="middle" fill="white" font-size="8">SD-WAN Ctrl</text>
+            </g>
+        </g>
+        
+        <!-- Extensibility Placeholder -->
+        <g transform="translate(1130, 45)">
+            <rect width="200" height="85" rx="10" fill="#fffbeb" stroke="#d69e2e" stroke-width="2" stroke-dasharray="6,3" filter="url(#shadow)"/>
+            <text x="100" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#744210"> EXTENSIBILITY</text>
+            <text x="100" y="40" text-anchor="middle" font-size="9" fill="#744210">Add per project:</text>
+            <text x="100" y="54" text-anchor="middle" font-size="9" fill="#744210">• AI/ML Observability</text>
+            <text x="100" y="68" text-anchor="middle" font-size="9" fill="#744210">• Edge Compute</text>
+            <text x="100" y="82" text-anchor="middle" font-size="9" fill="#744210">• AgenticOps</text>
+        </g>
+        
+        <!-- Key Stats Box -->
+        <g transform="translate(1360, 45)">
+            <rect width="200" height="85" rx="10" fill="#e2e8f0" stroke="#718096" stroke-width="1" filter="url(#shadow)"/>
+            <text x="100" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#2d3748"> KEY INVENTORY</text>
+            <text x="100" y="36" text-anchor="middle" font-size="9" fill="#4a5568">238 Access Switches (C9300)</text>
+            <text x="100" y="50" text-anchor="middle" font-size="9" fill="#4a5568">590 APs (C9130/C9120)</text>
+            <text x="100" y="64" text-anchor="middle" font-size="9" fill="#4a5568">24 SD-WAN Edges (ISR)</text>
+            <text x="100" y="78" text-anchor="middle" font-size="9" fill="#4a5568">18 FTD Firewalls</text>
+        </g>
+        
+        <!-- ======== SECTION 2: WAN TRANSPORT ======== -->
+        <text x="800" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#1a365d">WAN TRANSPORT LAYER</text>
+        
+        <!-- SD-WAN Fabric -->
+        <g transform="translate(80, 175)">
+            <ellipse cx="170" cy="50" rx="160" ry="52" fill="#e6fffa" stroke="#319795" stroke-width="3" filter="url(#shadow)"/>
+            <text x="170" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#234e52">SD-WAN Fabric</text>
+            <text x="170" y="55" text-anchor="middle" font-size="10" fill="#234e52">vSmart + vBond + IPsec</text>
+            <text x="170" y="70" text-anchor="middle" font-size="9" fill="#718096">24 cEdge Routers (ISR 4451/4351)</text>
+            <circle cx="60" cy="50" r="10" fill="url(#green)"/>
+            <circle cx="170" cy="30" r="10" fill="url(#green)"/>
+            <circle cx="280" cy="50" r="10" fill="url(#green)"/>
+        </g>
+        
+        <!-- MPLS -->
+        <g transform="translate(450, 175)">
+            <ellipse cx="150" cy="50" rx="140" ry="52" fill="#f0fff4" stroke="#38a169" stroke-width="3" filter="url(#shadow)"/>
+            <text x="150" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#22543d">Private WAN (MPLS)</text>
+            <text x="150" y="55" text-anchor="middle" font-size="10" fill="#22543d">Primary Transport</text>
+            <text x="150" y="70" text-anchor="middle" font-size="9" fill="#718096">Tata (APAC) • AT&T (US) • BT (EMEA)</text>
+        </g>
+        
+        <!-- Internet DIA -->
+        <g transform="translate(780, 175)">
+            <ellipse cx="130" cy="50" rx="120" ry="52" fill="#ebf8ff" stroke="#4299e1" stroke-width="3" filter="url(#shadow)"/>
+            <text x="130" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#2c5282">Internet (DIA)</text>
+            <text x="130" y="55" text-anchor="middle" font-size="10" fill="#2c5282">Direct Internet Access</text>
+            <text x="130" y="70" text-anchor="middle" font-size="9" fill="#718096">SaaS Split Tunnel</text>
+        </g>
+        
+        <!-- 5G/LTE Backup -->
+        <g transform="translate(1070, 175)">
+            <ellipse cx="100" cy="50" rx="90" ry="52" fill="#fef3c7" stroke="#d69e2e" stroke-width="3" filter="url(#shadow)"/>
+            <text x="100" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#744210">5G / LTE</text>
+            <text x="100" y="55" text-anchor="middle" font-size="10" fill="#744210">Backup Transport</text>
+            <text x="100" y="70" text-anchor="middle" font-size="9" fill="#718096">Failover Only</text>
+        </g>
+        
+        <!-- ======== SECTION 3: REGIONAL INFRASTRUCTURE ======== -->
+        <text x="800" y="300" text-anchor="middle" font-size="15" font-weight="700" fill="#1a365d">REGIONAL INFRASTRUCTURE</text>
+        
+        <!-- APAC Region -->
+        <g transform="translate(30, 315)">
+            <rect width="500" height="410" rx="14" fill="#fff5f5" stroke="#fc8181" stroke-width="2" filter="url(#shadow)"/>
+            <rect width="500" height="32" rx="14" fill="#fc8181" opacity="0.15"/>
+            <text x="250" y="23" text-anchor="middle" font-size="14" font-weight="700" fill="#c53030">🌏 APAC REGION</text>
+            
+            <!-- Mumbai Primary Hub -->
+            <g transform="translate(15, 45)">
+                <rect width="225" height="155" rx="10" fill="#ebf8ff" stroke="#4299e1" stroke-width="2" filter="url(#shadow)"/>
+                <rect width="225" height="26" rx="10" fill="url(#blue)"/>
+                <text x="112" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">MUMBAI - Primary Hub</text>
+                
+                <!-- Building -->
+                <g transform="translate(15, 35)">
+                    <rect width="55" height="75" rx="4" fill="url(#blue)"/>
+                    <rect x="6" y="6" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="21" y="6" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="36" y="6" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="6" y="20" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="21" y="20" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="36" y="20" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="6" y="34" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="21" y="34" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="36" y="34" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="20" y="55" width="14" height="18" fill="white" opacity="0.7"/>
+                </g>
+                <text x="42" y="125" text-anchor="middle" font-size="10" fill="#2c5282" font-weight="bold">2,500 Users</text>
+                
+                <!-- Stack -->
+                <g transform="translate(80, 38)">
+                    <rect width="50" height="22" rx="3" fill="url(#red)"/>
+                    <text x="25" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="bold">FTD</text>
+                    <rect y="26" width="50" height="22" rx="3" fill="url(#green)"/>
+                    <text x="25" y="41" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C8500</text>
+                    <rect y="52" width="50" height="22" rx="3" fill="url(#orange)"/>
+                    <text x="25" y="67" text-anchor="middle" fill="white" font-size="8" font-weight="bold">PSN x2</text>
+                    <rect y="78" width="50" height="22" rx="3" fill="url(#purple)"/>
+                    <text x="25" y="93" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C9800</text>
+                </g>
+                
+                <!-- Stats -->
+                <g transform="translate(140, 42)">
+                    <text font-size="9" fill="#4a5568">48 Access Switches</text>
+                    <text y="14" font-size="9" fill="#4a5568">120 APs</text>
+                    <text y="28" font-size="9" fill="#4a5568">1 Gbps MPLS</text>
+                    <text y="42" font-size="9" fill="#4a5568">Data Center</text>
+                    <text y="56" font-size="9" fill="#4a5568">4 Core + 8 Dist</text>
+                </g>
+            </g>
+            
+            <!-- Chennai Secondary Hub -->
+            <g transform="translate(255, 45)">
+                <rect width="225" height="155" rx="10" fill="#f0fff4" stroke="#48bb78" stroke-width="2" filter="url(#shadow)"/>
+                <rect width="225" height="26" rx="10" fill="url(#green)"/>
+                <text x="112" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">CHENNAI - Secondary Hub</text>
+                
+                <g transform="translate(15, 35)">
+                    <rect width="50" height="65" rx="4" fill="url(#blue)"/>
+                    <rect x="6" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="20" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="34" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="6" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="20" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="34" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="18" y="45" width="12" height="16" fill="white" opacity="0.7"/>
+                </g>
+                <text x="40" y="118" text-anchor="middle" font-size="10" fill="#276749" font-weight="bold">1,800 Users</text>
+                
+                <g transform="translate(75, 40)">
+                    <rect width="45" height="20" rx="3" fill="url(#red)"/>
+                    <text x="22" y="14" text-anchor="middle" fill="white" font-size="8" font-weight="bold">FTD</text>
+                    <rect y="24" width="45" height="20" rx="3" fill="url(#green)"/>
+                    <text x="22" y="38" text-anchor="middle" fill="white" font-size="7" font-weight="bold">ISR</text>
+                    <rect y="48" width="45" height="20" rx="3" fill="url(#orange)"/>
+                    <text x="22" y="62" text-anchor="middle" fill="white" font-size="8" font-weight="bold">PSN x2</text>
+                </g>
+                
+                <g transform="translate(130, 45)">
+                    <text font-size="9" fill="#4a5568">36 Switches</text>
+                    <text y="14" font-size="9" fill="#4a5568">90 APs</text>
+                    <text y="28" font-size="9" fill="#4a5568">500 Mbps MPLS</text>
+                    <text y="42" font-size="9" fill="#4a5568">2 Core + 6 Dist</text>
+                </g>
+            </g>
+            
+            <!-- APAC Branches -->
+            <g transform="translate(15, 215)">
+                <text font-size="12" font-weight="700" fill="#c53030">Branch Sites:</text>
+                
+                <g transform="translate(0, 18)">
+                    <rect width="70" height="80" rx="6" fill="#718096" filter="url(#shadow)"/>
+                    <rect x="8" y="8" width="12" height="12" fill="white" opacity="0.4"/>
+                    <rect x="28" y="8" width="12" height="12" fill="white" opacity="0.4"/>
+                    <rect x="48" y="8" width="12" height="12" fill="white" opacity="0.4"/>
+                    <rect x="28" y="50" width="14" height="20" fill="white" opacity="0.5"/>
+                    <text x="35" y="100" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="bold">Bangalore</text>
+                    <text x="35" y="115" text-anchor="middle" font-size="9" fill="#718096">800 Users</text>
+                    <text x="35" y="130" text-anchor="middle" font-size="8" fill="#a0aec0">16 SW • 200M</text>
+                </g>
+                
+                <g transform="translate(95, 18)">
+                    <rect width="65" height="75" rx="6" fill="#718096" filter="url(#shadow)"/>
+                    <rect x="7" y="7" width="11" height="11" fill="white" opacity="0.4"/>
+                    <rect x="25" y="7" width="11" height="11" fill="white" opacity="0.4"/>
+                    <rect x="43" y="7" width="11" height="11" fill="white" opacity="0.4"/>
+                    <rect x="24" y="48" width="14" height="18" fill="white" opacity="0.5"/>
+                    <text x="32" y="95" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="bold">Delhi</text>
+                    <text x="32" y="110" text-anchor="middle" font-size="9" fill="#718096">600 Users</text>
+                    <text x="32" y="125" text-anchor="middle" font-size="8" fill="#a0aec0">12 SW • 150M</text>
+                </g>
+                
+                <g transform="translate(185, 18)">
+                    <rect width="55" height="65" rx="6" fill="#a0aec0" filter="url(#shadow)"/>
+                    <rect x="6" y="6" width="10" height="10" fill="white" opacity="0.4"/>
+                    <rect x="22" y="6" width="10" height="10" fill="white" opacity="0.4"/>
+                    <rect x="38" y="6" width="10" height="10" fill="white" opacity="0.4"/>
+                    <rect x="20" y="42" width="14" height="16" fill="white" opacity="0.5"/>
+                    <text x="27" y="85" text-anchor="middle" font-size="10" fill="#4a5568" font-weight="bold">Noida</text>
+                    <text x="27" y="100" text-anchor="middle" font-size="9" fill="#718096">300 Users</text>
+                    <text x="27" y="115" text-anchor="middle" font-size="8" fill="#a0aec0">6 SW • 100M</text>
+                </g>
+                
+                <!-- Branch Stack Reference -->
+                <g transform="translate(270, 20)">
+                    <rect width="200" height="120" rx="8" fill="#e6fffa" stroke="#319795" stroke-width="1"/>
+                    <text x="100" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#234e52">Standard Branch Stack</text>
+                    <text x="100" y="40" text-anchor="middle" font-size="10" fill="#234e52">• ISR 1100/4351 (SD-WAN cEdge)</text>
+                    <text x="100" y="56" text-anchor="middle" font-size="10" fill="#234e52">• C9300-48UXM (Fabric-in-Box)</text>
+                    <text x="100" y="72" text-anchor="middle" font-size="10" fill="#234e52">• C9200-24P (Extended Nodes)</text>
+                    <text x="100" y="88" text-anchor="middle" font-size="10" fill="#234e52">• C9120AXI APs (Fabric Mode)</text>
+                    <text x="100" y="104" text-anchor="middle" font-size="10" fill="#234e52">• 5G/LTE Backup Module</text>
+                </g>
+            </g>
+        </g>
+        
+        <!-- EMEA Region -->
+        <g transform="translate(555, 315)">
+            <rect width="500" height="410" rx="14" fill="#ebf8ff" stroke="#63b3ed" stroke-width="2" filter="url(#shadow)"/>
+            <rect width="500" height="32" rx="14" fill="#63b3ed" opacity="0.15"/>
+            <text x="250" y="23" text-anchor="middle" font-size="14" font-weight="700" fill="#2c5282">🌍 EMEA REGION</text>
+            
+            <!-- London Primary Hub -->
+            <g transform="translate(15, 45)">
+                <rect width="225" height="155" rx="10" fill="#ebf8ff" stroke="#4299e1" stroke-width="2" filter="url(#shadow)"/>
+                <rect width="225" height="26" rx="10" fill="url(#blue)"/>
+                <text x="112" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">LONDON - Primary Hub</text>
+                
+                <g transform="translate(15, 35)">
+                    <rect width="55" height="75" rx="4" fill="url(#blue)"/>
+                    <rect x="6" y="6" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="21" y="6" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="36" y="6" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="6" y="20" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="21" y="20" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="36" y="20" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="6" y="34" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="21" y="34" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="36" y="34" width="10" height="10" fill="white" opacity="0.5"/>
+                    <rect x="20" y="55" width="14" height="18" fill="white" opacity="0.7"/>
+                </g>
+                <text x="42" y="125" text-anchor="middle" font-size="10" fill="#2c5282" font-weight="bold">2,200 Users</text>
+                
+                <g transform="translate(80, 38)">
+                    <rect width="50" height="22" rx="3" fill="url(#red)"/>
+                    <text x="25" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="bold">FTD</text>
+                    <rect y="26" width="50" height="22" rx="3" fill="url(#green)"/>
+                    <text x="25" y="41" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C8500</text>
+                    <rect y="52" width="50" height="22" rx="3" fill="url(#orange)"/>
+                    <text x="25" y="67" text-anchor="middle" fill="white" font-size="7" font-weight="bold">PSN+PAN</text>
+                    <rect y="78" width="50" height="22" rx="3" fill="url(#purple)"/>
+                    <text x="25" y="93" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C9800</text>
+                </g>
+                
+                <g transform="translate(140, 42)">
+                    <text font-size="9" fill="#4a5568">42 Switches</text>
+                    <text y="14" font-size="9" fill="#4a5568">100 APs</text>
+                    <text y="28" font-size="9" fill="#4a5568">1 Gbps MPLS</text>
+                    <text y="42" font-size="9" fill="#2b6cb0" font-weight="bold">DNAC DR</text>
+                    <text y="56" font-size="9" fill="#4a5568">4 Core + 8 Dist</text>
+                </g>
+            </g>
+            
+            <!-- Frankfurt Secondary Hub -->
+            <g transform="translate(255, 45)">
+                <rect width="225" height="155" rx="10" fill="#f0fff4" stroke="#48bb78" stroke-width="2" filter="url(#shadow)"/>
+                <rect width="225" height="26" rx="10" fill="url(#green)"/>
+                <text x="112" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">FRANKFURT - Secondary</text>
+                
+                <g transform="translate(15, 35)">
+                    <rect width="50" height="65" rx="4" fill="url(#blue)"/>
+                    <rect x="6" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="20" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="34" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="6" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="20" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="34" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="18" y="45" width="12" height="16" fill="white" opacity="0.7"/>
+                </g>
+                <text x="40" y="118" text-anchor="middle" font-size="10" fill="#276749" font-weight="bold">1,500 Users</text>
+                
+                <g transform="translate(75, 40)">
+                    <rect width="45" height="20" rx="3" fill="url(#red)"/>
+                    <text x="22" y="14" text-anchor="middle" fill="white" font-size="8" font-weight="bold">FTD</text>
+                    <rect y="24" width="45" height="20" rx="3" fill="url(#green)"/>
+                    <text x="22" y="38" text-anchor="middle" fill="white" font-size="7" font-weight="bold">ISR</text>
+                    <rect y="48" width="45" height="20" rx="3" fill="url(#orange)"/>
+                    <text x="22" y="62" text-anchor="middle" fill="white" font-size="8" font-weight="bold">PSN x2</text>
+                </g>
+                
+                <g transform="translate(130, 45)">
+                    <text font-size="9" fill="#4a5568">28 Switches</text>
+                    <text y="14" font-size="9" fill="#4a5568">70 APs</text>
+                    <text y="28" font-size="9" fill="#4a5568">500 Mbps MPLS</text>
+                    <text y="42" font-size="9" fill="#4a5568">2 Core + 4 Dist</text>
+                </g>
+            </g>
+            
+            <!-- EMEA Branches -->
+            <g transform="translate(15, 215)">
+                <text font-size="12" font-weight="700" fill="#2c5282">Branch Sites (5):</text>
+                
+                <g transform="translate(0, 18)">
+                    <rect width="55" height="65" rx="5" fill="#718096"/>
+                    <text x="27" y="80" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Paris</text>
+                    <text x="27" y="95" text-anchor="middle" font-size="8" fill="#718096">~100</text>
+                </g>
+                <g transform="translate(65, 18)">
+                    <rect width="55" height="65" rx="5" fill="#a0aec0"/>
+                    <text x="27" y="80" text-anchor="middle" font-size="8" fill="#4a5568" font-weight="bold">Amsterdam</text>
+                    <text x="27" y="95" text-anchor="middle" font-size="8" fill="#718096">~80</text>
+                </g>
+                <g transform="translate(130, 18)">
+                    <rect width="55" height="65" rx="5" fill="#a0aec0"/>
+                    <text x="27" y="80" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Dublin</text>
+                    <text x="27" y="95" text-anchor="middle" font-size="8" fill="#718096">~80</text>
+                </g>
+                <g transform="translate(195, 18)">
+                    <rect width="50" height="55" rx="5" fill="#cbd5e0"/>
+                    <text x="25" y="70" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Madrid</text>
+                    <text x="25" y="85" text-anchor="middle" font-size="8" fill="#718096">~60</text>
+                </g>
+                <g transform="translate(255, 18)">
+                    <rect width="50" height="55" rx="5" fill="#cbd5e0"/>
+                    <text x="25" y="70" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Milan</text>
+                    <text x="25" y="85" text-anchor="middle" font-size="8" fill="#718096">~60</text>
+                </g>
+            </g>
+        </g>
+        
+        <!-- AMERICAS Region -->
+        <g transform="translate(1080, 315)">
+            <rect width="490" height="410" rx="14" fill="#f0fff4" stroke="#68d391" stroke-width="2" filter="url(#shadow)"/>
+            <rect width="490" height="32" rx="14" fill="#68d391" opacity="0.15"/>
+            <text x="245" y="23" text-anchor="middle" font-size="14" font-weight="700" fill="#276749">🌎 AMERICAS REGION</text>
+            
+            <!-- New Jersey HQ -->
+            <g transform="translate(15, 45)">
+                <rect width="230" height="155" rx="10" fill="#fffbeb" stroke="#d69e2e" stroke-width="2" filter="url(#shadow)"/>
+                <rect width="230" height="26" rx="10" fill="url(#blue)"/>
+                <circle cx="212" cy="13" r="10" fill="#f6e05e"/>
+                <text x="212" y="17" text-anchor="middle" fill="#744210" font-size="10">★</text>
+                <text x="110" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">NEW JERSEY - Global HQ</text>
+                
+                <g transform="translate(15, 35)">
+                    <rect width="60" height="80" rx="4" fill="url(#blue)"/>
+                    <rect x="6" y="6" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="24" y="6" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="42" y="6" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="6" y="22" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="24" y="22" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="42" y="22" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="6" y="38" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="24" y="38" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="42" y="38" width="12" height="12" fill="white" opacity="0.5"/>
+                    <rect x="22" y="58" width="16" height="18" fill="white" opacity="0.7"/>
+                </g>
+                <text x="45" y="130" text-anchor="middle" font-size="10" fill="#2c5282" font-weight="bold">2,800 Users</text>
+                
+                <g transform="translate(85, 36)">
+                    <rect width="50" height="22" rx="3" fill="url(#red)"/>
+                    <text x="25" y="15" text-anchor="middle" fill="white" font-size="9" font-weight="bold">FTD</text>
+                    <rect y="26" width="50" height="22" rx="3" fill="url(#green)"/>
+                    <text x="25" y="41" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C8500</text>
+                    <rect y="52" width="50" height="22" rx="3" fill="url(#orange)"/>
+                    <text x="25" y="67" text-anchor="middle" fill="white" font-size="7" font-weight="bold">PSN+PAN</text>
+                    <rect y="78" width="50" height="22" rx="3" fill="url(#purple)"/>
+                    <text x="25" y="93" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C9800</text>
+                </g>
+                
+                <g transform="translate(145, 40)">
+                    <text font-size="9" fill="#4a5568">52 Switches</text>
+                    <text y="14" font-size="9" fill="#4a5568">210 APs</text>
+                    <text y="28" font-size="9" fill="#4a5568">1 Gbps MPLS</text>
+                    <text y="42" font-size="9" fill="#2b6cb0" font-weight="bold">DNAC Primary</text>
+                    <text y="56" font-size="9" fill="#c05621" font-weight="bold">ISE PAN x2</text>
+                    <text y="70" font-size="9" fill="#4a5568">4 Core + 10 Dist</text>
+                </g>
+            </g>
+            
+            <!-- Dallas Secondary Hub -->
+            <g transform="translate(255, 45)">
+                <rect width="215" height="155" rx="10" fill="#f0fff4" stroke="#48bb78" stroke-width="2" filter="url(#shadow)"/>
+                <rect width="215" height="26" rx="10" fill="url(#green)"/>
+                <text x="107" y="18" text-anchor="middle" fill="white" font-size="11" font-weight="bold">DALLAS - Secondary</text>
+                
+                <g transform="translate(15, 35)">
+                    <rect width="50" height="65" rx="4" fill="url(#blue)"/>
+                    <rect x="6" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="20" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="34" y="6" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="6" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="20" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="34" y="20" width="9" height="9" fill="white" opacity="0.5"/>
+                    <rect x="18" y="45" width="12" height="16" fill="white" opacity="0.7"/>
+                </g>
+                <text x="40" y="118" text-anchor="middle" font-size="10" fill="#276749" font-weight="bold">1,600 Users</text>
+                
+                <g transform="translate(75, 40)">
+                    <rect width="45" height="20" rx="3" fill="url(#red)"/>
+                    <text x="22" y="14" text-anchor="middle" fill="white" font-size="8" font-weight="bold">FTD</text>
+                    <rect y="24" width="45" height="20" rx="3" fill="url(#green)"/>
+                    <text x="22" y="38" text-anchor="middle" fill="white" font-size="7" font-weight="bold">ISR</text>
+                    <rect y="48" width="45" height="20" rx="3" fill="url(#orange)"/>
+                    <text x="22" y="62" text-anchor="middle" fill="white" font-size="8" font-weight="bold">PSN x2</text>
+                </g>
+                
+                <g transform="translate(130, 45)">
+                    <text font-size="9" fill="#4a5568">32 Switches</text>
+                    <text y="14" font-size="9" fill="#4a5568">90 APs</text>
+                    <text y="28" font-size="9" fill="#4a5568">500 Mbps MPLS</text>
+                    <text y="42" font-size="9" fill="#4a5568">2 Core + 6 Dist</text>
+                </g>
+            </g>
+            
+            <!-- Americas Branches -->
+            <g transform="translate(15, 215)">
+                <text font-size="12" font-weight="700" fill="#276749">Branch Sites (5):</text>
+                
+                <g transform="translate(0, 18)">
+                    <rect width="55" height="65" rx="5" fill="#718096"/>
+                    <text x="27" y="80" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Chicago</text>
+                    <text x="27" y="95" text-anchor="middle" font-size="8" fill="#718096">~100</text>
+                </g>
+                <g transform="translate(65, 18)">
+                    <rect width="55" height="65" rx="5" fill="#a0aec0"/>
+                    <text x="27" y="80" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Seattle</text>
+                    <text x="27" y="95" text-anchor="middle" font-size="8" fill="#718096">~80</text>
+                </g>
+                <g transform="translate(130, 18)">
+                    <rect width="55" height="65" rx="5" fill="#a0aec0"/>
+                    <text x="27" y="80" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">LA</text>
+                    <text x="27" y="95" text-anchor="middle" font-size="8" fill="#718096">~80</text>
+                </g>
+                <g transform="translate(195, 18)">
+                    <rect width="50" height="55" rx="5" fill="#cbd5e0"/>
+                    <text x="25" y="70" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Atlanta</text>
+                    <text x="25" y="85" text-anchor="middle" font-size="8" fill="#718096">~60</text>
+                </g>
+                <g transform="translate(255, 18)">
+                    <rect width="50" height="55" rx="5" fill="#cbd5e0"/>
+                    <text x="25" y="70" text-anchor="middle" font-size="9" fill="#4a5568" font-weight="bold">Denver</text>
+                    <text x="25" y="85" text-anchor="middle" font-size="8" fill="#718096">~60</text>
+                </g>
+            </g>
+        </g>
+        
+        <!-- ======== SECTION 4: VIRTUAL NETWORKS ======== -->
+        <g transform="translate(30, 745)">
+            <rect width="1100" height="95" rx="12" fill="#e6fffa" stroke="#319795" stroke-width="2" filter="url(#shadow)"/>
+            <text x="550" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#234e52">🔒 Virtual Networks (SD-Access LISP/VXLAN Segmentation)</text>
+            
+            <g transform="translate(25, 35)">
+                <rect width="135" height="48" rx="7" fill="#2b6cb0"/>
+                <text x="67" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">VN_CORPORATE</text>
+                <text x="67" y="35" text-anchor="middle" fill="#bee3f8" font-size="8">10.100.0.0/16 • SGT:10-19</text>
+            </g>
+            <g transform="translate(175, 35)">
+                <rect width="110" height="48" rx="7" fill="#38a169"/>
+                <text x="55" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">VN_VOICE</text>
+                <text x="55" y="35" text-anchor="middle" fill="#c6f6d5" font-size="8">10.190.0.0/16 • SGT:20</text>
+            </g>
+            <g transform="translate(300, 35)">
+                <rect width="100" height="48" rx="7" fill="#805ad5"/>
+                <text x="50" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">VN_GUEST</text>
+                <text x="50" y="35" text-anchor="middle" fill="#e9d8fd" font-size="8">10.200.0.0/16 • SGT:40</text>
+            </g>
+            <g transform="translate(415, 35)">
+                <rect width="90" height="48" rx="7" fill="#d69e2e"/>
+                <text x="45" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">VN_IOT</text>
+                <text x="45" y="35" text-anchor="middle" fill="#fefcbf" font-size="8">10.150.0.0/16 • SGT:50-70</text>
+            </g>
+            <g transform="translate(520, 35)">
+                <rect width="110" height="48" rx="7" fill="#c53030"/>
+                <text x="55" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">VN_SERVERS</text>
+                <text x="55" y="35" text-anchor="middle" fill="#fed7d7" font-size="8">10.180.0.0/16 • SGT:80-90</text>
+            </g>
+            <g transform="translate(645, 35)">
+                <rect width="90" height="48" rx="7" fill="#4a5568"/>
+                <text x="45" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="bold">INFRA_VN</text>
+                <text x="45" y="35" text-anchor="middle" fill="#e2e8f0" font-size="8">10.252.0.0/16 • Mgmt</text>
+            </g>
+            
+            <g transform="translate(760, 40)">
+                <text font-size="10" fill="#234e52" font-weight="bold">Policy Enforcement:</text>
+                <text y="15" font-size="9" fill="#234e52">• TrustSec SGACL via ISE</text>
+                <text y="30" font-size="9" fill="#234e52">• Inter-VN routing at Border</text>
+                <text x="160" y="0" font-size="9" fill="#234e52">• 802.1X/MAB Authentication</text>
+                <text x="160" y="15" font-size="9" fill="#234e52">• Guest: Internet-only ACL</text>
+                <text x="160" y="30" font-size="9" fill="#234e52">• 25+ Authorization Profiles</text>
+            </g>
+        </g>
+        
+        <!-- ======== LEGEND ======== -->
+        <g transform="translate(30, 860)">
+            <rect width="1100" height="80" rx="10" fill="white" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
+            <text x="20" y="20" font-size="12" font-weight="700" fill="#1a365d">LEGEND</text>
+            
+            <g transform="translate(20, 32)">
+                <rect width="18" height="14" rx="3" fill="url(#blue)"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">Hub Site</text>
+            </g>
+            <g transform="translate(90, 32)">
+                <rect width="18" height="14" rx="3" fill="#718096"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">Branch</text>
+            </g>
+            <g transform="translate(155, 32)">
+                <rect width="18" height="14" rx="3" fill="url(#red)"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">FTD Firewall</text>
+            </g>
+            <g transform="translate(250, 32)">
+                <rect width="18" height="14" rx="3" fill="url(#green)"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">SD-WAN Edge</text>
+            </g>
+            <g transform="translate(350, 32)">
+                <rect width="18" height="14" rx="3" fill="url(#orange)"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">ISE Node</text>
+            </g>
+            <g transform="translate(430, 32)">
+                <rect width="18" height="14" rx="3" fill="url(#purple)"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">WLC C9800</text>
+            </g>
+            
+            <g transform="translate(20, 55)">
+                <line x1="0" y1="5" x2="35" y2="5" stroke="#38a169" stroke-width="3"/>
+                <text x="42" y="9" font-size="9" fill="#4a5568">MPLS</text>
+            </g>
+            <g transform="translate(100, 55)">
+                <line x1="0" y1="5" x2="35" y2="5" stroke="#4299e1" stroke-width="2" stroke-dasharray="5,3"/>
+                <text x="42" y="9" font-size="9" fill="#4a5568">Internet</text>
+            </g>
+            <g transform="translate(190, 55)">
+                <rect width="18" height="14" rx="3" fill="#fffbeb" stroke="#d69e2e" stroke-dasharray="4,2"/>
+                <text x="25" y="11" font-size="9" fill="#4a5568">Extension Point</text>
+            </g>
+            
+            <!-- Summary -->
+            <g transform="translate(530, 28)">
+                <text font-size="11" font-weight="700" fill="#1a365d">BASE INFRASTRUCTURE SUMMARY:</text>
+                <text y="18" font-size="9" fill="#4a5568">• 6 Hub Sites (Mumbai, Chennai, London, Frankfurt, New Jersey★, Dallas)</text>
+                <text y="34" font-size="9" fill="#4a5568">• 13 Branch Sites (3 APAC + 5 EMEA + 5 Americas)</text>
+                <text y="50" font-size="9" fill="#4a5568">• 12,400 Users | 238 Access Switches | 590 APs | 24 SD-WAN Edges | 18 FTD | 14 ISE Nodes | 6 DNAC Nodes</text>
+            </g>
+        </g>
+        
+        <!-- Extensibility Note -->
+        <g transform="translate(1160, 745)">
+            <rect width="400" height="195" rx="12" fill="#fffbeb" stroke="#d69e2e" stroke-width="2" stroke-dasharray="8,4" filter="url(#shadow)"/>
+            <text x="200" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#744210"> PROJECT EXTENSIBILITY LAYERS</text>
+            <text x="200" y="45" text-anchor="middle" font-size="10" fill="#744210">Add these layers per project scope:</text>
+            
+            <g transform="translate(25, 60)">
+                <rect width="350" height="30" rx="5" fill="#feebc8" stroke="#ed8936" stroke-dasharray="4,2"/>
+                <text x="175" y="20" text-anchor="middle" font-size="10" fill="#c05621"> AI/ML Observability Layer (Splunk MLTK, ThousandEyes, AppD)</text>
+            </g>
+            <g transform="translate(25, 98)">
+                <rect width="350" height="30" rx="5" fill="#c6f6d5" stroke="#48bb78" stroke-dasharray="4,2"/>
+                <text x="175" y="20" text-anchor="middle" font-size="10" fill="#276749"> AgenticOps Automation (WF-001 to WF-008, Guardrails)</text>
+            </g>
+            <g transform="translate(25, 136)">
+                <rect width="350" height="30" rx="5" fill="#bee3f8" stroke="#4299e1" stroke-dasharray="4,2"/>
+                <text x="175" y="20" text-anchor="middle" font-size="10" fill="#2c5282"> Edge Compute Layer (UCS XE9305, AI GPUs, Cameras)</text>
+            </g>
+            <g transform="translate(25, 174)">
+                <text x="175" y="0" text-anchor="middle" font-size="9" fill="#744210" font-style="italic">Each layer integrates with this base infrastructure</text>
+            </g>
+        </g>
+        
+        <!-- Copyright -->
+        <g transform="translate(1400, 1100)">
+            <text text-anchor="end" font-size="10" fill="#718096" font-style="italic">© 2025 Abhavtech.com</text>
+            <text x="0" y="15" text-anchor="end" font-size="9" fill="#a0aec0">ABV-SECOPS-AI-2025 | BASE REFERENCE</text>
+        </g>
+        
+    </svg>
+</div>
+</body>
+</html>

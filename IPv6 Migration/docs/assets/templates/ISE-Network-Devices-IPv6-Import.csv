@@ -1,0 +1,25 @@
+Device Name,IPv4 Address,IPv6 Address,IPv6 Prefix Length,RADIUS Shared Secret,TACACS Shared Secret,Device Type,Location,CoA Port,SNMP RO Community,SNMP Version,Device Profile
+MUM-ED-F1-01,10.250.1.10,2001:db8:abc1:0::10,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 1,1700,public,3,Cisco-Switch
+MUM-ED-F1-02,10.250.1.11,2001:db8:abc1:0::11,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 1,1700,public,3,Cisco-Switch
+MUM-ED-F1-03,10.250.1.12,2001:db8:abc1:0::12,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 1,1700,public,3,Cisco-Switch
+MUM-ED-F2-01,10.250.1.20,2001:db8:abc1:0::20,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 2,1700,public,3,Cisco-Switch
+MUM-ED-F2-02,10.250.1.21,2001:db8:abc1:0::21,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 2,1700,public,3,Cisco-Switch
+MUM-ED-F3-01,10.250.1.30,2001:db8:abc1:0::30,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 3,1700,public,3,Cisco-Switch
+MUM-ED-F4-01,10.250.1.40,2001:db8:abc1:0::40,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 4,1700,public,3,Cisco-Switch
+MUM-ED-F5-01,10.250.1.50,2001:db8:abc1:0::50,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 5,1700,public,3,Cisco-Switch
+MUM-ED-F6-01,10.250.1.60,2001:db8:abc1:0::60,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Mumbai HQ Floor 6,1700,public,3,Cisco-Switch
+MUM-BN-01,10.250.1.1,2001:db8:abc1:0::1,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Mumbai HQ Border,1700,public,3,Cisco-Switch
+MUM-BN-02,10.250.1.2,2001:db8:abc1:0::2,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Mumbai HQ Border,1700,public,3,Cisco-Switch
+MUM-CP-01,10.250.1.3,2001:db8:abc1:0::3,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Mumbai HQ Control Plane,1700,public,3,Cisco-Switch
+MUM-CP-02,10.250.1.4,2001:db8:abc1:0::4,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Mumbai HQ Control Plane,1700,public,3,Cisco-Switch
+WLC-MUM-01,10.252.40.10,2001:db8:abc1:1000::40,64,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco WLC 9800,Mumbai HQ,1700,public,3,Cisco-WLC
+WLC-MUM-02,10.252.40.11,2001:db8:abc1:1000::41,64,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco WLC 9800,Mumbai HQ,1700,public,3,Cisco-WLC
+CHN-ED-F1-01,10.250.2.10,2001:db8:abc2:0::10,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Chennai HQ Floor 1,1700,public,3,Cisco-Switch
+CHN-ED-F2-01,10.250.2.20,2001:db8:abc2:0::20,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Chennai HQ Floor 2,1700,public,3,Cisco-Switch
+CHN-ED-F3-01,10.250.2.30,2001:db8:abc2:0::30,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Chennai HQ Floor 3,1700,public,3,Cisco-Switch
+CHN-ED-F4-01,10.250.2.40,2001:db8:abc2:0::40,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Chennai HQ Floor 4,1700,public,3,Cisco-Switch
+CHN-BN-01,10.250.2.1,2001:db8:abc2:0::1,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Chennai HQ Border,1700,public,3,Cisco-Switch
+CHN-BN-02,10.250.2.2,2001:db8:abc2:0::2,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Chennai HQ Border,1700,public,3,Cisco-Switch
+CHN-CP-01,10.250.2.3,2001:db8:abc2:0::3,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9500,Chennai HQ Control Plane,1700,public,3,Cisco-Switch
+WLC-CHN-01,10.252.41.10,2001:db8:abc2:1000::40,64,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco WLC 9800,Chennai HQ,1700,public,3,Cisco-WLC
+HYD-FIAB-01,10.250.52.1,2001:db8:abc6:0::1,128,$RADIUS_SECRET$,$TACACS_SECRET$,Cisco Catalyst 9300,Hyderabad Fabric-in-a-Box,1700,public,3,Cisco-Switch

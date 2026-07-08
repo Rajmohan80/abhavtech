@@ -1,0 +1,292 @@
+# ============================================================================
+# SD-Access & ISE Documentation — MkDocs Material
+# Built from mkdocs-framework-template-v2.yml (canonical, unchanged settings)
+# ============================================================================
+
+site_name: "Cisco SD-Access & ISE Design and Implementation Guide"
+site_description: "Enterprise Catalyst Center (DNAC) and ISE fabric design, security, implementation, operations, and migration"
+site_author: "Rajmohan M"
+site_url: https://sdaccess.abhavtech.com
+
+copyright: Copyright &copy; 2025-2026 AbhavTech
+
+# ============================================================================
+# THEME
+# ============================================================================
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: Roboto Mono
+  features:
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+    - search.highlight
+    - search.suggest
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+    - toc.follow
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+# ============================================================================
+# DIRECTORIES
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mermaid-zoom.js
+
+# ============================================================================
+# EXTRA (no social/footer personal links per site standard)
+# ============================================================================
+extra:
+  generator: false
+
+nav:
+  - Home: index.md
+
+  - "Discovery & Assessment":
+      - "Overview": chapter-1-discovery/README.md
+      - "1.1 Current State Infrastructure Inventory": chapter-1-discovery/1-1-current-state-infrastructure-inventory.md
+      - "1.2 Technical Requirements Analysis": chapter-1-discovery/1-2-technical-requirements-analysis.md
+      - "1.3 Gap Analysis": chapter-1-discovery/1-3-gap-analysis.md
+      - "1.4 Network Assessment Details": chapter-1-discovery/1-4-network-assessment-details.md
+      - "1.5 Readiness Assessment": chapter-1-discovery/1-5-readiness-assessment.md
+      - "1.6 Success Criteria KPIs": chapter-1-discovery/1-6-success-criteria-kpis.md
+      - "1.7 Risk Assessment": chapter-1-discovery/1-7-risk-assessment.md
+      - "1.8 Stakeholder Mapping": chapter-1-discovery/1-8-stakeholder-mapping.md
+
+  - "Design":
+      - "Overview": chapter-2-design/README.md
+      - "2.1 SD-Access Architecture Overview": chapter-2-design/2-1-sd-access-architecture-overview.md
+      - "2.2 Global Fabric Design": chapter-2-design/2-2-global-fabric-design.md
+      - "2.3 Hub Site Design Large Campus": chapter-2-design/2-3-hub-site-design-large-campus.md
+      - "2.4 Branch Site Design": chapter-2-design/2-4-branch-site-design.md
+      - "2.5 Underlay Network Design": chapter-2-design/2-5-underlay-network-design.md
+      - "2.6 Overlay Network Design": chapter-2-design/2-6-overlay-network-design.md
+      - "2.6.5 LISP PubSub Control Plane": chapter-2-design/2-6-5-lisp-pubsub-control-plane.md
+      - "2.6.6 Extranet VN Design": chapter-2-design/2-6-6-extranet-vn-design.md
+      - "2.7 DNA Center Design": chapter-2-design/2-7-dna-center-design.md
+      - "2.7.1 Dynamic Default Border": chapter-2-design/2-7-1-dynamic-default-border.md
+      - "2.8 ISE Design": chapter-2-design/2-8-ise-design.md
+      - "2.8 SD-WAN Integration Design": chapter-2-design/2-8-sd-wan-integration-design.md
+      - "2.9 Wireless Design": chapter-2-design/2-9-wireless-design.md
+      - "2.9.5 Wi-Fi 6E/7 Design": chapter-2-design/2-9-5-wifi-6e-7-design.md
+      - "2.10 Integration Design": chapter-2-design/2-10-integration-design.md
+      - "2.11 Sizing Summary Enhanced": chapter-2-design/2-11-sizing-summary-enhanced.md
+      - "2.11 Sizing Summary": chapter-2-design/2-11-sizing-summary.md
+      - "2.12 DNS DDI Infoblox Design": chapter-2-design/2-12-dns-ddi-infoblox-design.md
+
+  - "Security":
+      - "Overview": chapter-3-network-security/README.md
+      - "3.1 Security Architecture Overview": chapter-3-network-security/3-1-security-architecture-overview.md
+      - "3.2 ISE Policy Design": chapter-3-network-security/3-2-ise-policy-design.md
+      - "3.2.5 ISE 3.x Advanced Features": chapter-3-network-security/3-2-5-ise-3x-advanced-features.md
+      - "3.3 Micro Segmentation Design": chapter-3-network-security/3-3-micro-segmentation-design.md
+      - "3.4.6 RADsec Configuration": chapter-3-network-security/3-4-6-radsec-configuration.md
+      - "3.4.7 CoA Workflow Examples": chapter-3-network-security/3-4-7-coa-workflow-examples.md
+      - "3.4.802 1X Deployment": chapter-3-network-security/3-4-802-1x-deployment.md
+      - "3.5 Profiling Design": chapter-3-network-security/3-5-profiling-design.md
+      - "3.6 Firewall Integration": chapter-3-network-security/3-6-firewall-integration.md
+      - "3.7 Compliance Requirements": chapter-3-network-security/3-7-compliance-requirements.md
+      - "3.8 Encryption Design": chapter-3-network-security/3-8-encryption-design.md
+      - "3.9 Network Admission Control": chapter-3-network-security/3-9-network-admission-control.md
+      - "3.10 Firewall Rules Summary": chapter-3-network-security/3-10-firewall-rules-summary.md
+      - "3.11 Zero Trust Architecture": chapter-3-network-security/3-11-zero-trust-architecture.md
+      - "3.12 Compliance Framework Mapping": chapter-3-network-security/3-12-compliance-framework-mapping.md
+
+  - "Implementation":
+      - "Overview": chapter-4-implementation/README.md
+      - "4.1 Deployment Strategy Overview": chapter-4-implementation/4-1-deployment-strategy-overview.md
+      - "4.2 Pre Deployment Checklist": chapter-4-implementation/4-2-pre-deployment-checklist.md
+      - "4.3 DNA Center Cluster Installation": chapter-4-implementation/4-3-dna-center-cluster-installation.md
+      - "4.4 ISE Distributed Deployment": chapter-4-implementation/4-4-ise-distributed-deployment.md
+      - "4.5 Underlay Network Provisioning": chapter-4-implementation/4-5-underlay-network-provisioning.md
+      - "4.6 Fabric Site Configuration": chapter-4-implementation/4-6-fabric-site-configuration.md
+      - "4.6.5 Fabric Zones Configuration": chapter-4-implementation/4-6-5-fabric-zones-configuration.md
+      - "4.7 Fabric Node Provisioning": chapter-4-implementation/4-7-fabric-node-provisioning.md
+      - "4.8 Wireless Controller Integration": chapter-4-implementation/4-8-wireless-controller-integration.md
+      - "4.8.5 SD-WAN Handoff Implementation": chapter-4-implementation/4-8-5-sd-wan-handoff-implementation.md
+      - "4.9 Testing And Validation": chapter-4-implementation/4-9-testing-and-validation.md
+      - "4.10 Go Live Cutover Runbook": chapter-4-implementation/4-10-go-live-cutover-runbook.md
+      - "4.11 Rollback Procedures": chapter-4-implementation/4-11-rollback-procedures.md
+      - "4.12 Post Implementation Validation": chapter-4-implementation/4-12-post-implementation-validation.md
+      - "4.13 Test Cases Validation": chapter-4-implementation/4-13-test-cases-validation.md
+
+  - "Operations":
+      - "Overview": chapter-5-operations/README.md
+      - "5.1 Operational Framework": chapter-5-operations/5-1-operational-framework.md
+      - "5.2 DNAC Assurance Monitoring": chapter-5-operations/5-2-dnac-assurance-monitoring.md
+      - "5.2.5 AI Network Analytics": chapter-5-operations/5-2-5-ai-network-analytics.md
+      - "5.3 ISE Monitoring And Reporting": chapter-5-operations/5-3-ise-monitoring-and-reporting.md
+      - "5.4 Network Monitoring": chapter-5-operations/5-4-network-monitoring.md
+      - "5.5 Alerting And Notification": chapter-5-operations/5-5-alerting-and-notification.md
+      - "5.6 Incident Management": chapter-5-operations/5-6-incident-management.md
+      - "5.7 Change Management": chapter-5-operations/5-7-change-management.md
+      - "5.8 Capacity Planning": chapter-5-operations/5-8-capacity-planning.md
+      - "5.9 Troubleshooting Guides": chapter-5-operations/5-9-troubleshooting-guides.md
+      - "5.10 Performance Optimization": chapter-5-operations/5-10-performance-optimization.md
+      - "5.11 Backup And Recovery": chapter-5-operations/5-11-backup-and-recovery.md
+      - "5.12 Compliance And Audit": chapter-5-operations/5-12-compliance-and-audit.md
+      - "5.13 Splunk Integration": chapter-5-operations/5-13-splunk-integration.md
+      - "5.14 Operational Runbooks": chapter-5-operations/5-14-operational-runbooks.md
+      - "5.15 HA Failover Procedures": chapter-5-operations/5-15-ha-failover-procedures.md
+
+  - "Migration & Financials":
+      - "Overview": chapter-6-migration-financials/README.md
+      - "6.1 Migration Strategy": chapter-6-migration-financials/6-1-migration-strategy.md
+      - "6.2 Legacy Decommissioning": chapter-6-migration-financials/6-2-legacy-decommissioning.md
+      - "6.3 License Mapping": chapter-6-migration-financials/6-3-license-mapping.md
+      - "6.4 Total Cost Of Ownership TCO": chapter-6-migration-financials/6-4-total-cost-of-ownership-tco.md
+      - "6.5 ROI Analysis": chapter-6-migration-financials/6-5-roi-analysis.md
+      - "6.6 Budget Planning": chapter-6-migration-financials/6-6-budget-planning.md
+      - "6.7 Vendor Comparison": chapter-6-migration-financials/6-7-vendor-comparison.md
+      - "6.8 Risk Adjusted Projections": chapter-6-migration-financials/6-8-risk-adjusted-projections.md
+      - "6.9 Business Case Summary": chapter-6-migration-financials/6-9-business-case-summary.md
+      - "6.10 Hardware Refresh Strategy": chapter-6-migration-financials/6-10-hardware-refresh-strategy.md
+
+  - "Advanced Features":
+      - "Overview": chapter-7-advanced-features/README.md
+      - "7.1 AI/ML Analytics Overview": chapter-7-advanced-features/7-1-ai-ml-analytics-overview.md
+      - "7.2 Predictive Analytics": chapter-7-advanced-features/7-2-predictive-analytics.md
+      - "7.3 Network Automation": chapter-7-advanced-features/7-3-network-automation.md
+      - "7.4 API Integration": chapter-7-advanced-features/7-4-api-integration.md
+      - "7.5 SD-WAN Integration Overview": chapter-7-advanced-features/7-5-sd-wan-integration-overview.md
+      - "7.6 Stealthwatch Integration": chapter-7-advanced-features/7-6-stealthwatch-integration.md
+      - "7.7 ThousandEyes Integration": chapter-7-advanced-features/7-7-thousandeyes-integration.md
+      - "7.7.5 ThousandEyes Deployment": chapter-7-advanced-features/7-7-5-thousandeyes-deployment.md
+      - "7.8 Python Automation Examples": chapter-7-advanced-features/7-8-python-automation-examples.md
+      - "7.8 ITSM Integration": chapter-7-advanced-features/7-8-itsm-integration.md
+      - "7.9 Rest API Curl Examples": chapter-7-advanced-features/7-9-rest-api-curl-examples.md
+      - "7.9 Custom Applications": chapter-7-advanced-features/7-9-custom-applications.md
+      - "7.10 Webhook Event Automation": chapter-7-advanced-features/7-10-webhook-event-automation.md
+      - "7.10 Future Roadmap": chapter-7-advanced-features/7-10-future-roadmap.md
+      - "7.11 SASE Integration": chapter-7-advanced-features/7-11-sase-integration.md
+      - "7.12 Cisco XDR Integration": chapter-7-advanced-features/7-12-cisco-xdr-integration.md
+      - "7.13 Cisco AI Assistant": chapter-7-advanced-features/7-13-cisco-ai-assistant.md
+      - "7.14 AI Enhanced RRM": chapter-7-advanced-features/7-14-ai-enhanced-rrm.md
+
+  - "Design Guides":
+      - "Overview": design-guides/README.md
+      - "Capacity Planning":
+          - "Overview": design-guides/capacity-planning/README.md
+          - "APPENDIX: HARDWARE SELECTION, CAPACITY PLANNING & TRAFFIC FLOW DESIGN": design-guides/capacity-planning/hardware-capacity-traffic-design.md
+          - "APPENDIX QUICK REFERENCE GUIDE": design-guides/capacity-planning/quick-reference-guide.md
+      - "Firewall Design":
+          - "Overview": design-guides/firewall-design/README.md
+          - "Additional Design Elements": design-guides/firewall-design/additional-design-elements.md
+          - "Firewall Design for SD-Access Deployment": design-guides/firewall-design/firewall-design-complete.md
+      - "Design Data":
+          - "Overview": design-guides/design-data/README.md
+          - "DNA Center & ISE Capacity Details": design-guides/design-data/dnac-ise-capacity-details.md
+          - "Project Executive Summary": design-guides/design-data/project-executive-summary.md
+          - "SGT Policy Matrix": design-guides/design-data/sgt-policy-matrix.md
+          - "Site Infrastructure Inventory": design-guides/design-data/site-infrastructure-inventory.md
+          - "Traffic Flow Matrix": design-guides/design-data/traffic-flow-matrix.md
+      - "Planning Guides":
+          - "Overview": design-guides/planning-guides/README.md
+          - "SD-ACCESS DEPLOYMENT PLANNING TEMPLATE": design-guides/planning-guides/deployment-planning-template.md
+          - "SD-Access Deployment Planning Guide": design-guides/planning-guides/sd-access-planning-guide.md
+
+  - "Appendices":
+      - "Overview": appendices/README.md
+      - "Appendix A: Glossary": appendices/appendix-a-glossary.md
+      - "Appendix B: CLI Quick Reference": appendices/appendix-b-cli-quick-reference.md
+      - "Appendix C: Port Reference": appendices/appendix-c-port-reference.md
+      - "Appendix D: IP Address Allocation": appendices/appendix-d-ip-address-allocation.md
+      - "Appendix E: Hardware Bill of Materials": appendices/appendix-e-hardware-bill-of-materials.md
+      - "Appendix F: References": appendices/appendix-f-references.md
+      - "Appendix G: Revision History": appendices/appendix-g-revision-history.md
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 3
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.smartsymbols
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - attr_list
+  - md_in_html
+  - meta
+  - abbr
+  - footnotes

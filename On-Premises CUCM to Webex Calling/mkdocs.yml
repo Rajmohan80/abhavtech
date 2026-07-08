@@ -1,0 +1,337 @@
+# ============================================================================
+# CUCM & UCCX TO WEBEX CALLING & CONTACT CENTER MIGRATION
+# ============================================================================
+# Project: On-Premises to Cisco Webex Cloud Migration
+# Organization: AbhavTech
+# Version: 2.1
+# Last Updated: March 2026
+#
+# Based on: mkdocs-framework-template-v2.1.yml
+# ============================================================================
+
+
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "CUCM to Webex Calling Migration"
+site_description: "Enterprise migration from CUCM & UCCX to Webex Calling & Contact Center - Multi-region compliance, India DoT/TRAI, EMEA GDPR, AI-powered contact center"
+site_author: "AbhavTech - Collaboration Architecture Team"
+site_url: https://abhavtech.com
+
+# Copyright footer
+copyright: Copyright &copy; 2025-2026 AbhavTech
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  # Logo and favicon (optional - add later if needed)
+  # logo: assets/logo.png
+  # favicon: assets/favicon.ico
+
+  # Color palette with dark/light mode toggle
+  # Using custom colors defined in extra.css (gradient headers, matching tables)
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  # Navigation and UI features
+  features:
+    # Navigation
+    - navigation.footer          # Previous/Next at bottom
+    - navigation.indexes         # Section index pages (README.md as section page)
+    - navigation.instant         # SPA-like navigation (powers toc.follow tracking)
+    - navigation.instant.progress # Loading progress bar
+    - navigation.tracking        # URL updates on scroll (deep-link to headings)
+    - navigation.tabs            # Top-level nav items become header tabs
+    - navigation.tabs.sticky     # Tabs stay visible on scroll
+    - navigation.top             # Back-to-top button
+    - navigation.path            # Breadcrumb path below header
+
+    # Search
+    - search.highlight           # Highlight search terms in results
+    - search.suggest             # Search autocomplete
+    - search.share               # Shareable search links
+
+    # Content
+    - content.code.copy          # Copy button on code blocks
+    - content.code.annotate      # Code annotations (numbered markers)
+    - content.tabs.link          # Linked content tabs (sync across page)
+    - content.tooltips           # Improved tooltips
+
+    # Table of contents (right sidebar)
+    - toc.follow                 # TOC highlights current heading as you scroll
+
+  # Icons for admonitions
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_javascript:
+  - javascripts/mermaid-zoom.js
+
+extra_css:
+  - stylesheets/extra.css
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false               # Remove "Made with Material" footer
+
+  # Social links in footer
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://abhavtech.com
+      name: AbhavTech
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  # TAB 1 — Discovery through Calling Design (Ch1 + Ch2 + Feature Gaps)
+  - "Webex Calling":
+      - "Discovery & Design":
+          - "Overview": chapter1-discovery/README.md
+          - "1.1 Current State Inventory": chapter1-discovery/current-state-inventory.md
+          - "1.2 Gap Analysis": chapter1-discovery/gap-analysis.md
+          - "1.3 Requirements Definition": chapter1-discovery/requirements-definition.md
+          - "1.4 Licensing & Sizing": chapter1-discovery/licensing-sizing.md
+          - "1.5 Migration Strategy": chapter1-discovery/migration-strategy.md
+      - "Calling Design":
+          - "Overview": chapter2-calling-design/README.md
+          - "2.1 Architecture Principles": chapter2-calling-design/architecture-principles.md
+          - "2.2 Location Configuration": chapter2-calling-design/location-configuration.md
+          - "2.3 Dial Plan Design": chapter2-calling-design/dial-plan-design.md
+          - "2.4 PSTN Integration": chapter2-calling-design/pstn-integration.md
+          - "2.5 Feature Migration": chapter2-calling-design/feature-migration.md
+          - "2.6 Coexistence Design": chapter2-calling-design/coexistence-design.md
+      - "Feature Gap Bridge":
+          - "Overview": chapter2a-feature-gap/README.md
+          - "2A.1 Survivability Gateway": chapter2a-feature-gap/survivability.md
+          - "2A.2 Extension Mobility": chapter2a-feature-gap/hotdesking.md
+          - "2A.3 CSS / Calling Plans": chapter2a-feature-gap/calling-plans.md
+          - "2A.4 Voicemail Migration": chapter2a-feature-gap/voicemail-migration.md
+          - "2A.5 Malicious Call Trace": chapter2a-feature-gap/malicious-call-trace.md
+          - "3A.1 Finesse Desktop": chapter2a-feature-gap/agent-desktop.md
+          - "3A.2 Java Steps / REST API": chapter2a-feature-gap/java-steps-api.md
+          - "3A.3 Historical Reporting": chapter2a-feature-gap/historical-reporting.md
+          - "3A.4 Outbound / TRAI DNC": chapter2a-feature-gap/outbound-trai-dnc.md
+          - "Problem/Solution Register": chapter2a-feature-gap/problem-solution-register.md
+
+  # TAB 2 — Contact Center Design (Ch3)
+  - "Contact Center":
+      - "Overview": chapter3-contact-center/README.md
+      - "3.1 UCCX Current State": chapter3-contact-center/uccx-current-state.md
+      - "3.2 WxCC Architecture": chapter3-contact-center/wxcc-architecture.md
+      - "3.3 Entry Point Design": chapter3-contact-center/entry-point-design.md
+      - "3.4 Queue Design": chapter3-contact-center/queue-team-design.md
+      - "3.5 Skills & Routing": chapter3-contact-center/skills-routing-design.md
+      - "3.6 Flow Designer / IVR": chapter3-contact-center/script-migration.md
+      - "3.7 Agent Desktop": chapter3-contact-center/agent-desktop-design.md
+      - "3.8 Digital Channels": chapter3-contact-center/digital-channel-design.md
+      - "3.9 AI Features": chapter3-contact-center/ai-features-design.md
+      - "3.10 CC Compliance": chapter3-contact-center/cc-compliance.md
+
+  # TAB 3 — Compliance, Security & Network (Ch4 + Ch5)
+  - "Compliance & Network":
+      - "Compliance & Security":
+          - "Overview": chapter4-compliance/README.md
+          - "4.1 Data Residency": chapter4-compliance/data-residency.md
+          - "4.2 Security Architecture": chapter4-compliance/security-architecture.md
+          - "4.3 India DoT/TRAI": chapter4-compliance/india-compliance.md
+          - "4.4 EMEA GDPR": chapter4-compliance/emea-compliance.md
+          - "4.5 Audit & Monitoring": chapter4-compliance/audit-monitoring.md
+          - "4.6 Disaster Recovery": chapter4-compliance/disaster-recovery.md
+      - "DNS & Network":
+          - "Overview": chapter5-dns-network/README.md
+          - "5.1 DNS Configuration": chapter5-dns-network/dns-configuration.md
+          - "5.2 Network Requirements": chapter5-dns-network/network-requirements.md
+          - "5.3 QoS & Bandwidth": chapter5-dns-network/qos-bandwidth.md
+          - "5.4 Firewall Rules": chapter5-dns-network/firewall-rules.md
+          - "5.5 Edge Architecture": chapter5-dns-network/edge-architecture.md
+          - "5.6 Zone Configuration": chapter5-dns-network/zone-configuration.md
+          - "5.7 Troubleshooting": chapter5-dns-network/troubleshooting.md
+
+  # TAB 4 — Implementation & Migration Execution (Ch6 + Ch7)
+  - "Implementation":
+      - "Implementation":
+          - "Overview": chapter6-implementation/README.md
+          - "6.1 Control Hub Setup": chapter6-implementation/control-hub-setup.md
+          - "6.2 PSTN Configuration": chapter6-implementation/pstn-configuration.md
+          - "6.3 Configuration Templates": chapter6-implementation/configuration-templates.md
+      - "Migration — Webex Calling":
+          - "Overview": chapter7-migration/README.md
+          - "7.1 Pre-Migration Tasks": chapter7-migration/pre-migration.md
+          - "7.2 Calling Cutover": chapter7-migration/calling-cutover.md
+          - "7.3 CC Cutover": chapter7-migration/contact-center-cutover.md
+          - "7.4 Validation & Testing": chapter7-migration/validation-testing.md
+      - "Migration — WxCC (Phase 2)":
+          - "7.1 WxCC Prerequisites": chapter7-migration/wxcc-prerequisites.md
+          - "7.2 WxCC Timeline": chapter7-migration/wxcc-timeline.md
+          - "7.3 Agent Training": chapter7-migration/wxcc-agent-training.md
+          - "7.4 Cutover Runbook": chapter7-migration/wxcc-cutover-runbook.md
+          - "7.5 Rollback Procedures": chapter7-migration/wxcc-rollback.md
+          - "7.6 Go-Live Validation": chapter7-migration/wxcc-golive-validation.md
+          - "7.7 Hypercare Period": chapter7-migration/wxcc-hypercare.md
+          - "7.8 UCCX Decommissioning": chapter7-migration/wxcc-decommissioning.md
+          - "7.9 Quick Reference": chapter7-migration/wxcc-quick-reference.md
+
+  # TAB 5 — Operations & AI (Ch8 + Ch9)
+  - "Operations & AI":
+      - "Operations & Day 2":
+          - "Overview": chapter8-operations/README.md
+          - "8.1 Monitoring & Alerting": chapter8-operations/monitoring-alerting.md
+          - "8.2 User Onboarding": chapter8-operations/user-onboarding.md
+          - "8.3 Change Management": chapter8-operations/change-management.md
+          - "8.4 Weekly Operations": chapter8-operations/weekly-operations.md
+          - "8.5 Troubleshooting": chapter8-operations/troubleshooting-guides.md
+      - "AI Features & Roadmap":
+          - "Overview": chapter9-ai-features/README.md
+          - "9.1 Virtual Agent": chapter9-ai-features/virtual-agent.md
+          - "9.2 Agent Assist": chapter9-ai-features/agent-assist.md
+          - "9.3 AI Roadmap": chapter9-ai-features/ai-roadmap.md
+
+  # TAB 6 — Appendices
+  - "Appendices":
+      - "Overview": appendices/README.md
+      - "Checklists & References":
+          - "A: Glossary": appendices/glossary.md
+          - "B: Reference Links": appendices/reference-links.md
+          - "C: Support Contacts": appendices/support-contacts.md
+          - "K: CUCM-Webex Checklist": appendices/master-checklist.md
+          - "L: UCCX-WxCC Checklist": appendices/uccx-wxcc-checklist.md
+          - "M: WxCC Reference Card": appendices/wxcc-reference-card.md
+      - "Compliance Reference":
+          - "D: India Telecom Reference": appendices/india-telecom-reference.md
+          - "E: EMEA Certifications": appendices/emea-certifications.md
+      - "Technical Templates":
+          - "F: DNS Templates": appendices/dns-templates.md
+          - "G: Firewall Templates": appendices/firewall-templates.md
+          - "H: Configuration Templates": appendices/configuration-templates.md
+          - "I: Migration Runbook": appendices/migration-runbook.md
+          - "J: AI Observability Guide": appendices/ai-observability-guide.md
+      - "Jabber & Devices":
+          - "10F: Jabber Remote Access": appendices/jabber-remote-access.md
+          - "10G: Jabber to Webex Guide": appendices/jabber-webex-migration.md
+          - "10H: Specialty Device Migration": appendices/specialty-device-migration.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  # Table of contents
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2               # Show H2 only in right TOC (prevents overflow)
+
+  # Admonitions (callout boxes: note, tip, warning, etc.)
+  - admonition
+  - pymdownx.details              # Collapsible admonitions
+
+  # Code blocks with syntax highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # Lists and tasks
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Text formatting
+  - pymdownx.critic              # Track changes
+  - pymdownx.caret               # Superscript, insert
+  - pymdownx.keys                # Keyboard keys
+  - pymdownx.mark                # Highlight text
+  - pymdownx.tilde               # Subscript, strikethrough
+
+  # Smart symbols (tm, (c), etc.)
+  - pymdownx.smartsymbols
+
+  # Emoji support
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Tables
+  - tables
+
+  # HTML and attributes
+  - attr_list
+  - md_in_html
+  - meta
+
+  # Abbreviations
+  - abbr
+
+  # Footnotes
+  - footnotes

@@ -1,0 +1,401 @@
+# ============================================================================
+# AVAYA TO WEBEX CONTACT CENTER MIGRATION - MKDOCS CONFIGURATION
+# ============================================================================
+# Author: Rajmohan M
+# Version: 2.0
+# Last Updated: March 2026
+# Framework: MkDocs Material Framework Template v1.0
+#
+# End-to-end enterprise migration guide: Avaya CC to Cisco Webex Contact Center
+# AI-Assisted Documentation developed with Claude (Anthropic)
+# ============================================================================
+
+
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "Avaya to Webex Contact Center Migration Guide"
+site_description: "End-to-end enterprise migration guide — Avaya CC to Cisco Webex Contact Center. AI-assisted documentation covering discovery, design, implementation, operations, and AI integration."
+site_author: "Rajmohan M"
+site_url: https://abhavtech.com/contact-center-migration/
+
+# Copyright footer
+copyright: Copyright &copy; 2024-2026 AbhavTech — AI-Assisted Documentation developed with Claude (Anthropic). All content is reference material only.
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  # Logo and favicon (place files in docs/assets/)
+  # Uncomment after adding files:
+  # logo: assets/logo.png
+  # favicon: assets/favicon.ico
+
+  # Color palette with dark/light mode toggle
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  # Navigation and UI features
+  features:
+    # Navigation
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+
+    # Search
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+    # Table of contents
+    - toc.follow
+
+  # Icons for admonitions (callout boxes)
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/external-links.js
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  # CHAPTER 1 — DISCOVERY & ASSESSMENT
+  - "Discovery & Assessment":
+      - "Chapter 1 Overview": chapter1-discovery/README.md
+      - "1.1 Business Requirements": chapter1-discovery/business-requirements.md
+      - "1.2 Stakeholder Mapping": chapter1-discovery/stakeholder-mapping.md
+      - "1.3 Current Avaya Landscape": chapter1-discovery/current-avaya-landscape.md
+      - "1.4 Gap Analysis": chapter1-discovery/gap-analysis.md
+      - "1.5 Network Assessment": chapter1-discovery/network-assessment.md
+      - "1.6 KPIs & Success Metrics": chapter1-discovery/kpis-and-success-metrics.md
+      - "1.7 Deliverables": chapter1-discovery/deliverables.md
+      - "1.8 Chapter Summary": chapter1-discovery/summary.md
+
+  # CHAPTER 2 — DESIGN
+  - "Design":
+      - "Chapter 2 Overview": chapter2-design/README.md
+      - "2.1 Component Mapping": chapter2-design/component-mapping.md
+      - "2.2 Target Architecture": chapter2-design/target-architecture-diagram.md
+      - "2.3 Telephony Architecture": chapter2-design/telephony-architecture.md
+      - "2.4 Omnichannel Design": chapter2-design/omnichannel-design.md
+      - "2.5 Integrations": chapter2-design/integrations.md
+      - "2.6 Security & Compliance": chapter2-design/security-and-compliance.md
+      - "2.7 Design Principles": chapter2-design/design-principles.md
+      - "2.8 Assumptions & Dependencies": chapter2-design/assumptions-and-dependencies.md
+      - "2.9 Network Architecture": chapter2-design/network-architecture.md
+      - "2.10 CUBE & SBC Design": chapter2-design/cube-and-sbc-design.md
+      - "2.11 Agent Endpoints": chapter2-design/agent-endpoints.md
+      - "2.12 DR & Resiliency": chapter2-design/dr-and-resiliency.md
+      - "2.13 Capacity & Sizing": chapter2-design/capacity-and-sizing.md
+      - "2.14 License Mapping": chapter2-design/license-mapping.md
+      - "2.15 AI & Automation": chapter2-design/ai-and-automation-design.md
+      - ACD Routing:
+          - "ACD Routing Overview": chapter2-design/acd-routing/README.md
+          - "Current Avaya ACD": chapter2-design/acd-routing/current-avaya-acd.md
+          - "Target Webex ACD": chapter2-design/acd-routing/target-webex-acd.md
+          - "Routing Strategies": chapter2-design/acd-routing/routing-strategies.md
+          - "ACD Migration Guide": chapter2-design/acd-routing/migration-guide.md
+      - IVR Flows:
+          - "IVR Flows Overview": chapter2-design/ivr-flows/README.md
+          - "Current Avaya IVR": chapter2-design/ivr-flows/current-avaya-ivr.md
+          - "Target Webex Connect": chapter2-design/ivr-flows/target-webex-connect.md
+
+  # CHAPTER 3 — NETWORK & SECURITY
+  - "Network & Security":
+      - "Chapter 3 Overview": chapter3-network-security/README.md
+      - "3.1 Network & Security Guide": chapter3-network-security/network-and-security.md
+
+  # CHAPTER 4 — IMPLEMENTATION
+  - "Implementation":
+      - "Chapter 4 Overview": chapter4-implementation/README.md
+      - "4.1 Implementation & Deployment": chapter4-implementation/implementation-and-deployment.md
+
+  # CHAPTER 5 — OPERATIONS & MONITORING
+  - "Operations & Monitoring":
+      - "Chapter 5 Overview": chapter5-operations/README.md
+      - "5.1 Operations & Monitoring": chapter5-operations/operations-and-monitoring.md
+
+  # CHAPTER 6 — MIGRATION ENABLEMENT
+  - "Migration Enablement":
+      - "Chapter 6 Overview": chapter6-migration-enablement/README.md
+      - "6.1 Technical Planning": chapter6-migration-enablement/migration-enablement-technical-planning.md
+
+  # CHAPTER 7 — INTEGRATION & AI
+  - "Integration & AI":
+      - "Chapter 7 Overview": chapter7-integration/README.md
+      - "7.1 Integration Architecture & Playbook": chapter7-integration/integration-architecture-playbook.md
+      - "7.2 AI-Powered Virtual Agent Design": chapter7-integration/virtual-agent-design.md
+      - "7.3 Predictive Routing Implementation": chapter7-integration/predictive-routing.md
+      - "7.4 Integration Testing & Validation": chapter7-integration/integration-testing.md
+      - "7.5 Future Roadmap": chapter7-integration/future-roadmap.md
+
+  # APPENDICES
+  - "Appendices":
+      - "Disclaimer": disclaimer.md
+      - "Project Summary": project-summary.md
+      - "Contact": contact.md
+      - "References": appendix/references.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  # Table of contents
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  # Admonitions (callout boxes: note, tip, warning, etc.)
+  - admonition
+  - pymdownx.details
+
+  # Code blocks with syntax highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # Lists and tasks
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Text formatting
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  # Smart symbols (tm, (c), etc.)
+  - pymdownx.smartsymbols
+
+  # Emoji support
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Tables
+  - tables
+
+  # HTML and attributes
+  - attr_list
+  - md_in_html
+  - meta
+
+  # Abbreviations
+  - abbr
+
+  # Footnotes
+  - footnotes
+
+
+# ============================================================================
+# FOLDER STRUCTURE REFERENCE
+# ============================================================================
+#
+# avaya-webex-mkdocs/
+# ├── mkdocs.yml                           # This file
+# ├── requirements.txt                     # Python dependencies
+# ├── netlify.toml                         # Netlify deployment config
+# ├── .gitignore
+# ├── docs/
+# │   ├── index.md                         # Home page
+# │   ├── disclaimer.md                    # Project disclaimer
+# │   ├── contact.md                       # Contact info
+# │   ├── project-summary.md               # Executive summary
+# │   ├── stylesheets/
+# │   │   └── extra.css                    # Custom CSS
+# │   ├── assets/                          # Logo, favicon (optional)
+# │   ├── chapter1-discovery/              # 9 files
+# │   │   ├── README.md                    # Chapter overview
+# │   │   ├── business-requirements.md
+# │   │   ├── stakeholder-mapping.md
+# │   │   ├── current-avaya-landscape.md
+# │   │   ├── gap-analysis.md
+# │   │   ├── network-assessment.md
+# │   │   ├── kpis-and-success-metrics.md
+# │   │   ├── deliverables.md
+# │   │   └── summary.md
+# │   ├── chapter2-design/                 # 16 files + 2 sub-sections
+# │   │   ├── README.md
+# │   │   ├── component-mapping.md
+# │   │   ├── target-architecture-diagram.md
+# │   │   ├── telephony-architecture.md
+# │   │   ├── omnichannel-design.md
+# │   │   ├── integrations.md
+# │   │   ├── security-and-compliance.md
+# │   │   ├── design-principles.md
+# │   │   ├── assumptions-and-dependencies.md
+# │   │   ├── network-architecture.md
+# │   │   ├── cube-and-sbc-design.md
+# │   │   ├── agent-endpoints.md
+# │   │   ├── dr-and-resiliency.md
+# │   │   ├── capacity-and-sizing.md
+# │   │   ├── license-mapping.md
+# │   │   ├── ai-and-automation-design.md
+# │   │   ├── acd-routing/
+# │   │   │   ├── README.md
+# │   │   │   ├── current-avaya-acd.md
+# │   │   │   ├── target-webex-acd.md
+# │   │   │   ├── routing-strategies.md
+# │   │   │   └── migration-guide.md
+# │   │   └── ivr-flows/
+# │   │       ├── README.md
+# │   │       ├── current-avaya-ivr.md
+# │   │       └── target-webex-connect.md
+# │   ├── chapter3-network-security/       # 2 files
+# │   │   ├── README.md
+# │   │   └── network-and-security.md
+# │   ├── chapter4-implementation/         # 2 files
+# │   │   ├── README.md
+# │   │   └── implementation-and-deployment.md
+# │   ├── chapter5-operations/             # 2 files
+# │   │   ├── README.md
+# │   │   └── operations-and-monitoring.md
+# │   ├── chapter6-migration-enablement/   # 2 files
+# │   │   ├── README.md
+# │   │   └── migration-enablement-technical-planning.md
+# │   ├── chapter7-integration/            # 3 files
+# │   │   ├── README.md
+# │   │   ├── ai-powered-virtual-agent.md
+# │   │   └── integration-architecture-playbook.md
+# │   └── appendix/
+# │       └── references.md
+# └── site/                                # Generated output (don't edit)
+#
+# ============================================================================
+
+
+# ============================================================================
+# DEPLOYMENT NOTES
+# ============================================================================
+#
+# Netlify:
+#   Create netlify.toml with:
+#   [build]
+#     command = "mkdocs build"
+#     publish = "site"
+#   [build.environment]
+#     PYTHON_VERSION = "3.11"
+#
+# Cloudflare Pages:
+#   Build command: pip install -r requirements.txt && mkdocs build
+#   Output directory: site
+#
+# GitHub Pages:
+#   mkdocs gh-deploy --force
+#
+# ============================================================================
+
+
+# ============================================================================
+# USEFUL COMMANDS
+# ============================================================================
+#
+# Local development:
+#   mkdocs serve                    # Start local server at http://127.0.0.1:8000
+#
+# Build static site:
+#   mkdocs build                    # Creates site/ folder
+#
+# Build with strict validation:
+#   mkdocs build --strict           # Fails on warnings
+#
+# Install dependencies:
+#   pip install -r requirements.txt
+#
+# ============================================================================

@@ -1,0 +1,228 @@
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "Enterprise & Edge AI — Network Design Prerequisites"
+site_description: >-
+  Step-by-step calculation workbook for designing enterprise and edge AI
+  network infrastructure. Covers LAN, WAN, QoS, security, redundancy,
+  growth planning, and edge AI capacity for AI workloads.
+site_author: "Rajmohan M"
+site_url: https://ai-network-design.abhavtech.com/
+
+copyright: Copyright &copy; 2025-2026 ABHAVTECH.COM
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  features:
+    # Navigation
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+
+    # Search
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+    # Table of contents
+    - toc.follow
+
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+
+# ============================================================================
+# CUSTOM JAVASCRIPT
+# ============================================================================
+extra_javascript:
+  - javascripts/external-links.js
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  - "1. Foundations":
+      - "Chapter 1 Overview": chapter1-foundations/README.md
+      - "1.1 How to Use This Workbook": chapter1-foundations/how-to-use.md
+      - "1.2 Formula Overview": chapter1-foundations/formula-overview.md
+
+  - "2. Load Analysis":
+      - "Chapter 2 Overview": chapter2-load-analysis/README.md
+      - "2.1 U_eff Calculation": chapter2-load-analysis/ueff-calculation.md
+      - "2.2 AIW Profiling": chapter2-load-analysis/aiw-profiling.md
+
+  - "3. Risk & Latency":
+      - "Chapter 3 Overview": chapter3-risk-latency/README.md
+      - "3.1 CS Security Factor": chapter3-risk-latency/cs-scoring.md
+      - "3.2 LL Latency Factor": chapter3-risk-latency/ll-latency-factor.md
+
+  - "4. Bandwidth & QoS":
+      - "Chapter 4 Overview": chapter4-bandwidth/README.md
+      - "4.1 Bandwidth Formula": chapter4-bandwidth/bandwidth-formula.md
+      - "4.2 QoS Traffic Classes": chapter4-bandwidth/qos-traffic-classes.md
+      - "4.3 Model Sync Bandwidth": chapter4-bandwidth/model-sync-bandwidth.md
+
+  - "5. IS & PUO":
+      - "Chapter 5 Overview": chapter5-is-puo/README.md
+      - "5.1 IS Calculation": chapter5-is-puo/is-calculation.md
+      - "5.2 PUO Analysis": chapter5-is-puo/puo-analysis.md
+      - "5.3 Master Worksheet": chapter5-is-puo/master-worksheet.md
+
+  - "6. MCP Tier Design":
+      - "Chapter 6 Overview": chapter6-mcp-tiers/README.md
+      - "6.1 Tier Architecture": chapter6-mcp-tiers/tier-architecture.md
+      - "6.2 Routing Logic": chapter6-mcp-tiers/routing-logic.md
+
+  - "7. Network Upgrade":
+      - "Chapter 7 Overview": chapter7-network-upgrade/README.md
+      - "7.1 Gap Analysis": chapter7-network-upgrade/gap-analysis.md
+      - "7.2 Redundancy & Growth": chapter7-network-upgrade/redundancy-growth.md
+      - "7.3 Upgrade Roadmap": chapter7-network-upgrade/upgrade-roadmap.md
+
+  - "8. Case Study":
+      - "Chapter 8 Overview": chapter8-case-studies/README.md
+      - "8.1 Enterprise CC Example": chapter8-case-studies/enterprise-cc-example.md
+
+  - "9. IS Layer-by-Layer":
+      - "Chapter 9 Overview": chapter9-is-layer-by-layer/README.md
+      - "9.1 Understanding B": chapter9-is-layer-by-layer/understanding-b.md
+      - "9.2 Branch Layers B1-B4": chapter9-is-layer-by-layer/branch-layers.md
+      - "9.3 Campus Layers B5-B9": chapter9-is-layer-by-layer/campus-layers.md
+      - "9.4 WAN Path Comparison": chapter9-is-layer-by-layer/wan-comparison.md
+
+  - "Appendices":
+      - "Appendices Overview": appendices/README.md
+      - "Quick Reference Card": appendices/quick-reference.md
+      - "Glossary": appendices/glossary.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  - admonition
+  - pymdownx.details
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  - pymdownx.smartsymbols
+
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  - tables
+  - attr_list
+  - md_in_html
+  - meta
+  - abbr
+  - footnotes

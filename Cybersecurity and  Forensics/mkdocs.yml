@@ -1,0 +1,277 @@
+# ============================================================================
+# ABHAVTECH CYBERSECURITY DOCUMENTATION
+# ============================================================================
+# Project: ABV-SECOPS-AI-2025
+# Framework Version: 2.1
+# Last Updated: March 2026
+#
+# Enterprise cybersecurity, network forensics, and penetration testing
+# documentation for Cisco-centric AI-driven network infrastructure.
+# ============================================================================
+
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "Cybersecurity, Forensics & Penetration Testing"
+site_description: "Enterprise cybersecurity framework, network forensics procedures, and penetration testing methodologies for Cisco-centric AI-driven infrastructure"
+site_author: "Rajmohan M"
+site_url: https://cybersecurity.abhavtech.com
+
+# Copyright footer
+copyright: Copyright &copy; 2025-2026 AbhavTech
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  # Color palette with dark/light mode toggle
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  # Navigation and UI features
+  features:
+    # Navigation
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+
+    # Search
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+    # Table of contents
+    - toc.follow
+
+  # Icons
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  # INFRASTRUCTURE — Base Reference Architecture
+  - "Infrastructure":
+      - "Overview & HLD": infrastructure/README.md
+      - "Detailed Reference": infrastructure/reference-architecture.md
+
+  # CYBERSECURITY FRAMEWORK (Document 4A)
+  - "Cybersecurity Framework":
+      - "Framework Overview": cybersecurity-framework/README.md
+      - "1. Executive Summary": cybersecurity-framework/executive-summary.md
+      - "2. NIST CSF 2.0": cybersecurity-framework/nist-csf.md
+      - "3. CIS Controls": cybersecurity-framework/cis-controls.md
+      - "4. MITRE ATT&CK": cybersecurity-framework/mitre-attack.md
+      - "5. ISO 27001": cybersecurity-framework/iso-27001.md
+      - "6. SOC Operations": cybersecurity-framework/soc-operations.md
+      - "7. Incident Response": cybersecurity-framework/incident-response.md
+      - "8. Compliance": cybersecurity-framework/compliance.md
+
+  # NETWORK FORENSICS (Document 4B)
+  - "Network Forensics":
+      - "Forensics Overview": network-forensics/README.md
+      - Foundation:
+          - "Forensics Foundation": network-forensics/foundation/README.md
+          - "Forensics Infrastructure": network-forensics/foundation/forensics-infrastructure.md
+          - "Evidence Collection": network-forensics/foundation/evidence-collection.md
+          - "Chain of Custody": network-forensics/foundation/chain-of-custody.md
+          - "Analysis Tools": network-forensics/foundation/analysis-tools.md
+      - SD-WAN Forensics:
+          - "SD-WAN Overview": network-forensics/sd-wan/README.md
+          - "vManage Investigation": network-forensics/sd-wan/vmanage-investigation.md
+          - "IPsec Analysis": network-forensics/sd-wan/ipsec-analysis.md
+          - "OMP Forensics": network-forensics/sd-wan/omp-forensics.md
+      - DNAC Forensics:
+          - "DNAC Overview": network-forensics/dnac/README.md
+          - "Assurance Investigation": network-forensics/dnac/assurance-investigation.md
+          - "SDA Forensics": network-forensics/dnac/sda-forensics.md
+          - "DNA Center Logs": network-forensics/dnac/dnac-logs.md
+      - Webex Forensics:
+          - "Webex Overview": network-forensics/webex/README.md
+          - "Call Detail Records": network-forensics/webex/call-detail-records.md
+          - "Control Hub Investigation": network-forensics/webex/control-hub-investigation.md
+          - "Security Incidents": network-forensics/webex/security-incidents.md
+      - FTD Forensics:
+          - "FTD Overview": network-forensics/ftd/README.md
+          - "Firewall Logs": network-forensics/ftd/firewall-logs.md
+          - "IPS Events": network-forensics/ftd/ips-events.md
+          - "Connection Analysis": network-forensics/ftd/connection-analysis.md
+      - Zero Trust:
+          - "Zero Trust Overview": network-forensics/zero-trust/README.md
+          - "ISE Investigation": network-forensics/zero-trust/ise-investigation.md
+          - "TrustSec Forensics": network-forensics/zero-trust/trustsec-forensics.md
+          - "Access Anomalies": network-forensics/zero-trust/access-anomalies.md
+      - AI Observability:
+          - "AI Platform Overview": network-forensics/ai-observability/README.md
+          - "XDR Investigation": network-forensics/ai-observability/xdr-investigation.md
+          - "UEBA Analysis": network-forensics/ai-observability/ueba-analysis.md
+          - "Anomaly Detection": network-forensics/ai-observability/anomaly-detection.md
+
+  # PENETRATION TESTING (Document 4C)
+  - "Penetration Testing":
+      - "Pentest Overview": penetration-testing/README.md
+      - "1. Scope & Context": penetration-testing/scope-and-roe.md
+      - "2. Methodology": penetration-testing/methodology.md
+      - "3. SD-Access Testing": penetration-testing/sd-access-testing.md
+      - "4. SD-WAN Testing": penetration-testing/sd-wan-testing.md
+      - "5. Webex Testing": penetration-testing/webex-testing.md
+      - "6. Zero Trust Validation": penetration-testing/zero-trust-validation.md
+      - "7. AI Platform Testing": penetration-testing/ai-platform-testing.md
+      - "8. Social Engineering": penetration-testing/social-engineering.md
+      - "9. Purple Team Operations": penetration-testing/purple-team.md
+      - "10. AgenticOps Security": penetration-testing/pentest-agenticops.md
+      - "11. Reporting": penetration-testing/reporting.md
+      - "Appendices": penetration-testing/pentest-appendices.md
+
+  # APPENDICES
+  - "Appendices":
+      - "AI Reference Card": appendices/ai-reference-card.md
+      - "Master Reference Card": appendices/master-reference-card.md
+      - "Glossary": appendices/glossary.md
+      - "Tool References": appendices/tool-references.md
+      - "Disclaimer": appendices/disclaimer.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  # Table of contents
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  # Admonitions
+  - admonition
+  - pymdownx.details
+
+  # Code blocks
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # Lists and tasks
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Text formatting
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  # Smart symbols
+  - pymdownx.smartsymbols
+
+  # Emoji
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Tables
+  - tables
+
+  # HTML and attributes
+  - attr_list
+  - md_in_html
+  - meta
+
+  # Abbreviations
+  - abbr
+
+  # Footnotes
+  - footnotes

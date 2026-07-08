@@ -1,0 +1,305 @@
+# ============================================================================
+# UCCX TO WEBEX CONTACT CENTER MIGRATION
+# ============================================================================
+# Project: On-Premises UCCX to Cloud Webex Contact Center
+# Organization: AbhavTech
+# Version: 2.0
+# Last Updated: March 2026
+#
+# Based on: mkdocs-framework-template-v2.1.yml
+# ============================================================================
+
+
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "UCCX to Webex Contact Center Migration"
+site_description: "Enterprise contact center migration from UCCX to Webex Contact Center - 175 agents, multi-channel, AI-powered features, global deployment"
+site_author: "Rajmohan M | AbhavTech"
+site_url: https://wxcc.abhavtech.com
+
+# Copyright footer
+copyright: Copyright &copy; 2025-2026 AbhavTech
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  # Color palette with dark/light mode toggle
+  # Using custom colors defined in extra.css (gradient headers, matching tables)
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  # Navigation and UI features
+  features:
+    # Navigation
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+
+    # Search
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+    # Table of contents
+    - toc.follow
+
+  # Icons for admonitions
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/external-links.js
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+  # Social links in footer
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://abhavtech.com
+      name: AbhavTech
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  # TAB 1 — Assessment & Calling Design (Overview + Ch2)
+  - "Assessment & Calling":
+      - "Migration Overview":
+          - "Overview": chapter1-overview/README.md
+          - "1.1 Project Scope": chapter1-overview/project-scope.md
+          - "1.2 Migration Phases": chapter1-overview/migration-phases.md
+          - "1.3 Success Criteria": chapter1-overview/success-criteria.md
+      - "Webex Calling Design":
+          - "Overview": chapter-02-calling-design/README.md
+          - "2.1 Architecture Overview": chapter-02-calling-design/2-1-webex-calling-architecture-overview.md
+          - "2.2 Location Design": chapter-02-calling-design/2-2-location-design.md
+          - "2.3 PSTN Design": chapter-02-calling-design/2-3-pstn-design.md
+          - "2.4 Dial Plan Design": chapter-02-calling-design/2-4-dial-plan-design.md
+          - "2.5 Feature Design": chapter-02-calling-design/2-5-feature-design.md
+          - "2.6 Coexistence Design": chapter-02-calling-design/2-6-interworking-design-cucm-webex-coexistence.md
+
+  # TAB 2 — WxCC Design (Ch3)
+  - "CC Design":
+      - "Overview": chapter-03-cc-design/README.md
+      - "3.1 UCCX Current State": chapter-03-cc-design/3-1-uccx-current-state-assessment.md
+      - "3.2 WxCC Architecture": chapter-03-cc-design/3-2-webex-contact-center-architecture.md
+      - "3.3 Entry Point Design": chapter-03-cc-design/3-3-entry-point-design.md
+      - "3.4 Queue Design": chapter-03-cc-design/3-4-queue-design.md
+      - "3.5 Skills & Routing": chapter-03-cc-design/3-5-skills-and-routing-design.md
+      - "3.6 Flow Designer / IVR": chapter-03-cc-design/3-6-flow-designer---ivr-migration.md
+      - "3.7 Agent Desktop": chapter-03-cc-design/3-7-agent-desktop-design.md
+      - "3.8 Digital Channels": chapter-03-cc-design/3-8-digital-channel-design.md
+      - "3.9 AI Features": chapter-03-cc-design/3-9-ai-features-design.md
+      - "3.10 CC Compliance": chapter-03-cc-design/3-10-contact-center-compliance-by-region.md
+
+  # TAB 3 — Security, Compliance & Network (Ch4 + Ch5)
+  - "Compliance & Network":
+      - "Security & Compliance":
+          - "Overview": chapter-04-security-compliance/README.md
+      - "DNS & Network":
+          - "Overview": chapter-05-dns-network/README.md
+
+  # TAB 4 — Implementation (Ch6)
+  - "Implementation":
+      - "Overview": chapter-06-implementation/README.md
+      - "6.1 Pre-Implementation Setup": chapter-06-implementation/6-1-pre-implementation-setup.md
+      - "6.2 Entry Point Implementation": chapter-06-implementation/6-2-entry-point-implementation.md
+      - "6.3 Queue Implementation": chapter-06-implementation/6-3-queue-implementation.md
+      - "6.4 Skills & Routing": chapter-06-implementation/6-4-skills-and-routing-implementation.md
+      - "6.5 IVR Flow Implementation": chapter-06-implementation/6-5-ivr-flow-implementation.md
+      - "6.6 Agent & Team Provisioning": chapter-06-implementation/6-6-agent-and-team-provisioning.md
+      - "6.7 Digital Channels": chapter-06-implementation/6-7-digital-channel-implementation.md
+      - "6.8 AI Platform Integration": chapter-06-implementation/6-8-ai-platform-integration.md
+      - "6.9 Recording, QM & WFM": chapter-06-implementation/6-9-recording-qm-and-wfm-setup.md
+      - "6.10 Validation & Sign-Off": chapter-06-implementation/6-10-implementation-validation-and-sign-off.md
+
+  # TAB 5 — Migration Execution (Ch7)
+  - "Migration":
+      - "Overview": chapter-07-migration-execution/README.md
+      - "7.1 Pre-Migration Readiness": chapter-07-migration-execution/7-1-pre-migration-readiness.md
+      - "7.2 Migration Wave Planning": chapter-07-migration-execution/7-2-migration-wave-planning.md
+      - "7.3 Agent Training": chapter-07-migration-execution/7-3-agent-training.md
+      - "7.4 Cutover Execution": chapter-07-migration-execution/7-4-cutover-execution.md
+      - "7.5 Rollback Procedures": chapter-07-migration-execution/7-5-rollback-procedures.md
+      - "7.6 Go-Live Validation": chapter-07-migration-execution/7-6-go-live-validation.md
+      - "7.7 Hypercare Support": chapter-07-migration-execution/7-7-hypercare-support.md
+      - "7.8 UCCX Decommissioning": chapter-07-migration-execution/7-8-uccx-decommissioning.md
+      - "7.9 Cutover Checklists": chapter-07-migration-execution/7-9-cutover-checklists-reference.md
+
+  # TAB 6 — Operations & AI (Ch8 + Ch9 + Ch10)
+  - "Operations & AI":
+      - "Operations":
+          - "Overview": chapter-08-operations/README.md
+      - "AI Strategy":
+          - "Overview": chapter-09-ai-roadmap/README.md
+      - "AI Implementation":
+          - "Overview": chapter-10-ai-implementation/README.md
+          - "10.1 AI Platform Selection": chapter-10-ai-implementation/10-1-ai-platform-selection-and-hybrid-strategy.md
+          - "10.2 Integration Architecture": chapter-10-ai-implementation/10-2-integration-architecture.md
+          - "10.3 Webex AI Agent Config": chapter-10-ai-implementation/10-3-webex-ai-agent-configuration.md
+          - "10.4 Abhavtech Implementation": chapter-10-ai-implementation/10-4-webex-ai-agent---abhavtech-implementation.md
+          - "10.5 Dialogflow CX Setup": chapter-10-ai-implementation/10-5-dialogflow-cx-architecture-and-setup.md
+          - "10.6 NLU & Intent Design": chapter-10-ai-implementation/10-6-nlu-design-and-intent-development.md
+          - "10.7 Conversational Flows": chapter-10-ai-implementation/10-7-conversational-flow-design.md
+          - "10.8 Webhook & Fulfillment": chapter-10-ai-implementation/10-8-webhook-and-fulfillment-integration.md
+          - "10.9 Dialogflow Implementation": chapter-10-ai-implementation/10-9-dialogflow-cx---abhavtech-implementation.md
+          - "10.10 Intent-Based Routing": chapter-10-ai-implementation/10-10-intent-based-routing-architecture.md
+          - "10.11 AI Assistant Config": chapter-10-ai-implementation/10-13-cisco-ai-assistant-configuration.md
+          - "10.12 Knowledge Base": chapter-10-ai-implementation/10-14-knowledge-base-development.md
+          - "10.13 Training Strategy": chapter-10-ai-implementation/10-15-training-strategy-decision-framework.md
+          - "10.14 Continuous Improvement": chapter-10-ai-implementation/10-16-continuous-improvement-framework.md
+          - "10.15 AI Testing": chapter-10-ai-implementation/10-17-ai-testing-methodology.md
+          - "10.16 Deployment & Cutover": chapter-10-ai-implementation/10-18-deployment-and-cutover.md
+          - "10.17 AI Operations": chapter-10-ai-implementation/10-19-ai-operations-aiops.md
+
+  # TAB 7 — Appendices
+  - "Appendices":
+      - "Overview": appendices/README.md
+      - "A: Glossary": appendices/glossary.md
+      - "B: Reference Links": appendices/reference-links.md
+      - "C: Step-by-Step Config": appendices/step-by-step-configuration-procedures.md
+      - "D: Deferred Items": appendices/deferred-items-register.md
+      - "E: Master Checklist": appendices/master-checklist.md
+      - "F: AI Observability": appendices/ai-observability-guide.md
+      - "G: Master Reference Card": appendices/master-reference-card.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  # Table of contents
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  # Admonitions
+  - admonition
+  - pymdownx.details
+
+  # Code blocks
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # Lists and tasks
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Text formatting
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  # Smart symbols
+  - pymdownx.smartsymbols
+
+  # Emoji support
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Tables
+  - tables
+
+  # HTML and attributes
+  - attr_list
+  - md_in_html
+  - meta
+
+  # Abbreviations
+  - abbr
+
+  # Footnotes
+  - footnotes

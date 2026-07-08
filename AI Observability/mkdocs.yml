@@ -1,0 +1,189 @@
+# ============================================================================
+# CISCO AI OBSERVABILITY & SECURITY PLATFORM DESIGN
+# ============================================================================
+# Author: Rajmohan M
+# Framework: mkdocs-framework-template-v2.1
+# Last Updated: March 2026
+# Scope: AI Observability, Zero Trust, AI-Ready Network
+# ============================================================================
+
+site_name: "Cisco AI Observability & Security Platform Design"
+site_description: >-
+  AI-Powered Enterprise Observability, Zero Trust Architecture, and
+  AI-Ready Networks — comprehensive technical design for modern IT operations.
+site_author: "Rajmohan M"
+site_url: https://ai-observability.abhavtech.com/
+
+copyright: Copyright &copy; 2025-2026 AbhavTech
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  features:
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+    - search.highlight
+    - search.suggest
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+    - toc.follow
+
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS & JS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/external-links.js
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  - "AI Observability":
+      - "Overview": ai-observability/README.md
+      - "AI-Enabled Observability Platform": ai-observability/ai-enabled-observability.md
+      - "Implementation Guide": ai-observability/implementation-guide.md
+      - "Master Checklist": ai-observability/master-checklist.md
+
+  - "Zero Trust":
+      - "Overview": zero-trust/README.md
+      - "Zero Trust Architecture": zero-trust/zero-trust-architecture.md
+      - "Implementation Guide": zero-trust/implementation-guide.md
+      - "Master Checklist": zero-trust/master-checklist.md
+
+  - "AI-Ready Network":
+      - "Overview": ai-ready-network/README.md
+      - "Network Architecture": ai-ready-network/network-architecture.md
+      - "Implementation Guide": ai-ready-network/implementation-guide.md
+      - "Master Checklist": ai-ready-network/master-checklist.md
+
+  - "Appendices":
+      - "Disclaimer": appendices/disclaimer.md
+      - "Glossary": appendices/glossary.md
+      - "References": appendices/references.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  - admonition
+  - pymdownx.details
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.smartsymbols
+
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  - tables
+  - attr_list
+  - md_in_html
+  - meta
+  - abbr
+  - footnotes

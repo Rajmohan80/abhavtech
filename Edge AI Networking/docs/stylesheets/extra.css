@@ -1,0 +1,341 @@
+/* ============================================================================
+   MKDOCS MATERIAL — CUSTOM CSS TEMPLATE
+   ============================================================================
+   Version: 2.1 (March 2026)
+   Companion to: mkdocs-framework-template-v2.yml
+   
+   USAGE:
+   Copy this file to docs/stylesheets/extra.css in your project.
+   Customize the hex color values below to match your branding.
+   
+   COLOR CUSTOMIZATION GUIDE:
+   Pick your brand color, then use https://coolors.co to generate a
+   gradient palette. You need three shades:
+     - Deep variant   → gradient start, footer, tab bar
+     - Medium variant → primary color, gradient middle
+     - Light variant  → gradient end, accent line, hover states
+   
+   Example palettes (deep → medium → light):
+     Sky Blue:   #1B6CA0 → #2E8BC0 → #4AADE1  (this template)
+     Teal:       #00695C → #00897B → #26A69A
+     Purple:     #4A148C → #7B1FA2 → #AB47BC
+     Green:      #1B5E20 → #2E7D32 → #43A047
+     Orange:     #BF360C → #E64A19 → #FF7043
+     Navy:       #0D1B2A → #1B3A5C → #2E6B9E
+   
+   ⚠️  DO NOT ADD custom position/overflow/height CSS to
+   .md-sidebar--secondary — it breaks toc.follow auto-scrolling.
+   ============================================================================ */
+
+
+/* ============================================================
+   1. COLOR SCHEME
+   ============================================================ */
+
+/* Light mode — change these hex values to your brand colors */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #3C9DD5;    /* Medium — primary UI color */
+  --md-primary-fg-color--light: #6BB9E6;    /* Light — hover states */
+  --md-primary-fg-color--dark:  #2573A8;    /* Dark — emphasis */
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color:         #0288D1;    /* Links, active sidebar items */
+}
+
+/* Dark mode — slightly deeper/muted versions of the same palette */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #3090C7;
+  --md-primary-fg-color--light: #5DB0DC;
+  --md-primary-fg-color--dark:  #1D6FA0;
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color:         #4FC3F7;
+}
+
+
+/* ============================================================
+   2. HEADER — Gradient + accent line
+   ============================================================ */
+
+/* Title bar gradient: deep → medium → light */
+.md-header {
+  background: linear-gradient(135deg, #1B6CA0 0%, #2E8BC0 35%, #4AADE1 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Accent line under header (shimmer effect) */
+.md-header::after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, #4FC3F7, #81D4FA, #B3E5FC, #81D4FA, #4FC3F7);
+}
+
+/* Tab bar: slightly deeper shade for two-tone layering */
+.md-tabs {
+  background: linear-gradient(135deg, #1a6597 0%, #27799e 35%, #3d98c8 100%);
+}
+
+/* Tab hover */
+.md-tabs__link:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px 4px 0 0;
+  transition: background-color 0.2s ease;
+}
+
+/* Active tab indicator */
+.md-tabs__link--active {
+  border-bottom: 2px solid #B3E5FC;
+}
+
+/* Search bar — frosted glass effect */
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+}
+
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.md-search__input:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* ============================================================
+   3. LAYOUT — Wider content area
+   ============================================================ */
+
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 1600px;
+  }
+  .md-sidebar--secondary {
+    width: 11rem;
+  }
+}
+
+@media screen and (min-width: 60em) and (max-width: 76.25em) {
+  .md-grid {
+    max-width: 100%;
+  }
+}
+
+
+/* ============================================================
+   4. SIDEBAR
+   ============================================================ */
+
+/* Active nav link highlight */
+.md-nav__item .md-nav__link--active {
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+}
+
+/* Smooth sidebar scrolling */
+.md-sidebar__scrollwrap {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}
+
+/* Right TOC — compact */
+.md-sidebar--secondary .md-nav__link {
+  font-size: 0.7rem;
+  padding: 0.3em 0.6em;
+}
+
+/* Active TOC entry — blue left border + bold */
+.md-sidebar--secondary .md-nav__link--active {
+  color: var(--md-accent-fg-color);
+  font-weight: 600;
+  border-left: 2px solid var(--md-accent-fg-color);
+}
+
+
+/* ============================================================
+   5. TABLES — Gradient headers matching theme
+   ============================================================ */
+
+.md-typeset table:not([class]) {
+  font-size: 0.82rem;
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background: linear-gradient(135deg, #2E8BC0, #4AADE1);
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) td {
+  vertical-align: top;
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) {
+  background-color: var(--md-default-bg-color--light);
+}
+
+
+/* ============================================================
+   6. ADMONITIONS
+   ============================================================ */
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-color: #F9A825;
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--md-primary-fg-color);
+}
+
+
+/* ============================================================
+   7. CODE BLOCKS
+   ============================================================ */
+
+.md-typeset pre > code {
+  font-size: 0.8rem;
+}
+
+
+/* ============================================================
+   8. BADGES (optional — remove if not needed)
+   ============================================================ */
+
+.md-content .ai-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #2E8BC0, #4AADE1);
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.status-complete {
+  display: inline-block;
+  background: #2e7d32;
+  color: white;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-in-progress {
+  display: inline-block;
+  background: #f57c00;
+  color: white;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   9. MERMAID DIAGRAMS
+   ============================================================ */
+
+.mermaid {
+  text-align: center;
+  margin: 1.5em 0;
+}
+
+
+/* ============================================================
+   10. FOOTER — Gradient matching header
+   ============================================================ */
+
+.md-footer {
+  background: linear-gradient(135deg, #1B6CA0 0%, #2E8BC0 50%, #3C9DD5 100%);
+}
+
+
+/* ============================================================
+   11. PRINT
+   ============================================================ */
+
+@media print {
+  .md-sidebar,
+  .md-header,
+  .md-footer {
+    display: none !important;
+  }
+  .md-content {
+    max-width: 100% !important;
+  }
+}
+
+
+/* ============================================================
+   12. MERMAID DIAGRAM VIEWER (click to open full-size)
+   ============================================================ */
+
+.mermaid-zoom-wrap {
+  position: relative;
+  margin: 1.5em 0;
+}
+
+.mermaid-zoom-wrap .mermaid {
+  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  background: #ffffff;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow-x: auto;
+}
+
+.mermaid-zoom-wrap .mermaid:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 4px 16px rgba(27, 108, 160, 0.15);
+}
+
+.mermaid-zoom-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1B6CA0, #2E8BC0);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  opacity: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.mermaid-zoom-wrap:hover .mermaid-zoom-btn,
+.mermaid-zoom-btn:focus-visible {
+  opacity: 1;
+}
+
+.mermaid-zoom-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* On touch devices (no hover), keep the button visible */
+@media (hover: none) {
+  .mermaid-zoom-btn { opacity: 1; }
+}

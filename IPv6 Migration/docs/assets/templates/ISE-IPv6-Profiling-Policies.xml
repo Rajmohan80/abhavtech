@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ABHAVTECH ISE IPv6 PROFILING POLICIES
+Import into ISE via: Administration > System > Maintenance > Import/Export > Import
+Version: 1.0
+-->
+<ProfilingPolicyExport>
+  <ProfilingPolicy name="Windows-Workstation-IPv6" description="Windows workstation detected via DHCPv6 fingerprint">
+    <ParentPolicy>Workstation</ParentPolicy>
+    <Rules>
+      <Rule>
+        <RuleType>AND</RuleType>
+        <Conditions>
+          <Condition>
+            <AttributeName>DHCP-Option(55)</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>1,15,3,6,44,46</Value>
+            <Description>DHCPv4 parameter request list (Windows signature)</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>DHCPv6-Option(1)</AttributeName>
+            <Operator>EXISTS</Operator>
+            <Value></Value>
+            <Description>DHCPv6 Client Identifier (DUID) present</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>DHCPv6-Vendor-Class</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>MSFT 5.0</Value>
+            <Description>Microsoft DHCPv6 vendor class</Description>
+          </Condition>
+        </Conditions>
+      </Rule>
+    </Rules>
+    <Actions>
+      <AssignSGT>10</AssignSGT>
+      <AssignProfile>Microsoft-Workstation</AssignProfile>
+    </Actions>
+    <Priority>100</Priority>
+    <Enabled>true</Enabled>
+  </ProfilingPolicy>
+
+  <ProfilingPolicy name="iPhone-iOS-IPv6" description="Apple iPhone detected via DHCPv6 vendor class">
+    <ParentPolicy>Apple-Device</ParentPolicy>
+    <Rules>
+      <Rule>
+        <RuleType>AND</RuleType>
+        <Conditions>
+          <Condition>
+            <AttributeName>DHCPv6-Vendor-Class</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>Apple</Value>
+            <Description>Apple DHCPv6 vendor identifier</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>User-Agent</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>iPhone</Value>
+            <Description>HTTP User-Agent contains iPhone</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>OUI</AttributeName>
+            <Operator>STARTS_WITH</Operator>
+            <Value>00:03:93,00:05:02,00:0A:27,00:0D:93</Value>
+            <Description>Apple OUI ranges</Description>
+          </Condition>
+        </Conditions>
+      </Rule>
+    </Rules>
+    <Actions>
+      <AssignSGT>10</AssignSGT>
+      <AssignProfile>Apple-iPhone</AssignProfile>
+    </Actions>
+    <Priority>100</Priority>
+    <Enabled>true</Enabled>
+  </ProfilingPolicy>
+
+  <ProfilingPolicy name="Android-Device-IPv6" description="Android device detected via DHCPv6">
+    <ParentPolicy>Android</ParentPolicy>
+    <Rules>
+      <Rule>
+        <RuleType>AND</RuleType>
+        <Conditions>
+          <Condition>
+            <AttributeName>DHCPv6-Vendor-Class</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>dhcpcd</Value>
+            <Description>Android DHCPv6 client (dhcpcd)</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>User-Agent</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>Android</Value>
+            <Description>HTTP User-Agent contains Android</Description>
+          </Condition>
+        </Conditions>
+      </Rule>
+    </Rules>
+    <Actions>
+      <AssignSGT>10</AssignSGT>
+      <AssignProfile>Android-Device</AssignProfile>
+    </Actions>
+    <Priority>100</Priority>
+    <Enabled>true</Enabled>
+  </ProfilingPolicy>
+
+  <ProfilingPolicy name="IoT-Camera-IPv6" description="IP Camera using DHCPv6 stateful">
+    <ParentPolicy>Camera</ParentPolicy>
+    <Rules>
+      <Rule>
+        <RuleType>AND</RuleType>
+        <Conditions>
+          <Condition>
+            <AttributeName>DHCPv6-Option(1)</AttributeName>
+            <Operator>EXISTS</Operator>
+            <Value></Value>
+            <Description>DHCPv6 DUID present (stateful addressing)</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>OUI</AttributeName>
+            <Operator>STARTS_WITH</Operator>
+            <Value>00:40:8C,AC:CC:8E</Value>
+            <Description>Axis Communications OUI</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>HTTP-User-Agent</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>AXIS</Value>
+            <Description>Axis camera HTTP signature</Description>
+          </Condition>
+        </Conditions>
+      </Rule>
+    </Rules>
+    <Actions>
+      <AssignSGT>25</AssignSGT>
+      <AssignProfile>Axis-Camera</AssignProfile>
+      <AssignVLAN>1031</AssignVLAN>
+    </Actions>
+    <Priority>90</Priority>
+    <Enabled>true</Enabled>
+  </ProfilingPolicy>
+
+  <ProfilingPolicy name="Cisco-IP-Phone-IPv6" description="Cisco IP Phone 8800 series with IPv6">
+    <ParentPolicy>Cisco-IP-Phone</ParentPolicy>
+    <Rules>
+      <Rule>
+        <RuleType>AND</RuleType>
+        <Conditions>
+          <Condition>
+            <AttributeName>DHCPv6-Vendor-Class</AttributeName>
+            <Operator>STARTS_WITH</Operator>
+            <Value>ciscopnp</Value>
+            <Description>Cisco Phone DHCPv6 vendor class</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>DHCP-Option(60)</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>Cisco Systems, Inc. IP Phone CP-88</Value>
+            <Description>Cisco 8800 series phone</Description>
+          </Condition>
+          <Condition>
+            <AttributeName>CDP-Platform</AttributeName>
+            <Operator>CONTAINS</Operator>
+            <Value>Cisco IP Phone</Value>
+            <Description>CDP platform identifier</Description>
+          </Condition>
+        </Conditions>
+      </Rule>
+    </Rules>
+    <Actions>
+      <AssignSGT>15</AssignSGT>
+      <AssignProfile>Cisco-IP-Phone-8800</AssignProfile>
+      <AssignVLAN>1051</AssignVLAN>
+      <VoiceVLAN>true</VoiceVLAN>
+    </Actions>
+    <Priority>110</Priority>
+    <Enabled>true</Enabled>
+  </ProfilingPolicy>
+
+  <!-- Network Device IPv6 Addresses Template -->
+  <NetworkDevices>
+    <NetworkDevice name="MUM-ED-F1-01">
+      <IPv4Address>10.250.1.10</IPv4Address>
+      <IPv6Address>2001:db8:abc1:0::10/128</IPv6Address>
+      <RADIUSSharedSecret>$ENCRYPTED$</RADIUSSharedSecret>
+      <DeviceType>Cisco Catalyst 9300</DeviceType>
+      <Location>Mumbai HQ Floor 1</Location>
+      <CoAPort>1700</CoAPort>
+    </NetworkDevice>
+    <!-- Add additional devices following same pattern -->
+  </NetworkDevices>
+
+  <!-- DHCPv6 Attributes Dictionary -->
+  <AttributeDictionary>
+    <Attribute name="DHCPv6-Option(1)" type="binary" description="DHCPv6 Client Identifier (DUID)"/>
+    <Attribute name="DHCPv6-Option(2)" type="binary" description="DHCPv6 Server Identifier"/>
+    <Attribute name="DHCPv6-Option(3)" type="binary" description="Identity Association for Non-temporary Address"/>
+    <Attribute name="DHCPv6-Option(15)" type="string" description="User Class"/>
+    <Attribute name="DHCPv6-Option(16)" type="string" description="Vendor Class"/>
+    <Attribute name="DHCPv6-Vendor-Class" type="string" description="Vendor-specific class identifier"/>
+    <Attribute name="DHCPv6-DUID" type="string" description="DHCP Unique Identifier (persistent per device)"/>
+  </AttributeDictionary>
+
+  <!-- Authorization Policy Examples -->
+  <AuthorizationPolicies>
+    <Policy name="IPv6-Corporate-Access">
+      <Conditions>
+        <Condition>Network_Device_Type EQUALS Cisco-Switch</Condition>
+        <Condition>Endpoint_Profile EQUALS Windows-Workstation-IPv6</Condition>
+        <Condition>AD_Group CONTAINS Employees</Condition>
+      </Conditions>
+      <Results>
+        <VLAN>1011</VLAN>
+        <SGT>10</SGT>
+        <ACL>CORPORATE-IN-v6-ACL</ACL>
+        <VoiceDomain>Disabled</VoiceDomain>
+      </Results>
+    </Policy>
+
+    <Policy name="IPv6-Guest-Access">
+      <Conditions>
+        <Condition>Network_Device_Type EQUALS Cisco-WLC</Condition>
+        <Condition>SSID EQUALS Corp-Guest</Condition>
+      </Conditions>
+      <Results>
+        <VLAN>1021</VLAN>
+        <SGT>20</SGT>
+        <ACL>GUEST-IN-v6-ACL</ACL>
+        <RedirectURL>https://guest.abhavtech.com</RedirectURL>
+      </Results>
+    </Policy>
+
+    <Policy name="IPv6-IoT-Access">
+      <Conditions>
+        <Condition>Endpoint_Profile EQUALS IoT-Camera-IPv6</Condition>
+      </Conditions>
+      <Results>
+        <VLAN>1031</VLAN>
+        <SGT>25</SGT>
+        <ACL>IOT-IN-v6-ACL</ACL>
+        <DHCPv6>Stateful</DHCPv6>
+      </Results>
+    </Policy>
+  </AuthorizationPolicies>
+
+  <!-- IPv6 ACL Templates -->
+  <IPv6ACLs>
+    <ACL name="CORPORATE-IN-v6-ACL">
+      <Entries>
+        <Entry sequence="10" action="permit" protocol="ipv6" source="any" destination="any"/>
+        <Entry sequence="20" action="deny" protocol="icmpv6" source="any" destination="any" icmp-type="router-advertisement" comment="Block rogue RAs"/>
+        <Entry sequence="30" action="permit" protocol="icmpv6" source="any" destination="any" comment="Allow other ICMPv6"/>
+      </Entries>
+    </ACL>
+
+    <ACL name="GUEST-IN-v6-ACL">
+      <Entries>
+        <Entry sequence="10" action="deny" protocol="ipv6" source="any" destination="2001:db8:abc1:5000::/52" comment="Block server VLANs"/>
+        <Entry sequence="20" action="permit" protocol="tcp" source="any" destination="any" port="80,443" comment="HTTP/HTTPS only"/>
+        <Entry sequence="30" action="permit" protocol="udp" source="any" destination="any" port="53" comment="DNS"/>
+        <Entry sequence="40" action="deny" protocol="ipv6" source="any" destination="any"/>
+      </Entries>
+    </ACL>
+
+    <ACL name="IOT-IN-v6-ACL">
+      <Entries>
+        <Entry sequence="10" action="permit" protocol="tcp" source="any" destination="2001:db8:abc1:5001::/64" port="80,443" comment="To web servers"/>
+        <Entry sequence="20" action="permit" protocol="udp" source="any" destination="any" port="53" comment="DNS"/>
+        <Entry sequence="30" action="deny" protocol="ipv6" source="any" destination="any"/>
+      </Entries>
+    </ACL>
+  </IPv6ACLs>
+</ProfilingPolicyExport>

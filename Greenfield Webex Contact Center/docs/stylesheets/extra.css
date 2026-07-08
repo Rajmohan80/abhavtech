@@ -1,0 +1,257 @@
+/* AbhavTech - Avaya to Webex CC Migration Guide */
+
+/* ============================================================
+   1. COLOR SCHEME — Sky Blue with depth
+   ============================================================ */
+
+/* Light mode */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #3C9DD5;
+  --md-primary-fg-color--light: #6BB9E6;
+  --md-primary-fg-color--dark:  #2573A8;
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color:         #0288D1;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #3090C7;
+  --md-primary-fg-color--light: #5DB0DC;
+  --md-primary-fg-color--dark:  #1D6FA0;
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+  --md-accent-fg-color:         #4FC3F7;
+}
+
+
+/* ============================================================
+   2. HEADER — Gradient + accent line
+   ============================================================ */
+
+/* Title bar: deeper blue → sky blue gradient */
+.md-header {
+  background: linear-gradient(135deg, #1B6CA0 0%, #2E8BC0 35%, #4AADE1 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Accent line under header */
+.md-header::after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, #4FC3F7, #81D4FA, #B3E5FC, #81D4FA, #4FC3F7);
+}
+
+/* Tab bar: slightly lighter/more transparent for two-tone layering */
+.md-tabs {
+  background: linear-gradient(135deg, #1a6597 0%, #27799e 35%, #3d98c8 100%);
+}
+
+/* Tab hover effect */
+.md-tabs__link:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px 4px 0 0;
+  transition: background-color 0.2s ease;
+}
+
+/* Active tab subtle indicator */
+.md-tabs__link--active {
+  border-bottom: 2px solid #B3E5FC;
+}
+
+/* Search bar styling */
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+}
+
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.md-search__input:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* ============================================================
+   3. LAYOUT — Wider content area
+   ============================================================ */
+
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 1600px;
+  }
+  .md-sidebar--secondary {
+    width: 11rem;
+  }
+}
+
+@media screen and (min-width: 60em) and (max-width: 76.25em) {
+  .md-grid {
+    max-width: 100%;
+  }
+}
+
+
+/* ============================================================
+   4. SIDEBAR
+   ============================================================ */
+
+.md-nav__item .md-nav__link--active {
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+}
+
+/* Ensure sidebar scrolls to active item */
+.md-sidebar__scrollwrap {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}
+
+/* Right TOC — compact */
+.md-sidebar--secondary .md-nav__link {
+  font-size: 0.7rem;
+  padding: 0.3em 0.6em;
+}
+
+.md-sidebar--secondary .md-nav__link--active {
+  color: var(--md-accent-fg-color);
+  font-weight: 600;
+  border-left: 2px solid var(--md-accent-fg-color);
+}
+
+/* Prevent last TOC items from hiding behind Previous/Next footer */
+.md-sidebar--secondary .md-nav {
+  padding-bottom: 4rem;
+}
+
+
+/* ============================================================
+   5. TABLES — Sky blue headers
+   ============================================================ */
+
+.md-typeset table:not([class]) {
+  font-size: 0.82rem;
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background: linear-gradient(135deg, #2E8BC0, #4AADE1);
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) td {
+  vertical-align: top;
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) {
+  background-color: var(--md-default-bg-color--light);
+}
+
+
+/* ============================================================
+   6. ADMONITIONS — Styled to match theme
+   ============================================================ */
+
+/* Warning admonitions — used for disclaimers */
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-color: #F9A825;
+}
+
+/* Note admonitions */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--md-primary-fg-color);
+}
+
+
+/* ============================================================
+   7. CODE BLOCKS
+   ============================================================ */
+
+.md-typeset pre > code {
+  font-size: 0.8rem;
+}
+
+
+/* ============================================================
+   8. BADGES
+   ============================================================ */
+
+.md-content .ai-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #2E8BC0, #4AADE1);
+  color: white;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.status-complete {
+  display: inline-block;
+  background: #2e7d32;
+  color: white;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-in-progress {
+  display: inline-block;
+  background: #f57c00;
+  color: white;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   9. MERMAID DIAGRAMS
+   ============================================================ */
+
+.mermaid {
+  text-align: center;
+  margin: 1.5em 0;
+}
+
+
+/* ============================================================
+   10. FOOTER — Subtle gradient to match header
+   ============================================================ */
+
+.md-footer {
+  background: linear-gradient(135deg, #1B6CA0 0%, #2E8BC0 50%, #3C9DD5 100%);
+}
+
+
+/* ============================================================
+   11. PRINT
+   ============================================================ */
+
+@media print {
+  .md-sidebar,
+  .md-header,
+  .md-footer {
+    display: none !important;
+  }
+  .md-content {
+    max-width: 100% !important;
+  }
+}

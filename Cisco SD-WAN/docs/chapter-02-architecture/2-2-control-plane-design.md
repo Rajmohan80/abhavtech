@@ -1,0 +1,847 @@
+# 2.2 Control Plane Design
+
+## Document Information
+| Field | Value |
+|-------|-------|
+| Document ID | SDWAN-CH2-002 |
+| Version | 1.0 |
+| Last Updated | December 2025 |
+| Author | Network Architecture Team |
+| Status | Final |
+| Classification | Internal Use |
+
+---
+
+## 2.2.1 Control Plane Architecture Overview
+
+### SD-WAN Control Plane Components
+
+The Cisco Catalyst SD-WAN control plane consists of three primary components working together to establish, maintain, and manage the overlay network.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     SD-WAN CONTROL PLANE ARCHITECTURE                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                    ┌──────────────────────────────┐                         │
+│                    │      SD-WAN MANAGER          │                         │
+│                    │        (vManage)             │                         │
+│                    │  ┌────────────────────────┐  │                         │
+│                    │  │ - Configuration Mgmt   │  │                         │
+│                    │  │ - Policy Orchestration │  │                         │
+│                    │  │ - Monitoring/Analytics │  │                         │
+│                    │  │ - Certificate Authority│  │                         │
+│                    │  │ - REST API Gateway     │  │                         │
+│                    │  └────────────────────────┘  │                         │
+│                    └──────────────┬───────────────┘                         │
+│                                   │                                         │
+│                    NETCONF/HTTPS  │  OMP/DTLS                              │
+│                                   │                                         │
+│     ┌─────────────────────────────┼─────────────────────────────┐          │
+│     │                             │                             │          │
+│     ▼                             ▼                             ▼          │
+│  ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐      │
+│  │  SD-WAN VALIDATOR│    │ SD-WAN CONTROLLER│    │ SD-WAN CONTROLLER│      │
+│  │     (vBond)      │    │    (vSmart-1)    │    │    (vSmart-2)    │      │
+│  │  ┌────────────┐  │    │  ┌────────────┐  │    │  ┌────────────┐  │      │
+│  │  │- Auth      │  │    │  │- OMP Route │  │    │  │- OMP Route │  │      │
+│  │  │- Discovery │  │    │  │  Reflector │  │    │  │  Reflector │  │      │
+│  │  │- NAT       │  │    │  │- Policy    │  │    │  │- Policy    │  │      │
+│  │  │  Traversal │  │    │  │  Engine    │  │    │  │  Engine    │  │      │
+│  │  │- Orchestr. │  │    │  │- Key Dist  │  │    │  │- Key Dist  │  │      │
+│  │  └────────────┘  │    │  └────────────┘  │    │  └────────────┘  │      │
+│  └────────┬─────────┘    └────────┬─────────┘    └────────┬─────────┘      │
+│           │                       │                       │                 │
+│           │    DTLS Control Connections (UDP 12346)       │                 │
+│           │                       │                       │                 │
+│     ┌─────┴───────────────────────┴───────────────────────┴─────┐          │
+│     │                                                           │          │
+│     │                     WAN EDGE ROUTERS                      │          │
+│     │              (cEdge - Data Plane Devices)                 │          │
+│     │                                                           │          │
+│     │  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐     │          │
+│     │  │ Mumbai  │  │ Chennai │  │ London  │  │  Dallas │     │          │
+│     │  │  DC     │  │   DR    │  │   Hub   │  │   Hub   │     │          │
+│     │  └─────────┘  └─────────┘  └─────────┘  └─────────┘     │          │
+│     └───────────────────────────────────────────────────────────┘          │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Control Plane Communication Matrix
+
+| Source | Destination | Protocol | Port | Purpose |
+|--------|-------------|----------|------|---------|
+| WAN Edge | vBond | DTLS | UDP 12346 | Initial authentication |
+| WAN Edge | vSmart | DTLS | UDP 12346 | OMP peering |
+| WAN Edge | vManage | DTLS | UDP 12346 | Management |
+| vSmart | vSmart | DTLS | UDP 12346 | Controller peering |
+| vManage | vSmart | NETCONF | TCP 830 | Configuration |
+| vManage | WAN Edge | NETCONF | TCP 830 | Configuration |
+| Admin | vManage | HTTPS | TCP 443 | Web GUI |
+| API Client | vManage | REST | TCP 443/8443 | Automation |
+
+---
+
+## 2.2.2 SD-WAN Manager (vManage) Design
+
+### Cluster Architecture
+
+Abhavtech.com deploys a 3-node vManage cluster for high availability and scalability.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    vMANAGE CLUSTER DESIGN - MUMBAI DC                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                         F5 Load Balancer VIP                                │
+│                      vmanage.abhavtech.com:443                              │
+│                         198.51.100.10:443                                   │
+│                                │                                            │
+│            ┌───────────────────┼───────────────────┐                       │
+│            │                   │                   │                       │
+│            ▼                   ▼                   ▼                       │
+│     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐               │
+│     │  vManage-1  │     │  vManage-2  │     │  vManage-3  │               │
+│     │   PRIMARY   │     │  SECONDARY  │     │  TERTIARY   │               │
+│     │             │     │             │     │             │               │
+│     │ ┌─────────┐ │     │ ┌─────────┐ │     │ ┌─────────┐ │               │
+│     │ │ Config  │ │     │ │ Config  │ │     │ │ Config  │ │               │
+│     │ │ Server  │ │     │ │ Server  │ │     │ │ Server  │ │               │
+│     │ ├─────────┤ │     │ ├─────────┤ │     │ ├─────────┤ │               │
+│     │ │ Stats   │ │     │ │ Stats   │ │     │ │ Stats   │ │               │
+│     │ │ Server  │ │     │ │ Server  │ │     │ │ Server  │ │               │
+│     │ ├─────────┤ │     │ ├─────────┤ │     │ ├─────────┤ │               │
+│     │ │ App     │ │     │ │ App     │ │     │ │ App     │ │               │
+│     │ │ Server  │ │     │ │ Server  │ │     │ │ Server  │ │               │
+│     │ ├─────────┤ │     │ ├─────────┤ │     │ ├─────────┤ │               │
+│     │ │Messaging│ │     │ │Messaging│ │     │ │Messaging│ │               │
+│     │ │ Server  │ │     │ │ Server  │ │     │ │ Server  │ │               │
+│     │ └─────────┘ │     │ └─────────┘ │     │ └─────────┘ │               │
+│     │             │     │             │     │             │               │
+│     │ ETH0 (Mgmt) │     │ ETH0 (Mgmt) │     │ ETH0 (Mgmt) │               │
+│     │198.51.100.11│     │198.51.100.12│     │198.51.100.13│               │
+│     │             │     │             │     │             │               │
+│     │ ETH1(Cluster│     │ ETH1(Cluster│     │ ETH1(Cluster│               │
+│     │192.168.1.11 │     │192.168.1.12 │     │192.168.1.13 │               │
+│     └──────┬──────┘     └──────┬──────┘     └──────┬──────┘               │
+│            │                   │                   │                       │
+│            └───────────────────┼───────────────────┘                       │
+│                                │                                           │
+│                    Cluster Network (VLAN 999)                              │
+│                       192.168.1.0/24                                       │
+│                                                                            │
+│  Services Distribution (Active-Active-Active):                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐  │
+│  │ Service          │ Node 1 │ Node 2 │ Node 3 │ Leader Election       │  │
+│  │──────────────────│────────│────────│────────│───────────────────────│  │
+│  │ Configuration DB │ Active │ Active │ Active │ Raft Consensus        │  │
+│  │ Statistics DB    │ Active │ Active │ Active │ Distributed           │  │
+│  │ Application Svc  │ Active │ Active │ Active │ Load Balanced         │  │
+│  │ Messaging        │ Active │ Active │ Active │ Kafka Cluster         │  │
+│  │ Coordination     │ Leader │Follower│Follower│ Zookeeper             │  │
+│  └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### vManage Server Specifications
+
+| Parameter | Specification |
+|-----------|---------------|
+| **Hardware Type** | VMware ESXi Virtual Machine |
+| **vCPU** | 32 cores (Reserved) |
+| **Memory** | 128 GB (Reserved) |
+| **Storage** | 2 TB SSD (Thin provisioned) |
+| **Network Interfaces** | 2 (Management + Cluster) |
+| **ESXi Version** | 7.0 U3 or later |
+| **VM Hardware Version** | 19 |
+
+### vManage IP Addressing
+
+| Node | Management IP | Cluster IP | System IP |
+|------|---------------|------------|-----------|
+| vManage-1 | 198.51.100.11/24 | 192.168.1.11/24 | 10.255.254.1 |
+| vManage-2 | 198.51.100.12/24 | 192.168.1.12/24 | 10.255.254.2 |
+| vManage-3 | 198.51.100.13/24 | 192.168.1.13/24 | 10.255.254.3 |
+| Cluster VIP | 198.51.100.10/24 | N/A | N/A |
+
+### vManage Initial Configuration
+
+```
+! vManage Node 1 Initial Configuration
+system
+ host-name               vManage-MUM-1
+ system-ip               10.255.254.1
+ domain-id               1
+ site-id                 100
+ organization-name       "Abhavtech"
+ vbond vbond.abhavtech.com
+ !
+ clock timezone Asia/Kolkata
+ !
+ logging
+  disk
+   enable
+  !
+ !
+!
+vpn 0
+ name "Transport"
+ dns 10.10.10.53 primary
+ dns 10.10.20.53 secondary
+ !
+ interface eth0
+  ip address 198.51.100.11/24
+  no shutdown
+ !
+ ip route 0.0.0.0/0 198.51.100.1
+!
+vpn 512
+ name "Management"
+ interface eth1
+  ip address 192.168.1.11/24
+  no shutdown
+ !
+!
+
+! Cluster Configuration (after all nodes deployed)
+cluster
+ vmanage-cluster
+  vmanage 10.255.254.1 admin <password> 192.168.1.11
+  vmanage 10.255.254.2 admin <password> 192.168.1.12
+  vmanage 10.255.254.3 admin <password> 192.168.1.13
+ !
+!
+```
+
+### Disaster Recovery Configuration
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    vMANAGE DR ARCHITECTURE - CHENNAI DR                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   MUMBAI DC (PRIMARY)                      CHENNAI DR (STANDBY)            │
+│   ══════════════════                       ═════════════════════            │
+│                                                                             │
+│   ┌─────────────────────┐                  ┌─────────────────────┐         │
+│   │ vManage Cluster     │                  │ vManage DR Cluster  │         │
+│   │ (Active)            │                  │ (Standby)           │         │
+│   │                     │     Replication  │                     │         │
+│   │ ┌─────┐┌─────┐┌───┐│ ──────────────► │ ┌─────┐┌─────┐┌───┐│         │
+│   │ │VM-1 ││VM-2 ││VM3││     Async       │ │DR-1 ││DR-2 ││DR3││         │
+│   │ └─────┘└─────┘└───┘│     (15 min)    │ └─────┘└─────┘└───┘│         │
+│   │                     │                  │                     │         │
+│   │ 198.51.100.10 (VIP) │                  │ 203.0.113.10 (VIP)  │         │
+│   └─────────────────────┘                  └─────────────────────┘         │
+│                                                                             │
+│   DR Failover Process:                                                      │
+│   1. Detect primary failure (health check timeout: 5 min)                  │
+│   2. Verify data replication is current                                    │
+│   3. Promote DR cluster to active                                          │
+│   4. Update DNS (vmanage.abhavtech.com → 203.0.113.10)                    │
+│   5. WAN Edges reconnect automatically (vBond redirection)                 │
+│   6. Verify all control connections restored                               │
+│                                                                             │
+│   RPO: 15 minutes | RTO: 30 minutes                                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2.2.3 SD-WAN Controller (vSmart) Design
+
+### Controller Distribution Strategy
+
+Abhavtech.com deploys 4 vSmart controllers distributed across two data centers for high availability and optimal latency.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     vSMART CONTROLLER DISTRIBUTION                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                              GLOBAL VIEW                                    │
+│                                                                             │
+│   ┌──────────────────────────────┐  ┌──────────────────────────────┐       │
+│   │        MUMBAI DC             │  │        CHENNAI DR            │       │
+│   │                              │  │                              │       │
+│   │  ┌────────────────────────┐  │  │  ┌────────────────────────┐ │       │
+│   │  │    vSmart-Mumbai-1     │  │  │  │   vSmart-Chennai-1     │ │       │
+│   │  │                        │  │  │  │                        │ │       │
+│   │  │  System IP: 10.255.255.1│  │  │  │ System IP: 10.255.255.3│ │       │
+│   │  │  Site-ID: 100          │  │  │  │ Site-ID: 200           │ │       │
+│   │  │  Domain-ID: 1          │  │  │  │ Domain-ID: 1           │ │       │
+│   │  │  Transport: 198.51.100.21│ │  │  │ Transport: 203.0.113.21│ │       │
+│   │  │                        │  │  │  │                        │ │       │
+│   │  │  Affinity Groups:      │  │  │  │ Affinity Groups:       │ │       │
+│   │  │  - India (Primary)     │  │  │  │ - EMEA (Primary)       │ │       │
+│   │  │  - Americas (Secondary)│  │  │  │ - India (Secondary)    │ │       │
+│   │  └────────────────────────┘  │  │  └────────────────────────┘ │       │
+│   │                              │  │                              │       │
+│   │  ┌────────────────────────┐  │  │  ┌────────────────────────┐ │       │
+│   │  │    vSmart-Mumbai-2     │  │  │  │   vSmart-Chennai-2     │ │       │
+│   │  │                        │  │  │  │                        │ │       │
+│   │  │  System IP: 10.255.255.2│  │  │  │ System IP: 10.255.255.4│ │       │
+│   │  │  Site-ID: 100          │  │  │  │ Site-ID: 200           │ │       │
+│   │  │  Domain-ID: 1          │  │  │  │ Domain-ID: 1           │ │       │
+│   │  │  Transport: 198.51.100.22│ │  │  │ Transport: 203.0.113.22│ │       │
+│   │  │                        │  │  │  │                        │ │       │
+│   │  │  Affinity Groups:      │  │  │  │ Affinity Groups:       │ │       │
+│   │  │  - India (Primary)     │  │  │  │ - Americas (Primary)   │ │       │
+│   │  │  - EMEA (Secondary)    │  │  │  │ - EMEA (Secondary)     │ │       │
+│   │  └────────────────────────┘  │  │  └────────────────────────┘ │       │
+│   │                              │  │                              │       │
+│   └──────────────────────────────┘  └──────────────────────────────┘       │
+│                                                                             │
+│   WAN Edge Affinity Assignment:                                            │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │ Region   │ Sites              │ Primary vSmart  │ Secondary vSmart │  │
+│   │──────────│────────────────────│─────────────────│──────────────────│  │
+│   │ India    │ Mumbai, Chennai,   │ vSmart-Mumbai-1 │ vSmart-Chennai-1│  │
+│   │          │ Bangalore, Delhi,  │ vSmart-Mumbai-2 │ vSmart-Chennai-2│  │
+│   │          │ Noida              │                 │                  │  │
+│   │──────────│────────────────────│─────────────────│──────────────────│  │
+│   │ EMEA     │ London, Frankfurt  │ vSmart-Chennai-1│ vSmart-Mumbai-2 │  │
+│   │──────────│────────────────────│─────────────────│──────────────────│  │
+│   │ Americas │ New Jersey, Dallas │ vSmart-Chennai-2│ vSmart-Mumbai-1 │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### vSmart Server Specifications
+
+| Parameter | Specification |
+|-----------|---------------|
+| **Hardware Type** | VMware ESXi Virtual Machine |
+| **vCPU** | 8 cores |
+| **Memory** | 16 GB |
+| **Storage** | 32 GB SSD |
+| **Network Interfaces** | 2 (Transport + Management) |
+| **ESXi Version** | 7.0 U3 or later |
+| **Max WAN Edges** | 5,400 per controller |
+
+### vSmart IP Addressing
+
+| Controller | Management IP | Transport IP | System IP |
+|------------|---------------|--------------|-----------|
+| vSmart-Mumbai-1 | 10.10.100.21/24 | 198.51.100.21/24 | 10.255.255.1 |
+| vSmart-Mumbai-2 | 10.10.100.22/24 | 198.51.100.22/24 | 10.255.255.2 |
+| vSmart-Chennai-1 | 10.20.100.21/24 | 203.0.113.21/24 | 10.255.255.3 |
+| vSmart-Chennai-2 | 10.20.100.22/24 | 203.0.113.22/24 | 10.255.255.4 |
+
+### vSmart Configuration Template
+
+```
+! vSmart-Mumbai-1 Configuration
+system
+ host-name               vSmart-MUM-1
+ system-ip               10.255.255.1
+ domain-id               1
+ site-id                 100
+ organization-name       "Abhavtech"
+ vbond vbond.abhavtech.com
+ !
+ clock timezone Asia/Kolkata
+ !
+!
+vpn 0
+ name "Transport"
+ interface eth0
+  ip address 198.51.100.21/24
+  tunnel-interface
+   color public-internet
+   allow-service all
+   no allow-service dhcp
+   encapsulation ipsec
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 198.51.100.1
+!
+vpn 512
+ name "Management"
+ interface eth1
+  ip address 10.10.100.21/24
+  no shutdown
+ !
+ ip route 0.0.0.0/0 10.10.100.1
+!
+omp
+ no shutdown
+ graceful-restart
+ advertise connected
+ advertise static
+!
+
+! Controller Affinity Configuration (on vManage)
+omp
+ affinity-group preference color-restrict
+ !
+ affinity group 10
+  name "India-Primary"
+  priority 100
+ !
+ affinity group 20
+  name "EMEA-Primary"
+  priority 100
+ !
+ affinity group 30
+  name "Americas-Primary"
+  priority 100
+!
+```
+
+### OMP Protocol Configuration
+
+```
+! OMP Advanced Configuration
+omp
+ no shutdown
+ graceful-restart
+ !
+ ! Route Advertisement
+ advertise connected
+ advertise static
+ advertise ospf external
+ advertise bgp
+ !
+ ! Timers
+ graceful-restart-timer 43200    ! 12 hours
+ holdtime 60                      ! 60 seconds
+ eor-timer 300                    ! 5 minutes
+ !
+ ! Best Path Selection
+ best-path region-path-length ignore
+ ecmp-limit 8
+ !
+ ! Send Path Limit
+ send-path-limit 16
+!
+```
+
+---
+
+## 2.2.4 SD-WAN Validator (vBond) Design
+
+### Cloud-Hosted vBond Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     vBOND CLOUD DEPLOYMENT ARCHITECTURE                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                              AWS CLOUD                                      │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │                                                                     │  │
+│   │         ap-south-1 (Mumbai)           eu-west-1 (Ireland)          │  │
+│   │         ═════════════════             ═══════════════════           │  │
+│   │                                                                     │  │
+│   │   ┌───────────────────────┐     ┌───────────────────────┐         │  │
+│   │   │      vBond-1          │     │      vBond-2          │         │  │
+│   │   │                       │     │                       │         │  │
+│   │   │  Instance: c5.large   │     │  Instance: c5.large   │         │  │
+│   │   │  vCPU: 2              │     │  vCPU: 2              │         │  │
+│   │   │  Memory: 4 GB         │     │  Memory: 4 GB         │         │  │
+│   │   │                       │     │                       │         │  │
+│   │   │  Public IP:           │     │  Public IP:           │         │  │
+│   │   │  13.234.xxx.xxx       │     │  52.214.xxx.xxx       │         │  │
+│   │   │                       │     │                       │         │  │
+│   │   │  DNS: vbond1.         │     │  DNS: vbond2.         │         │  │
+│   │   │  abhavtech.com        │     │  abhavtech.com        │         │  │
+│   │   │                       │     │                       │         │  │
+│   │   │  System IP:           │     │  System IP:           │         │  │
+│   │   │  10.255.255.10        │     │  10.255.255.11        │         │  │
+│   │   │                       │     │                       │         │  │
+│   │   └───────────────────────┘     └───────────────────────┘         │  │
+│   │              │                            │                        │  │
+│   │              └────────────┬───────────────┘                        │  │
+│   │                           │                                        │  │
+│   │                    Route 53 DNS                                    │  │
+│   │              vbond.abhavtech.com                                   │  │
+│   │                           │                                        │  │
+│   │                   Health Checks                                    │  │
+│   │              (Latency-based routing)                               │  │
+│   │                                                                     │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│   DNS Configuration (Route 53):                                            │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │ Record Name        │ Type │ Value           │ Routing Policy      │  │
+│   │────────────────────│──────│─────────────────│─────────────────────│  │
+│   │ vbond.abhavtech.com│ A    │ 13.234.xxx.xxx  │ Latency (ap-south-1)│  │
+│   │ vbond.abhavtech.com│ A    │ 52.214.xxx.xxx  │ Latency (eu-west-1) │  │
+│   │ vbond1.abhavtech.com│A    │ 13.234.xxx.xxx  │ Simple              │  │
+│   │ vbond2.abhavtech.com│A    │ 52.214.xxx.xxx  │ Simple              │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### vBond Server Specifications
+
+| Parameter | Specification |
+|-----------|---------------|
+| **Deployment** | AWS EC2 |
+| **Instance Type** | c5.large |
+| **vCPU** | 2 cores |
+| **Memory** | 4 GB |
+| **Storage** | 20 GB SSD (gp3) |
+| **Network** | Public IP (Elastic IP) |
+| **Security Group** | UDP 12346, TCP 443 inbound |
+
+### vBond Configuration Template
+
+```
+! vBond-1 Configuration (AWS Mumbai)
+system
+ host-name               vBond-AWS-MUM-1
+ system-ip               10.255.255.10
+ domain-id               1
+ site-id                 10
+ organization-name       "Abhavtech"
+ vbond 13.234.xxx.xxx local vbond-only
+ !
+ clock timezone UTC
+ !
+!
+vpn 0
+ name "Transport"
+ interface ge0/0
+  ip address 13.234.xxx.xxx/24
+  tunnel-interface
+   encapsulation ipsec
+   color public-internet
+   allow-service all
+   no allow-service dhcp
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 13.234.xxx.1
+!
+vpn 512
+ name "Management"
+ interface ge0/1
+  ip address 10.0.1.10/24
+  no shutdown
+ !
+!
+```
+
+### vBond Security Group Rules
+
+| Direction | Protocol | Port | Source/Destination | Purpose |
+|-----------|----------|------|-------------------|---------|
+| Inbound | UDP | 12346 | 0.0.0.0/0 | DTLS Control |
+| Inbound | TCP | 443 | 0.0.0.0/0 | HTTPS (ZTP) |
+| Inbound | UDP | 12446 | 0.0.0.0/0 | IPsec NAT-T |
+| Outbound | All | All | 0.0.0.0/0 | Return traffic |
+
+---
+
+## 2.2.5 Control Connection Establishment
+
+### WAN Edge Onboarding Flow
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     WAN EDGE ONBOARDING SEQUENCE                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  WAN Edge              vBond              vSmart             vManage        │
+│     │                    │                  │                   │           │
+│     │  1. DTLS Hello     │                  │                   │           │
+│     │──────────────────►│                  │                   │           │
+│     │                    │                  │                   │           │
+│     │  2. Certificate    │                  │                   │           │
+│     │     Validation     │                  │                   │           │
+│     │◄──────────────────│                  │                   │           │
+│     │                    │                  │                   │           │
+│     │  3. Controller List│                  │                   │           │
+│     │◄──────────────────│                  │                   │           │
+│     │     (vSmart IPs)   │                  │                   │           │
+│     │                    │                  │                   │           │
+│     │  4. OMP Session    │                  │                   │           │
+│     │─────────────────────────────────────►│                   │           │
+│     │                    │                  │                   │           │
+│     │  5. OMP Update     │                  │                   │           │
+│     │◄─────────────────────────────────────│                   │           │
+│     │     (Routes/TLOCs) │                  │                   │           │
+│     │                    │                  │                   │           │
+│     │  6. DTLS/Management│                  │                   │           │
+│     │────────────────────────────────────────────────────────►│           │
+│     │                    │                  │                   │           │
+│     │  7. Configuration  │                  │                   │           │
+│     │◄────────────────────────────────────────────────────────│           │
+│     │     Push (Template)│                  │                   │           │
+│     │                    │                  │                   │           │
+│     │  8. Tunnel Build   │                  │                   │           │
+│     │◄═══════════════════════════════════►│◄═════════════════►│           │
+│     │   (IPsec to peers) │                  │                   │           │
+│     │                    │                  │                   │           │
+│                                                                             │
+│  Timeline: ~2-5 minutes (ZTP) | ~30 seconds (manual)                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Control Connection States
+
+| State | Description | Next State |
+|-------|-------------|------------|
+| `CHALLENGE_REQUEST_SENT` | Initial DTLS handshake | `HANDSHAKE_COMPLETE` |
+| `HANDSHAKE_COMPLETE` | TLS negotiated | `VERIFY_CERT` |
+| `VERIFY_CERT` | Certificate validation | `CONNECT` |
+| `CONNECT` | Establishing session | `UP` |
+| `UP` | Active control connection | - |
+| `DOWN` | Connection lost | `CHALLENGE_REQUEST_SENT` |
+
+### Control Connection Verification
+
+```
+! Verify control connections on WAN Edge
+show sdwan control connections
+
+                                                                               PEER                                          PEER                                          CONTROLLER 
+PEER    PEER PEER            SITE       DOMAIN PEER                            PRIV  PEER                                    PUB                                           GROUP      
+TYPE    PROT SYSTEM IP       ID         ID     PRIVATE IP                      PORT  PUBLIC IP                               PORT  LOCAL COLOR     PROXY STATE UPTIME      ID         
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+vsmart  dtls 10.255.255.1    100        1      198.51.100.21                   12346 198.51.100.21                           12346 public-internet  No    up     1:05:23:47  0          
+vsmart  dtls 10.255.255.2    100        1      198.51.100.22                   12346 198.51.100.22                           12346 public-internet  No    up     1:05:23:45  0          
+vbond   dtls 10.255.255.10   10         0      13.234.xxx.xxx                  12346 13.234.xxx.xxx                          12346 public-internet  No    up     1:05:24:01  0          
+vmanage dtls 10.255.254.1    100        0      198.51.100.10                   12346 198.51.100.10                           12346 public-internet  No    up     1:05:23:42  0          
+
+! Verify OMP peering
+show sdwan omp peers
+
+                         DOMAIN                      OVERLAY                       SITE                                 
+PEER             TYPE    ID      STATE    SEND STATE ID      UPTIME               ID      SYSTEMIP    
+-----------------------------------------------------------------------------------------------------------------
+10.255.255.1     vsmart  1       up       up         1       1:05:23:47           100     10.255.255.1
+10.255.255.2     vsmart  1       up       up         1       1:05:23:45           100     10.255.255.2
+```
+
+---
+
+## 2.2.6 High Availability Design
+
+### Controller HA Model
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     CONTROL PLANE HIGH AVAILABILITY                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  Component        HA Model          Failover Time    Data Loss             │
+│  ─────────────    ────────────      ─────────────    ─────────             │
+│  vManage Cluster  Active-Active     < 30 seconds     None (replicated)     │
+│  vSmart           Active-Active     < 10 seconds     None (stateless)      │
+│  vBond            Active-Active     < 5 seconds      None (stateless)      │
+│  WAN Edge         Graceful Restart  < 1 second       Tunnels maintained    │
+│                                                                             │
+│                                                                             │
+│  Failure Scenario Analysis:                                                 │
+│  ┌───────────────────────────────────────────────────────────────────────┐ │
+│  │                                                                       │ │
+│  │  Scenario 1: Single vSmart Failure                                   │ │
+│  │  ─────────────────────────────────                                    │ │
+│  │  Impact: Minimal - WAN Edges failover to remaining vSmart            │ │
+│  │  Detection: BFD/OMP keepalive timeout (60 seconds)                   │ │
+│  │  Recovery: Automatic reconnection to healthy controller              │ │
+│  │  Data Plane: Unaffected (tunnels remain up)                          │ │
+│  │                                                                       │ │
+│  │  Scenario 2: All vSmart in one DC Failure                            │ │
+│  │  ─────────────────────────────────────                                │ │
+│  │  Impact: Moderate - OMP routes maintained via graceful restart       │ │
+│  │  Detection: Control connection timeout                                │ │
+│  │  Recovery: WAN Edges connect to DR site vSmart                       │ │
+│  │  Data Plane: Maintained for graceful restart duration (12 hours)     │ │
+│  │                                                                       │ │
+│  │  Scenario 3: vManage Cluster Node Failure                            │ │
+│  │  ────────────────────────────────────                                 │ │
+│  │  Impact: Minimal - Services redistributed to healthy nodes           │ │
+│  │  Detection: Cluster heartbeat (5 seconds)                            │ │
+│  │  Recovery: Automatic service migration                                │ │
+│  │  Data Plane: Unaffected                                              │ │
+│  │                                                                       │ │
+│  │  Scenario 4: Complete Control Plane Failure                          │ │
+│  │  ──────────────────────────────────────                               │ │
+│  │  Impact: High - No new tunnels, no policy updates                    │ │
+│  │  Detection: All control connections down                              │ │
+│  │  Recovery: DR site activation (RTO: 30 minutes)                      │ │
+│  │  Data Plane: Maintained via graceful restart (12-24 hours)           │ │
+│  │                                                                       │ │
+│  └───────────────────────────────────────────────────────────────────────┘ │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Graceful Restart Configuration
+
+```
+! WAN Edge Graceful Restart Configuration
+system
+ graceful-restart
+  timer restart-timer 720        ! 12 hours (default)
+  timer stalepath-time 300       ! 5 minutes
+ !
+!
+omp
+ graceful-restart
+ graceful-restart-timer 43200    ! 12 hours
+!
+```
+
+### Control Plane Monitoring
+
+```
+! Monitor control plane health
+show sdwan control summary
+show sdwan control local-properties
+show sdwan omp summary
+
+! Alert thresholds configuration (vManage)
+policy
+ alarm-filter
+  rule CONTROL_PLANE_CRITICAL
+   severity critical
+   match
+    type control
+    event-type control-connection-down
+   !
+   notification
+    email ops-team@abhavtech.com
+    webhook https://pagerduty.com/webhook/sdwan
+   !
+  !
+ !
+!
+```
+
+---
+
+## 2.2.7 Certificate Management
+
+### PKI Infrastructure
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                     SD-WAN CERTIFICATE ARCHITECTURE                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                      ┌─────────────────────────┐                            │
+│                      │     Root CA (Cisco)     │                            │
+│                      │   Validity: 20 years    │                            │
+│                      └───────────┬─────────────┘                            │
+│                                  │                                          │
+│                    ┌─────────────┴─────────────┐                            │
+│                    │                           │                            │
+│            ┌───────▼───────┐           ┌───────▼───────┐                   │
+│            │ Controller CA │           │  WAN Edge CA  │                   │
+│            │ (Intermediate)│           │ (Intermediate)│                   │
+│            │ 10 years      │           │ 10 years      │                   │
+│            └───────┬───────┘           └───────┬───────┘                   │
+│                    │                           │                            │
+│     ┌──────────────┼──────────────┐           │                            │
+│     │              │              │           │                            │
+│  ┌──▼───┐     ┌───▼───┐     ┌───▼───┐   ┌───▼───────────────┐            │
+│  │vManage│     │vSmart │     │vBond  │   │   WAN Edge        │            │
+│  │Cert   │     │Cert   │     │Cert   │   │   Certificates    │            │
+│  │1 year │     │1 year │     │1 year │   │   1 year          │            │
+│  └───────┘     └───────┘     └───────┘   └───────────────────┘            │
+│                                                                             │
+│  Certificate Contents:                                                      │
+│  ┌───────────────────────────────────────────────────────────────────────┐ │
+│  │ Field              │ Value                                           │ │
+│  │────────────────────│─────────────────────────────────────────────────│ │
+│  │ Organization       │ Abhavtech                                       │ │
+│  │ Organization Unit  │ SD-WAN                                          │ │
+│  │ Common Name        │ <device-serial-number>                          │ │
+│  │ Subject Alt Name   │ system-ip, chassis-id                           │ │
+│  │ Key Size           │ RSA 2048 or ECDSA P-256                         │ │
+│  │ Signature Algo     │ SHA-256                                         │ │
+│  │ Validity           │ 365 days (auto-renewal at 180 days)             │ │
+│  └───────────────────────────────────────────────────────────────────────┘ │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Certificate Lifecycle Management
+
+| Phase | Action | Timeline |
+|-------|--------|----------|
+| Generation | vManage CA issues certificates | Device onboarding |
+| Distribution | Pushed via secure channel | Automatic |
+| Rotation | Auto-renewal before expiry | 180 days before |
+| Revocation | CRL distribution | Immediate |
+| Monitoring | Certificate expiry alerts | 90/60/30 days |
+
+### Certificate Configuration
+
+```
+! Certificate configuration on WAN Edge
+security
+ ipsec
+  authentication-type ah-sha1-hmac sha1-hmac
+ !
+!
+sdwan
+ certificate
+  generate-csr
+   common-name <chassis-id>
+   organization "Abhavtech"
+   organization-unit "SD-WAN"
+   locality "Mumbai"
+   state "Maharashtra"
+   country "IN"
+  !
+ !
+!
+
+! Install certificate (manual method)
+request platform software sdwan certificate install <certificate-file>
+
+! Verify certificate
+show sdwan certificate installed
+show sdwan certificate root-ca-cert
+show sdwan certificate serial
+```
+
+---
+
+## 2.2.8 Scalability Considerations
+
+### Control Plane Capacity Planning
+
+| Parameter | Current | Year 1 | Year 3 | Max Capacity |
+|-----------|---------|--------|--------|--------------|
+| WAN Edge Devices | 15 | 20 | 30 | 10,000 |
+| OMP Routes | 500 | 800 | 1,500 | 500,000 |
+| Service VPNs | 5 | 7 | 12 | 512 |
+| Control Policies | 20 | 50 | 100 | 20,000 |
+| Data Policies | 30 | 75 | 150 | 20,000 |
+| Templates | 50 | 100 | 200 | 10,000 |
+
+### OMP Scale Limits
+
+| Resource | Limit per vSmart | Limit per WAN Edge |
+|----------|------------------|-------------------|
+| OMP Peers | 5,400 | 4 (vSmart) |
+| OMP Routes (IPv4) | 500,000 | 100,000 |
+| OMP Routes (IPv6) | 250,000 | 50,000 |
+| TLOCs | 16,000 | 16 per router |
+| Service Routes | 32,000 | 8,000 |
+
+---
+
+## Document Revision History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | December 2025 | Network Architecture Team | Initial release |
+
+---
+
+*End of Section 2.2 - Control Plane Design*

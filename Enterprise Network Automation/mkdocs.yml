@@ -1,0 +1,306 @@
+# ============================================================================
+# MKDOCS MATERIAL — ENTERPRISE NETWORK AUTOMATION FRAMEWORK
+# ============================================================================
+# Author: Rajmohan M (AbhavTech)
+# Version: 2.1
+# Project: Enterprise Network Automation Framework
+# Based on: mkdocs-framework-template-v2.yml
+#
+# Infrastructure as Code documentation for SD-Access, SD-WAN, ISE,
+# Webex, and Zero Trust network automation.
+# ============================================================================
+
+# ============================================================================
+# SITE INFORMATION
+# ============================================================================
+site_name: "Enterprise Network Automation Framework"
+site_description: "Infrastructure as Code for SD-Access, SD-WAN, ISE, Webex, and Zero Trust — The Practitioner's Guide to Network Automation"
+site_author: "Rajmohan M"
+site_url: https://automation.abhavtech.com
+
+# Copyright footer
+copyright: Copyright &copy; 2025-2026 abhavtech.com — AI-Assisted Documentation
+
+
+# ============================================================================
+# THEME CONFIGURATION
+# ============================================================================
+theme:
+  name: material
+
+  # Color palette with dark/light mode toggle
+  palette:
+    - scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  # Typography
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  # Navigation and UI features
+  features:
+    # Navigation
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.path
+
+    # Search
+    - search.highlight
+    - search.suggest
+    - search.share
+
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+
+    # Table of contents
+    - toc.follow
+
+  # Icons
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+docs_dir: docs
+site_dir: site
+
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+
+# ============================================================================
+# CUSTOM CSS
+# ============================================================================
+extra_css:
+  - stylesheets/extra.css
+
+
+# ============================================================================
+# EXTRA CONFIGURATION
+# ============================================================================
+extra:
+  generator: false
+
+
+# ============================================================================
+# NAVIGATION STRUCTURE
+# ============================================================================
+nav:
+  - Home: index.md
+
+  # Chapter 1 — Executive Summary
+  - "Summary":
+      - "Chapter 1: Summary — Overview": chapter1-executive-summary/README.md
+      - "1.1 Business Case for Automation": chapter1-executive-summary/business-case.md
+      - "1.2 Scope and Documentation Relationship": chapter1-executive-summary/scope.md
+      - "1.3 Toolchain Summary": chapter1-executive-summary/toolchain.md
+
+  # Chapter 2 — Automation Architecture
+  - "Architecture":
+      - "Chapter 2: Architecture — Overview": chapter2-automation-architecture/README.md
+      - "2.1 Enterprise Network HLD": chapter2-automation-architecture/enterprise-network-hld.md
+      - "2.2 Automation Architecture": chapter2-automation-architecture/architecture.md
+      - "2.3 Tool Responsibilities Matrix": chapter2-automation-architecture/tool-matrix.md
+      - "2.4 Role Separation": chapter2-automation-architecture/role-separation.md
+
+  # Chapter 3 — Development Environment
+  - "Dev Environment":
+      - "Chapter 3: Dev Environment — Overview": chapter3-dev-environment/README.md
+      - "3.1 VS Code and WSL Configuration": chapter3-dev-environment/vscode-wsl.md
+      - "3.2 Python Virtual Environment": chapter3-dev-environment/python-venv.md
+      - "3.3 Terraform Installation": chapter3-dev-environment/terraform.md
+      - "3.4 Ansible Cisco Collections": chapter3-dev-environment/ansible.md
+      - "3.5 Git Repository Structure": chapter3-dev-environment/git-structure.md
+      - "3.6 Pre-Commit Hooks": chapter3-dev-environment/precommit-hooks.md
+
+  # Chapter 4 — Secrets and Security
+  - "Security":
+      - "Chapter 4: Security — Overview": chapter4-secrets-security/README.md
+      - "4.1 HashiCorp Vault Deployment": chapter4-secrets-security/vault-deployment.md
+      - "4.2 Retrieving Credentials at Runtime": chapter4-secrets-security/runtime-credentials.md
+      - "4.3 Ansible Vault for Playbook Secrets": chapter4-secrets-security/ansible-vault.md
+      - "4.4 RBAC for Automation Accounts": chapter4-secrets-security/rbac.md
+      - "4.5 Git Ignore Configuration": chapter4-secrets-security/gitignore.md
+
+  # Chapter 5 — Git Workflow
+  - "Git Workflow":
+      - "Chapter 5: Git Workflow — Overview": chapter5-git-workflow/README.md
+      - "5.1 Branching Strategy": chapter5-git-workflow/branching.md
+      - "5.2 Rollback Using Git": chapter5-git-workflow/rollback.md
+
+  # Chapter 6 — Terraform Provisioning
+  - "Terraform":
+      - "Chapter 6: Terraform — Overview": chapter6-terraform/README.md
+      - "6.1 CML Lab Provisioning": chapter6-terraform/cml-lab.md
+      - "6.2 Catalyst Center Provisioning": chapter6-terraform/catalyst-center.md
+      - "6.3 ISE Provisioning": chapter6-terraform/ise.md
+      - "6.4 SD-WAN vManage Provisioning": chapter6-terraform/sdwan.md
+      - "6.5 Webex Provisioning": chapter6-terraform/webex.md
+
+  # Chapter 7 — Zero Touch Provisioning
+  - "ZTP":
+      - "Chapter 7: ZTP — Overview": chapter7-zero-touch-provisioning/README.md
+      - "7.1 How ZTP Works End to End": chapter7-zero-touch-provisioning/ztp-flow.md
+      - "7.2 Pre-Staging Requirements": chapter7-zero-touch-provisioning/prestaging.md
+      - "7.3 ZTP Flow Per Device Type": chapter7-zero-touch-provisioning/device-types.md
+      - "7.4 Simulating ZTP in CML": chapter7-zero-touch-provisioning/cml-simulation.md
+
+  # Chapter 8 — Ansible Configuration
+  - "Ansible":
+      - "Chapter 8: Ansible — Overview": chapter8-ansible/README.md
+      - "8.1 Ansible Inventory": chapter8-ansible/inventory.md
+      - "8.2 IS-IS Underlay Playbook": chapter8-ansible/isis-underlay.md
+      - "8.3 LISP/VXLAN Overlay Playbook": chapter8-ansible/lisp-vxlan.md
+      - "8.4 802.1X and TrustSec Playbook": chapter8-ansible/dot1x-trustsec.md
+      - "8.5 BGP Handoff Playbook": chapter8-ansible/bgp-handoff.md
+      - "8.6 SD-WAN Day-N Automation": chapter8-ansible/sdwan-dayn.md
+      - "8.7 Webex Day-N Automation": chapter8-ansible/webex-dayn.md
+
+  # Chapter 9 — Cloud Integrations
+  - "Cloud":
+      - "Chapter 9: Cloud — Overview": chapter9-cloud-integrations/README.md
+      - "9.1 Google Vertex AI Integration": chapter9-cloud-integrations/vertex-ai.md
+      - "9.2 Microsoft Azure AD Integration": chapter9-cloud-integrations/azure-ad.md
+
+  # Chapter 10 — Validation and Testing
+  - "Validation":
+      - "Chapter 10: Validation — Overview": chapter10-validation-testing/README.md
+      - "10.1 Lab Validation Checklist": chapter10-validation-testing/validation-checklist.md
+      - "10.2 Automated Validation Playbook": chapter10-validation-testing/validation-playbook.md
+      - "10.3 Rollback Procedures": chapter10-validation-testing/rollback.md
+
+  # Chapter 11 — Production Deployment
+  - "Deployment":
+      - "Chapter 11: Deployment — Overview": chapter11-production-deployment/README.md
+      - "11.1 Deployment Sequence": chapter11-production-deployment/sequence.md
+      - "11.2 Pre-Deployment Checklist": chapter11-production-deployment/checklist.md
+      - "11.3 Change Window Execution": chapter11-production-deployment/change-window.md
+
+  # Chapter 12 — Operational Automation
+  - "Operations":
+      - "Chapter 12: Operations — Overview": chapter12-operational-automation/README.md
+      - "12.1 Automated Compliance Checking": chapter12-operational-automation/compliance.md
+      - "12.2 Automated Device Config Backup": chapter12-operational-automation/config-backup.md
+      - "12.3 Scheduled Automation Tasks": chapter12-operational-automation/scheduled-tasks.md
+
+  # Chapter 13 — DevNet Resources
+  - "DevNet":
+      - "Chapter 13: DevNet — Overview": chapter13-devnet-resources/README.md
+      - "13.1 Terraform Providers": chapter13-devnet-resources/terraform-providers.md
+      - "13.2 Ansible Collections": chapter13-devnet-resources/ansible-collections.md
+      - "13.3 DevNet Sandboxes": chapter13-devnet-resources/sandboxes.md
+      - "13.4 API Documentation": chapter13-devnet-resources/api-docs.md
+      - "13.5 DevNet Learning Labs": chapter13-devnet-resources/learning-labs.md
+
+  # Appendices
+  - "Appendices":
+      - "AI-Assisted Disclaimer": appendices/disclaimer.md
+      - "Document Revision History": appendices/revision-history.md
+      - "About": appendices/about.md
+
+
+# ============================================================================
+# MARKDOWN EXTENSIONS
+# ============================================================================
+markdown_extensions:
+  # Table of contents
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+      toc_depth: 2
+
+  # Admonitions
+  - admonition
+  - pymdownx.details
+
+  # Code blocks
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # Content tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # Lists and tasks
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # Text formatting
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+
+  # Smart symbols
+  - pymdownx.smartsymbols
+
+  # Emoji
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  # Tables
+  - tables
+
+  # HTML and attributes
+  - attr_list
+  - md_in_html
+  - meta
+
+  # Abbreviations
+  - abbr
+
+  # Footnotes
+  - footnotes
