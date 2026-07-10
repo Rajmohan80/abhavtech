@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accelerating Avaya to Webex Migrations with Structured Runbooks — AbhavTech Technical Insights</title>
+<meta name="description" content="How I document Avaya to Webex Contact Center migrations as a seven-phase path, from business requirements all the way through to operations handover.">
+<meta name="author" content="Rajmohan M">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="article.css">
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="https://abhavtech.com">Abhav<span>Tech</span></a>
+    <a class="back-link" href="https://abhavtech.com/#insights">All Insights &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO — the seven-phase path ===================== -->
+<figure class="hero" style="margin-top:2.5rem;">
+  <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The seven-phase migration path from business requirements to operations">
+    <defs>
+      <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f3ff"/>
+        <stop offset="1" stop-color="#eef2f7"/>
+      </linearGradient>
+    </defs>
+    <rect width="900" height="320" fill="url(#heroBg)"/>
+
+    <text x="60" y="86" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="38" fill="#14131c">One Path. Seven Phases.</text>
+    <text x="60" y="124" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="38" fill="#4f46e5">Documented End to End.</text>
+    <text x="60" y="158" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="15" fill="#6b6a78">A gated migration path for Avaya &#8594; Webex Contact Center</text>
+
+    <line x1="55" y1="238" x2="845" y2="238" stroke="#c4c0f5" stroke-width="3"/>
+
+    <g font-family="Archivo, Arial, sans-serif" font-weight="700" font-size="11.5" text-anchor="middle">
+      <circle cx="90" cy="238" r="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+      <text x="90" y="270" fill="#6b6a78">Business</text>
+      <text x="90" y="285" fill="#6b6a78">Requirements</text>
+
+      <circle cx="212" cy="238" r="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+      <text x="212" y="270" fill="#6b6a78">Prerequisites</text>
+
+      <circle cx="334" cy="238" r="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="334" y="270" fill="#1B6CA0">Design</text>
+      <text x="334" y="285" fill="#1B6CA0">Mapping</text>
+
+      <circle cx="456" cy="238" r="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="456" y="270" fill="#1B6CA0">Feature Gap</text>
+      <text x="456" y="285" fill="#1B6CA0">Bridging</text>
+
+      <circle cx="578" cy="238" r="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="578" y="270" fill="#1B6CA0">Implementation</text>
+
+      <rect x="689" y="227" width="22" height="22" fill="#4f46e5" transform="rotate(45 700 238)"/>
+      <text x="700" y="270" fill="#4f46e5">Cutover</text>
+
+      <circle cx="812" cy="238" r="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="812" y="270" fill="#1B6CA0">Operations</text>
+    </g>
+
+    <text x="450" y="205" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="11.5" fill="#6b6a78" text-anchor="middle">each phase ends at a gate &mdash; its outputs are the next phase&rsquo;s inputs</text>
+  </svg>
+</figure>
+
+<!-- ===================== ARTICLE ===================== -->
+<main class="article">
+
+  <div class="eyebrow">Cloud Migration &middot; Feb 2026</div>
+
+  <h1>Accelerating Avaya to Webex Migrations with Structured Runbooks</h1>
+
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">RM</div>
+    <div class="who">
+      <div class="name">Rajmohan M</div>
+      <div class="role">Principal Consultant, UC &amp; Contact Center</div>
+    </div>
+    <div class="meta">
+      4 min read &middot; February 2026<br>
+      <span class="ai-badge">AI-Assisted Documentation</span>
+    </div>
+  </div>
+
+  <p class="lede">Over the years working on Avaya estates and Webex Contact Center deployments, one lesson has stayed with me: the migrations that go smoothest are the ones where every decision is written down before it's needed.</p>
+
+  <p>These days I document every migration as a single path of seven phases. Each phase ends at a gate, and whatever a phase produces becomes the input for the next one. Here is that path, stage by stage.</p>
+
+  <!-- ============ PHASE 1 ============ -->
+  <h3><span class="step-no">01.</span> Business requirements</h3>
+  <p>Everything starts with what the business needs the contact center to do. Written down and signed off, this becomes the acceptance contract every later phase is measured against.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 1: business inputs feed the signed-off requirements register">
+      <rect width="900" height="170" fill="#ffffff"/>
+      <defs>
+        <marker id="a1" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="12.5" text-anchor="middle">
+        <rect x="40" y="25" width="180" height="36" rx="18" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="130" y="48" fill="#2e2d38">Service levels &amp; channels</text>
+        <rect x="40" y="70" width="180" height="36" rx="18" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="130" y="93" fill="#2e2d38">Compliance obligations</text>
+        <rect x="40" y="115" width="180" height="36" rx="18" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="130" y="138" fill="#2e2d38">Reporting the ops run on</text>
+
+        <line x1="235" y1="43" x2="330" y2="78" stroke="#4f46e5" stroke-width="2" marker-end="url(#a1)"/>
+        <line x1="235" y1="88" x2="330" y2="88" stroke="#4f46e5" stroke-width="2" marker-end="url(#a1)"/>
+        <line x1="235" y1="133" x2="330" y2="98" stroke="#4f46e5" stroke-width="2" marker-end="url(#a1)"/>
+
+        <rect x="345" y="58" width="230" height="58" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="460" y="83" fill="#14131c" font-weight="700">Requirements Register</text>
+        <text x="460" y="102" fill="#1B6CA0" font-size="11.5">signed off by the business</text>
+
+        <line x1="590" y1="88" x2="670" y2="88" stroke="#4f46e5" stroke-width="2" marker-end="url(#a1)"/>
+        <rect x="685" y="63" width="175" height="50" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="772" y="84" fill="#4f46e5" font-weight="700">GATE 1</text>
+        <text x="772" y="102" fill="#6b6a78" font-size="11">acceptance contract set</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ PHASE 2 ============ -->
+  <h3><span class="step-no">02.</span> Prerequisites</h3>
+  <p>Before design starts, I confirm the foundations and extract the full Avaya estate — including the routing intent behind every vector, VDN, and skill, with a named owner for each.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 2: readiness checks and Avaya estate extraction produce the readiness checklist and routing intent register">
+      <rect width="900" height="190" fill="#ffffff"/>
+      <defs>
+        <marker id="a2" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="12.5" text-anchor="middle">
+        <rect x="40" y="20" width="175" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="127" y="42" fill="#2e2d38">Network &amp; QoS readiness</text>
+        <rect x="40" y="62" width="175" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="127" y="84" fill="#2e2d38">Licensing &amp; Control Hub org</text>
+        <rect x="40" y="104" width="175" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="127" y="126" fill="#2e2d38">PSTN &amp; carrier decisions</text>
+        <rect x="40" y="146" width="175" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="127" y="168" fill="#2e2d38">Avaya estate extraction</text>
+
+        <line x1="230" y1="37" x2="330" y2="80" stroke="#4f46e5" stroke-width="2" marker-end="url(#a2)"/>
+        <line x1="230" y1="79" x2="330" y2="90" stroke="#4f46e5" stroke-width="2" marker-end="url(#a2)"/>
+        <line x1="230" y1="121" x2="330" y2="100" stroke="#4f46e5" stroke-width="2" marker-end="url(#a2)"/>
+        <line x1="230" y1="163" x2="330" y2="110" stroke="#4f46e5" stroke-width="2" marker-end="url(#a2)"/>
+
+        <rect x="345" y="45" width="230" height="44" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="460" y="72" fill="#14131c" font-weight="700">Readiness Checklist</text>
+        <rect x="345" y="101" width="230" height="44" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="460" y="121" fill="#14131c" font-weight="700">Routing Intent Register</text>
+        <text x="460" y="137" fill="#1B6CA0" font-size="11">vectors &middot; VDNs &middot; skills &middot; owners</text>
+
+        <line x1="590" y1="95" x2="670" y2="95" stroke="#4f46e5" stroke-width="2" marker-end="url(#a2)"/>
+        <rect x="685" y="70" width="175" height="50" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="772" y="91" fill="#4f46e5" font-weight="700">GATE 2</text>
+        <text x="772" y="109" fill="#6b6a78" font-size="11">ready to design</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ PHASE 3 ============ -->
+  <h3><span class="step-no">03.</span> Design mapping</h3>
+  <p>Each Avaya component maps to its Webex-native counterpart. I design from the intent, so this is also the moment to simplify anything the business no longer needs.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 3: component mapping from Avaya to Webex Contact Center">
+      <rect width="900" height="320" fill="#ffffff"/>
+      <defs>
+        <marker id="a3" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <text x="215" y="34" font-family="Archivo, Arial, sans-serif" font-weight="800" font-size="14" fill="#6b6a78" text-anchor="middle">AVAYA COMPONENT</text>
+      <text x="685" y="34" font-family="Archivo, Arial, sans-serif" font-weight="800" font-size="14" fill="#1B6CA0" text-anchor="middle">WEBEX CC DESIGN</text>
+
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="13" text-anchor="middle">
+        <rect x="80" y="52" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="77" fill="#2e2d38">Vectors / VDNs</text>
+        <line x1="365" y1="72" x2="535" y2="72" stroke="#4f46e5" stroke-width="2" marker-end="url(#a3)"/>
+        <rect x="550" y="52" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="77" fill="#14131c">Flow Designer flows</text>
+
+        <rect x="80" y="104" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="129" fill="#2e2d38">Skills &amp; agent assignments</text>
+        <line x1="365" y1="124" x2="535" y2="124" stroke="#4f46e5" stroke-width="2" marker-end="url(#a3)"/>
+        <rect x="550" y="104" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="129" fill="#14131c">Queues &amp; Teams</text>
+
+        <rect x="80" y="156" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="181" fill="#2e2d38">CMS reporting</text>
+        <line x1="365" y1="176" x2="535" y2="176" stroke="#4f46e5" stroke-width="2" marker-end="url(#a3)"/>
+        <rect x="550" y="156" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="181" fill="#14131c">Analyzer dashboards</text>
+
+        <rect x="80" y="208" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="233" fill="#2e2d38">PSTN trunks (TDM / SIP)</text>
+        <line x1="365" y1="228" x2="535" y2="228" stroke="#4f46e5" stroke-width="2" marker-end="url(#a3)"/>
+        <rect x="550" y="208" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="233" fill="#14131c">Cloud Connect PSTN</text>
+
+        <rect x="80" y="260" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="285" fill="#2e2d38">AES / CTI integrations</text>
+        <line x1="365" y1="280" x2="535" y2="280" stroke="#4f46e5" stroke-width="2" marker-end="url(#a3)"/>
+        <rect x="550" y="260" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="285" fill="#14131c">APIs &amp; CRM connectors</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="chip"><span class="swatch existing"></span> Existing Avaya</span>
+      <span class="chip"><span class="swatch new"></span> Webex CC design</span>
+    </div>
+  </figure>
+
+  <!-- ============ PHASE 4 ============ -->
+  <h3><span class="step-no">04.</span> Feature gap bridging</h3>
+  <p>My favourite phase. Any two platforms will have differences — what matters is that every gap gets a written decision with an owner and a revisit date, so nothing is left open at go-live.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 4: every identified gap routes to one of three bridge decisions">
+      <rect width="900" height="210" fill="#ffffff"/>
+      <defs>
+        <marker id="a4" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="12.5" text-anchor="middle">
+        <rect x="63" y="73" width="64" height="64" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" transform="rotate(45 95 105)"/>
+        <text x="95" y="100" fill="#4f46e5" font-weight="700">Gap</text>
+        <text x="95" y="117" fill="#4f46e5" font-weight="700">found</text>
+
+        <line x1="148" y1="105" x2="240" y2="45" stroke="#4f46e5" stroke-width="2" marker-end="url(#a4)"/>
+        <line x1="152" y1="105" x2="240" y2="105" stroke="#4f46e5" stroke-width="2" marker-end="url(#a4)"/>
+        <line x1="148" y1="105" x2="240" y2="165" stroke="#4f46e5" stroke-width="2" marker-end="url(#a4)"/>
+
+        <rect x="255" y="25" width="220" height="42" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="365" y="51" fill="#14131c" font-weight="700">Workaround</text>
+        <rect x="255" y="85" width="220" height="42" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="365" y="111" fill="#14131c" font-weight="700">Roadmap wait</text>
+        <rect x="255" y="145" width="220" height="42" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="365" y="171" fill="#14131c" font-weight="700">Process change</text>
+
+        <line x1="490" y1="46" x2="580" y2="96" stroke="#4f46e5" stroke-width="2" marker-end="url(#a4)"/>
+        <line x1="490" y1="106" x2="580" y2="106" stroke="#4f46e5" stroke-width="2" marker-end="url(#a4)"/>
+        <line x1="490" y1="166" x2="580" y2="116" stroke="#4f46e5" stroke-width="2" marker-end="url(#a4)"/>
+
+        <rect x="595" y="76" width="265" height="60" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="727" y="100" fill="#4f46e5" font-weight="700">Feature Gap Register</text>
+        <text x="727" y="120" fill="#6b6a78" font-size="11">every entry: decision &middot; owner &middot; revisit date</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ PHASE 5 ============ -->
+  <h3><span class="step-no">05.</span> Implementation</h3>
+  <p>Every configuration item carries the same three fields, and I consider it complete only when its evidence is filed. Weeks later, anyone can confirm what was tested straight from the runbook.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 5: each configuration item carries steps, a validation test, and an evidence artifact">
+      <rect width="900" height="160" fill="#ffffff"/>
+      <defs>
+        <marker id="a5" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="12.5" text-anchor="middle">
+        <text x="130" y="55" fill="#6b6a78" font-weight="800" font-size="13">EVERY CONFIG ITEM</text>
+        <text x="130" y="75" fill="#6b6a78" font-size="11.5">queue &middot; flow &middot; entry point &middot; profile</text>
+
+        <line x1="235" y1="80" x2="270" y2="80" stroke="#4f46e5" stroke-width="2" marker-end="url(#a5)"/>
+
+        <rect x="285" y="55" width="150" height="50" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="360" y="85" fill="#14131c" font-weight="700">Exact steps</text>
+        <line x1="440" y1="80" x2="470" y2="80" stroke="#4f46e5" stroke-width="2" marker-end="url(#a5)"/>
+
+        <rect x="485" y="55" width="150" height="50" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="560" y="79" fill="#14131c" font-weight="700">Validation test</text>
+        <text x="560" y="96" fill="#1B6CA0" font-size="11">test call &middot; report check</text>
+        <line x1="640" y1="80" x2="670" y2="80" stroke="#4f46e5" stroke-width="2" marker-end="url(#a5)"/>
+
+        <rect x="685" y="55" width="175" height="50" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="772" y="79" fill="#4f46e5" font-weight="700">Evidence filed</text>
+        <text x="772" y="96" fill="#6b6a78" font-size="11">screenshot &middot; export &middot; record</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ PHASE 6 ============ -->
+  <h3><span class="step-no">06.</span> Cutover</h3>
+  <p>Cutover night runs a rehearsed, minute-by-minute sequence. Each gate has pass criteria agreed in advance and a scripted rollback — having the way back written down is what lets the team take the go decision with confidence.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 6: cutover night sequence with go/no-go gates and a pre-scripted rollback lane">
+      <rect width="900" height="230" fill="#ffffff"/>
+      <defs>
+        <marker id="a6" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+        <marker id="a6g" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a8ba0"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="12" text-anchor="middle">
+        <rect x="40" y="35" width="180" height="48" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="130" y="55" fill="#14131c" font-weight="700">T&minus;60 &middot; Freeze config</text>
+        <text x="130" y="72" fill="#1B6CA0" font-size="11">legacy locked</text>
+
+        <rect x="128" y="103" width="34" height="34" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" transform="rotate(45 145 120)"/>
+        <line x1="130" y1="83" x2="130" y2="99" stroke="#4f46e5" stroke-width="2" marker-end="url(#a6)"/>
+        <path d="M 172 120 C 230 120, 240 62, 295 60" fill="none" stroke="#4f46e5" stroke-width="2" marker-end="url(#a6)"/>
+
+        <rect x="310" y="35" width="180" height="48" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="400" y="55" fill="#14131c" font-weight="700">T&minus;30 &middot; Re-point trunks</text>
+        <text x="400" y="72" fill="#1B6CA0" font-size="11">DIDs to Webex</text>
+
+        <rect x="398" y="103" width="34" height="34" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" transform="rotate(45 415 120)"/>
+        <line x1="400" y1="83" x2="400" y2="99" stroke="#4f46e5" stroke-width="2" marker-end="url(#a6)"/>
+        <path d="M 442 120 C 500 120, 510 62, 565 60" fill="none" stroke="#4f46e5" stroke-width="2" marker-end="url(#a6)"/>
+
+        <rect x="580" y="35" width="180" height="48" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="670" y="55" fill="#14131c" font-weight="700">T&minus;0 &middot; Agents live</text>
+        <text x="670" y="72" fill="#1B6CA0" font-size="11">KPIs watched</text>
+
+        <rect x="668" y="103" width="34" height="34" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" transform="rotate(45 685 120)"/>
+        <line x1="670" y1="83" x2="670" y2="99" stroke="#4f46e5" stroke-width="2" marker-end="url(#a6)"/>
+        <path d="M 712 120 C 780 122, 810 90, 830 65" fill="none" stroke="#4f46e5" stroke-width="2" marker-end="url(#a6)"/>
+        <text x="838" y="52" fill="#4f46e5" font-weight="700" font-size="11.5">DONE</text>
+
+        <text x="200" y="124" fill="#4f46e5" font-weight="700" font-size="10.5">go</text>
+        <text x="470" y="124" fill="#4f46e5" font-weight="700" font-size="10.5">go</text>
+        <text x="742" y="124" fill="#4f46e5" font-weight="700" font-size="10.5">go</text>
+
+        <line x1="145" y1="142" x2="145" y2="172" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#a6g)"/>
+        <line x1="415" y1="142" x2="415" y2="172" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#a6g)"/>
+        <line x1="685" y1="142" x2="685" y2="172" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#a6g)"/>
+
+        <rect x="40" y="178" width="720" height="40" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="400" y="203" fill="#2e2d38" font-weight="700">Rollback lane &mdash; scripted restore to Avaya, written before the window opens</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ PHASE 7 ============ -->
+  <h3><span class="step-no">07.</span> Operations</h3>
+  <p>Hypercare runs against written KPI thresholds. Once they're met, the platform hands over to operations — and the runbooks hand over with it, becoming the day-2 procedures.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phase 7: KPI thresholds met leads to formal handover of platform, runbooks, and decommission date">
+      <rect width="900" height="170" fill="#ffffff"/>
+      <defs>
+        <marker id="a7" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="12.5" text-anchor="middle">
+        <rect x="40" y="58" width="200" height="58" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="140" y="82" fill="#14131c" font-weight="700">Hypercare KPIs met</text>
+        <text x="140" y="100" fill="#1B6CA0" font-size="11">answer rate &middot; transfers &middot; reports</text>
+
+        <line x1="255" y1="87" x2="320" y2="87" stroke="#4f46e5" stroke-width="2" marker-end="url(#a7)"/>
+
+        <rect x="335" y="58" width="180" height="58" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="425" y="82" fill="#4f46e5" font-weight="700">Formal handover</text>
+        <text x="425" y="100" fill="#6b6a78" font-size="11">to the operations team</text>
+
+        <line x1="530" y1="72" x2="595" y2="47" stroke="#4f46e5" stroke-width="2" marker-end="url(#a7)"/>
+        <line x1="530" y1="102" x2="595" y2="127" stroke="#4f46e5" stroke-width="2" marker-end="url(#a7)"/>
+
+        <rect x="610" y="22" width="250" height="44" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="735" y="49" fill="#14131c" font-weight="700">Runbooks &#8594; day-2 procedures</text>
+        <rect x="610" y="104" width="250" height="44" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="735" y="131" fill="#2e2d38" font-weight="700">Avaya decommission date set</text>
+      </g>
+    </svg>
+  </figure>
+
+  <hr class="section-break">
+
+  <h2>Where AI fits in</h2>
+
+  <p>Producing this depth of documentation used to need a dedicated writing team. Today I bring the architecture decisions, gate criteria, and platform experience, and Claude helps me draft at scale — chapter templates, checklists, and the per-site variations that take real time by hand. Every page then passes a strict build check before anything gets published.</p>
+
+  <h2>Explore the full framework</h2>
+
+  <p>Every phase above exists as a complete, navigable documentation site — the workbooks, mapping tables, gap register, evidence-field procedures, cutover runbook, and handover pack. It's built as an illustrative enterprise scenario, so the structure and decision logic are fully visible for anyone who wants to learn from it or adapt it.</p>
+
+  <div class="doc-cta">
+    <div class="cta-eyebrow">Full Documentation Site</div>
+    <h3>Avaya to Webex Contact Center Migration Framework</h3>
+    <p>The complete seven-phase path, published as a browsable site.</p>
+    <a class="cta-btn" href="https://knowledge.abhavtech.com">Open the Migration Guide &rarr;</a>
+  </div>
+
+  <div class="disclosure">
+    <strong>AI-assisted disclosure:</strong> This article and the documentation site it references were produced with AI assistance (Claude, Anthropic) under the author's technical direction, as part of the AbhavTech knowledge-sharing portfolio. Content is illustrative and intended for learning; validate all procedures independently before applying them to production environments.
+  </div>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>&copy; 2025&ndash;2026 AbhavTech &middot; Technical Insights</div>
+    <div><a href="https://abhavtech.com">&#127760; abhavtech.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

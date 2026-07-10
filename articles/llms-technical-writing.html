@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Role of LLMs in Enterprise-Grade Technical Writing — AbhavTech Technical Insights</title>
+<meta name="description" content="A realistic look at using LLMs for enterprise documentation: what they generate well, where they need retrieval and validation, and the pipeline that keeps the output trustworthy.">
+<meta name="author" content="Rajmohan M">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="article.css">
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="https://abhavtech.com">Abhav<span>Tech</span></a>
+    <a class="back-link" href="https://abhavtech.com/#insights">All Insights &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO — the honest equation ===================== -->
+<figure class="hero" style="margin-top:2.5rem;">
+  <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The equation: LLM drafting plus human intent plus retrieval and validation equals enterprise-grade documentation">
+    <defs>
+      <linearGradient id="heroBg4" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f3ff"/>
+        <stop offset="1" stop-color="#eef2f7"/>
+      </linearGradient>
+    </defs>
+    <rect width="900" height="320" fill="url(#heroBg4)"/>
+
+    <text x="60" y="84" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="37" fill="#14131c">The Leverage Is Real.</text>
+    <text x="60" y="122" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="37" fill="#4f46e5">So Is the Catch.</text>
+    <text x="60" y="155" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="14.5" fill="#6b6a78">A realistic look at LLMs in enterprise technical documentation</text>
+
+    <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+      <rect x="60" y="195" width="180" height="80" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="150" y="228" font-weight="800" font-size="14" fill="#14131c">LLM drafting</text>
+      <text x="150" y="250" font-weight="600" font-size="11" fill="#1B6CA0">structure at scale</text>
+
+      <text x="262" y="243" font-weight="900" font-size="26" fill="#6b6a78">+</text>
+
+      <rect x="285" y="195" width="180" height="80" rx="12" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+      <text x="375" y="228" font-weight="800" font-size="14" fill="#2e2d38">Human intent</text>
+      <text x="375" y="250" font-weight="600" font-size="11" fill="#6b6a78">decisions &amp; experience</text>
+
+      <text x="487" y="243" font-weight="900" font-size="26" fill="#6b6a78">+</text>
+
+      <rect x="510" y="195" width="180" height="80" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+      <text x="600" y="228" font-weight="800" font-size="14" fill="#4f46e5">Retrieval + gates</text>
+      <text x="600" y="250" font-weight="600" font-size="11" fill="#6b6a78">facts verified &middot; build checked</text>
+
+      <text x="712" y="243" font-weight="900" font-size="26" fill="#6b6a78">=</text>
+
+      <rect x="735" y="195" width="125" height="80" rx="12" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2.5"/>
+      <text x="797" y="224" font-weight="800" font-size="12.5" fill="#3730a3">Docs you can</text>
+      <text x="797" y="242" font-weight="800" font-size="12.5" fill="#3730a3">actually run</text>
+      <text x="797" y="260" font-weight="800" font-size="12.5" fill="#3730a3">a project on</text>
+    </g>
+  </svg>
+</figure>
+
+<!-- ===================== ARTICLE ===================== -->
+<main class="article">
+
+  <div class="eyebrow">AI Integration &middot; May 2026</div>
+
+  <h1>The Role of LLMs in Enterprise-Grade Technical Writing</h1>
+
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">RM</div>
+    <div class="who">
+      <div class="name">Rajmohan M</div>
+      <div class="role">Principal Consultant, UC &amp; Contact Center</div>
+    </div>
+    <div class="meta">
+      5 min read &middot; May 2026<br>
+      <span class="ai-badge">AI-Assisted Documentation</span>
+    </div>
+  </div>
+
+  <p class="lede">Every documentation site in this portfolio was drafted with an LLM, and I'll be direct about both halves of that experience: the leverage is enormous, and it only becomes enterprise-grade with retrieval and validation wrapped around it.</p>
+
+  <p>This article is the method behind everything else you'll find here — what I ask the model to generate, where I've learned not to trust it unattended, and the pipeline that closes the gap.</p>
+
+  <!-- ============ 01 THE DOCUMENT FAMILY ============ -->
+  <h3><span class="step-no">01.</span> One pattern, a full document family</h3>
+  <p>The biggest win isn't any single document — it's that an LLM can generate the entire checklist and tracker family a project needs, consistently structured, across the whole lifecycle.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The seven-document family across the project lifecycle: business requirements checklist, pre-migration checklist, implementation tracker, cutover tracker, backout plan and checklist, post-migration checklist, operations checklist">
+      <rect width="900" height="360" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <!-- Lifecycle rail -->
+        <line x1="60" y1="185" x2="840" y2="185" stroke="#c4c0f5" stroke-width="3"/>
+        <text x="165" y="345" font-weight="800" font-size="12" fill="#6b6a78">PLAN</text>
+        <text x="475" y="345" font-weight="800" font-size="12" fill="#4f46e5">MIGRATE</text>
+        <text x="790" y="345" font-weight="800" font-size="12" fill="#1B6CA0">OPERATE</text>
+        <line x1="60" y1="330" x2="270" y2="330" stroke="#e9e8f0" stroke-width="2"/>
+        <line x1="290" y1="330" x2="660" y2="330" stroke="#e9e8f0" stroke-width="2"/>
+        <line x1="680" y1="330" x2="840" y2="330" stroke="#e9e8f0" stroke-width="2"/>
+
+        <!-- Doc cards: alternating above/below the rail -->
+        <g font-weight="700" font-size="11">
+          <!-- 1 Business requirements checklist (above) -->
+          <rect x="65" y="70" width="130" height="82" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="78" y="86" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="94" y1="91" x2="182" y2="91" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="78" y="103" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="94" y1="108" x2="170" y2="108" stroke="#93c5e8" stroke-width="2"/>
+          <text x="130" y="134" fill="#14131c">Business req.</text>
+          <text x="130" y="147" fill="#14131c">checklist</text>
+          <line x1="130" y1="152" x2="130" y2="182" stroke="#1B6CA0" stroke-width="2"/>
+          <circle cx="130" cy="185" r="5" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+
+          <!-- 2 Pre-migration checklist (below) -->
+          <rect x="185" y="218" width="130" height="82" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="198" y="234" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="214" y1="239" x2="302" y2="239" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="198" y="251" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="214" y1="256" x2="290" y2="256" stroke="#93c5e8" stroke-width="2"/>
+          <text x="250" y="282" fill="#14131c">Pre-migration</text>
+          <text x="250" y="295" fill="#14131c">task checklist</text>
+          <line x1="250" y1="218" x2="250" y2="188" stroke="#1B6CA0" stroke-width="2"/>
+          <circle cx="250" cy="185" r="5" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+
+          <!-- 3 Implementation tracker (above) -->
+          <rect x="305" y="70" width="130" height="82" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="318" y="86" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="334" y1="91" x2="422" y2="91" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="318" y="103" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="334" y1="108" x2="410" y2="108" stroke="#93c5e8" stroke-width="2"/>
+          <text x="370" y="134" fill="#14131c">Implementation</text>
+          <text x="370" y="147" fill="#14131c">tracker</text>
+          <line x1="370" y1="152" x2="370" y2="182" stroke="#1B6CA0" stroke-width="2"/>
+          <circle cx="370" cy="185" r="5" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+
+          <!-- 4 Cutover tracker (below) -->
+          <rect x="425" y="218" width="130" height="82" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="438" y="234" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="454" y1="239" x2="542" y2="239" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="438" y="251" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="454" y1="256" x2="530" y2="256" stroke="#93c5e8" stroke-width="2"/>
+          <text x="490" y="282" fill="#14131c">Cutover</text>
+          <text x="490" y="295" fill="#14131c">tracker</text>
+          <line x1="490" y1="218" x2="490" y2="188" stroke="#1B6CA0" stroke-width="2"/>
+          <circle cx="490" cy="185" r="5" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+
+          <!-- 5 Backout plan (above, indigo accent) -->
+          <rect x="545" y="70" width="130" height="82" rx="8" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+          <rect x="558" y="86" width="10" height="10" rx="2" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"/>
+          <line x1="574" y1="91" x2="662" y2="91" stroke="#4f46e5" stroke-width="2"/>
+          <rect x="558" y="103" width="10" height="10" rx="2" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"/>
+          <line x1="574" y1="108" x2="650" y2="108" stroke="#c4c0f5" stroke-width="2"/>
+          <text x="610" y="134" fill="#3730a3">Backout plan</text>
+          <text x="610" y="147" fill="#3730a3">&amp; checklists</text>
+          <line x1="610" y1="152" x2="610" y2="182" stroke="#4f46e5" stroke-width="2"/>
+          <circle cx="610" cy="185" r="5" fill="#ffffff" stroke="#4f46e5" stroke-width="2"/>
+
+          <!-- 6 Post-migration checklist (below) -->
+          <rect x="665" y="218" width="130" height="82" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="678" y="234" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="694" y1="239" x2="782" y2="239" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="678" y="251" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="694" y1="256" x2="770" y2="256" stroke="#93c5e8" stroke-width="2"/>
+          <text x="730" y="282" fill="#14131c">Post-migration</text>
+          <text x="730" y="295" fill="#14131c">checklist</text>
+          <line x1="730" y1="218" x2="730" y2="188" stroke="#1B6CA0" stroke-width="2"/>
+          <circle cx="730" cy="185" r="5" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+
+          <!-- 7 Operations checklist (above, far right) -->
+          <rect x="695" y="70" width="130" height="82" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="708" y="86" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="724" y1="91" x2="812" y2="91" stroke="#1B6CA0" stroke-width="2"/>
+          <rect x="708" y="103" width="10" height="10" rx="2" fill="#ffffff" stroke="#1B6CA0" stroke-width="1.5"/>
+          <line x1="724" y1="108" x2="800" y2="108" stroke="#93c5e8" stroke-width="2"/>
+          <text x="760" y="134" fill="#14131c">Operations</text>
+          <text x="760" y="147" fill="#14131c">checklist</text>
+          <line x1="810" y1="152" x2="810" y2="182" stroke="#1B6CA0" stroke-width="2"/>
+          <circle cx="810" cy="185" r="5" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+        </g>
+
+        <text x="450" y="35" font-weight="600" font-size="12" fill="#6b6a78">Seven deliverables, one structural pattern &mdash; same fields, same gates, same voice, generated in hours instead of weeks</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 02 DIVISION OF LABOR ============ -->
+  <h3><span class="step-no">02.</span> The division of labor</h3>
+  <p>None of this is "press a button, get documentation." The split that works for me: I bring the decisions, the model brings the scale, and a pipeline brings the trust.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three columns of responsibility: the human brings decisions and experience, the LLM brings structure at scale, the pipeline brings verification">
+      <rect width="900" height="250" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="50" y="35" width="250" height="180" rx="12" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+        <text x="175" y="66" font-weight="800" font-size="15" fill="#2e2d38">I BRING</text>
+        <g font-weight="600" font-size="12" fill="#2e2d38">
+          <text x="175" y="98">architecture decisions</text>
+          <text x="175" y="122">gate &amp; acceptance criteria</text>
+          <text x="175" y="146">platform experience</text>
+          <text x="175" y="170">final technical review</text>
+        </g>
+
+        <rect x="325" y="35" width="250" height="180" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="450" y="66" font-weight="800" font-size="15" fill="#14131c">THE LLM BRINGS</text>
+        <g font-weight="600" font-size="12" fill="#14131c">
+          <text x="450" y="98">consistent templates</text>
+          <text x="450" y="122">checklists &amp; trackers at scale</text>
+          <text x="450" y="146">per-site &amp; per-phase variants</text>
+          <text x="450" y="170">cross-references &amp; formatting</text>
+        </g>
+
+        <rect x="600" y="35" width="250" height="180" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+        <text x="725" y="66" font-weight="800" font-size="15" fill="#4f46e5">THE PIPELINE BRINGS</text>
+        <g font-weight="600" font-size="12" fill="#3730a3">
+          <text x="725" y="98">retrieval for volatile facts</text>
+          <text x="725" y="122">structural build checks</text>
+          <text x="725" y="146">rendered diagram verification</text>
+          <text x="725" y="170">nothing ships on a failed gate</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 03 THE CATCH ============ -->
+  <h3><span class="step-no">03.</span> The catch: facts that move</h3>
+  <p>Here's what experience taught me to never take from the model unattended. Structure and phrasing generalize well. But licensing terms, feature availability per release, certified partner lists, data-residency commitments, and compliance specifics change faster than any model's training data — and they read exactly as confident either way. In my own projects, these are precisely the details I've had to correct by hand against current sources.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The trust boundary: content the LLM can generate freely versus facts that must be verified against current sources">
+      <rect width="900" height="260" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="50" y="40" width="380" height="180" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="240" y="72" font-weight="800" font-size="14" fill="#14131c">GENERATE FREELY</text>
+        <g font-weight="600" font-size="12.5" fill="#14131c">
+          <text x="240" y="104">document structure &amp; templates</text>
+          <text x="240" y="130">checklists, trackers, procedures</text>
+          <text x="240" y="156">methodology &amp; phrasing</text>
+          <text x="240" y="182">cross-references &amp; consistency</text>
+        </g>
+
+        <line x1="450" y1="45" x2="450" y2="215" stroke="#6b6a78" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <text x="450" y="32" font-weight="800" font-size="11.5" fill="#6b6a78">TRUST BOUNDARY</text>
+
+        <rect x="470" y="40" width="380" height="180" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+        <text x="660" y="72" font-weight="800" font-size="14" fill="#92400e">VERIFY AGAINST CURRENT SOURCES</text>
+        <g font-weight="600" font-size="12.5" fill="#92400e">
+          <text x="660" y="104">licensing tiers &amp; entitlements</text>
+          <text x="660" y="130">feature availability per release</text>
+          <text x="660" y="156">certified partners &amp; regional services</text>
+          <text x="660" y="182">compliance &amp; data-residency specifics</text>
+        </g>
+
+        <text x="450" y="245" font-weight="600" font-size="11.5" fill="#6b6a78">The right side isn&rsquo;t where the model fails &mdash; it&rsquo;s where confident text and current truth can quietly differ.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 04 RAG ============ -->
+  <h3><span class="step-no">04.</span> Closing the gap: retrieval</h3>
+  <p>For everything on the right side of that boundary, the answer is a retrieval pipeline — the layer I'm building into my workflow next. Drafts stop relying on the model's memory for volatile facts: the pipeline pulls current vendor documentation, licensing guides, and compliance references at draft time, and every retrieved claim carries its source into the document.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The retrieval pipeline: authoritative sources are indexed, retrieved at draft time, cited in the draft, and reviewed by a human before publishing">
+      <rect width="900" height="240" fill="#ffffff"/>
+      <defs>
+        <marker id="d4" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <g font-weight="600" font-size="11">
+          <rect x="40" y="30" width="160" height="30" rx="15" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="120" y="49" fill="#2e2d38">vendor product docs</text>
+          <rect x="40" y="68" width="160" height="30" rx="15" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="120" y="87" fill="#2e2d38">licensing &amp; ordering guides</text>
+          <rect x="40" y="106" width="160" height="30" rx="15" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="120" y="125" fill="#2e2d38">release notes</text>
+          <rect x="40" y="144" width="160" height="30" rx="15" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="120" y="163" fill="#2e2d38">compliance references</text>
+        </g>
+
+        <line x1="215" y1="97" x2="265" y2="97" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d4)"/>
+
+        <rect x="280" y="67" width="140" height="60" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="350" y="92" font-weight="700" font-size="12.5" fill="#14131c">Retrieval index</text>
+        <text x="350" y="110" font-weight="600" font-size="10.5" fill="#1B6CA0">kept current</text>
+
+        <line x1="435" y1="97" x2="485" y2="97" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d4)"/>
+
+        <rect x="500" y="67" width="160" height="60" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="580" y="88" font-weight="700" font-size="12.5" fill="#14131c">Draft with citations</text>
+        <text x="580" y="106" font-weight="600" font-size="10.5" fill="#1B6CA0">retrieved facts, not recalled</text>
+        <text x="580" y="120" font-weight="600" font-size="10.5" fill="#1B6CA0">source noted per claim</text>
+
+        <line x1="675" y1="97" x2="725" y2="97" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d4)"/>
+
+        <rect x="740" y="67" width="130" height="60" rx="10" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+        <text x="805" y="88" font-weight="700" font-size="12.5" fill="#4f46e5">Human review</text>
+        <text x="805" y="106" font-weight="600" font-size="10.5" fill="#6b6a78">checks claim vs source</text>
+
+        <text x="450" y="205" font-weight="600" font-size="11.5" fill="#6b6a78">Retrieval doesn&rsquo;t replace review &mdash; it makes review possible, because every claim points at something checkable.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 05 VALIDATION GATE ============ -->
+  <h3><span class="step-no">05.</span> The gate everything passes</h3>
+  <p>This part already runs on every site in the portfolio. Drafting is fast; publishing is strict. Every page goes through structural checks, a strict build with zero warnings, rendered verification of diagrams, and my technical review. When any step fails, the content goes back — it never goes out.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The publishing gate: draft, structural checks, strict build, rendered diagram check, human technical review, publish, with failures returning to draft">
+      <rect width="900" height="220" fill="#ffffff"/>
+      <defs>
+        <marker id="d5" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+        <marker id="d5g" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7a8ba0"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <g font-weight="700" font-size="11.5">
+          <rect x="40" y="60" width="110" height="52" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="95" y="83" fill="#2e2d38">Draft</text>
+          <text x="95" y="100" font-weight="600" font-size="10" fill="#6b6a78">LLM + human intent</text>
+
+          <rect x="182" y="60" width="140" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="252" y="79" fill="#14131c">Structural checks</text>
+          <text x="252" y="94" font-weight="600" font-size="9.5" fill="#1B6CA0">one H1 per page &middot; fences closed</text>
+          <text x="252" y="106" font-weight="600" font-size="9.5" fill="#1B6CA0">links resolve</text>
+
+          <rect x="354" y="60" width="130" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="419" y="79" fill="#14131c">Strict build</text>
+          <text x="419" y="96" font-weight="600" font-size="9.5" fill="#1B6CA0">exit 0 &middot; zero warnings</text>
+
+          <rect x="516" y="60" width="130" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="581" y="79" fill="#14131c">Rendered check</text>
+          <text x="581" y="96" font-weight="600" font-size="9.5" fill="#1B6CA0">diagrams verified visually</text>
+
+          <rect x="678" y="60" width="120" height="52" rx="10" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+          <text x="738" y="79" fill="#4f46e5">My review</text>
+          <text x="738" y="96" font-weight="600" font-size="9.5" fill="#6b6a78">technical accuracy</text>
+
+          <rect x="826" y="66" width="44" height="40" rx="8" fill="#4f46e5"/>
+          <text x="848" y="91" fill="#ffffff" font-size="10.5">SHIP</text>
+        </g>
+
+        <line x1="155" y1="86" x2="177" y2="86" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d5)"/>
+        <line x1="327" y1="86" x2="349" y2="86" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d5)"/>
+        <line x1="489" y1="86" x2="511" y2="86" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d5)"/>
+        <line x1="651" y1="86" x2="673" y2="86" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d5)"/>
+        <line x1="803" y1="86" x2="821" y2="86" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#d5)"/>
+
+        <!-- Fail return -->
+        <path d="M 738 117 C 738 165, 300 165, 100 117" fill="none" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#d5g)"/>
+        <text x="420" y="178" font-weight="700" font-size="11" fill="#7a8ba0">any failure returns to draft &mdash; nothing ships on a failed gate</text>
+      </g>
+    </svg>
+  </figure>
+
+  <hr class="section-break">
+
+  <h2>Why the badge is on every page</h2>
+
+  <p>Every site in this portfolio carries an AI-assisted disclosure — including this article. Not as a caveat, but as the point: this is what LLM-drafted documentation looks like when it's wrapped in structure, retrieval for the facts that move, and gates that refuse to let broken content through. The method is generic; the fourteen documentation sites on this portfolio are what it produces.</p>
+
+  <div class="doc-cta">
+    <div class="cta-eyebrow">See the Method Applied</div>
+    <h3>The AbhavTech Documentation Portfolio</h3>
+    <p>Migration guides, network architectures, and security frameworks — every one drafted with this workflow.</p>
+    <a class="cta-btn" href="https://abhavtech.com">Browse the Portfolio &rarr;</a>
+  </div>
+
+  <div class="disclosure">
+    <strong>AI-assisted disclosure:</strong> This article was produced with AI assistance (Claude, Anthropic) under the author's technical direction, as part of the AbhavTech knowledge-sharing portfolio. Content is illustrative and intended for learning; always validate licensing, feature, and compliance details against current official sources before relying on them.
+  </div>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>&copy; 2025&ndash;2026 AbhavTech &middot; Technical Insights</div>
+    <div><a href="https://abhavtech.com">&#127760; abhavtech.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

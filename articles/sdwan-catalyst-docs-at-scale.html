@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documenting Catalyst Center and SD-WAN Architectures at Scale — AbhavTech Technical Insights</title>
+<meta name="description" content="A nine-site, three-region Cisco Catalyst SD-WAN and Catalyst Center journey, documented in three states: where the network started, how it migrated, and where it landed.">
+<meta name="author" content="Rajmohan M">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="article.css">
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="https://abhavtech.com">Abhav<span>Tech</span></a>
+    <a class="back-link" href="https://abhavtech.com/#insights">All Insights &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO — three states ===================== -->
+<figure class="hero" style="margin-top:2.5rem;">
+  <svg viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The network journey in three states: prior MPLS state, the migration, and the post-deployment SD-WAN and fabric state">
+    <defs>
+      <linearGradient id="heroBg2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f3ff"/>
+        <stop offset="1" stop-color="#eef2f7"/>
+      </linearGradient>
+      <marker id="hA" markerWidth="11" markerHeight="11" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#4f46e5"/></marker>
+    </defs>
+    <rect width="900" height="330" fill="url(#heroBg2)"/>
+
+    <text x="60" y="80" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#14131c">One Network Journey.</text>
+    <text x="60" y="117" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#4f46e5">Documented in Three States.</text>
+    <text x="60" y="150" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="14.5" fill="#6b6a78">Cisco Catalyst SD-WAN + Catalyst Center &middot; nine sites &middot; three regions</text>
+
+    <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+      <!-- Prior -->
+      <rect x="60" y="185" width="215" height="100" rx="12" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+      <text x="167" y="215" font-weight="800" font-size="15" fill="#2e2d38">PRIOR STATE</text>
+      <text x="167" y="240" font-weight="600" font-size="11.5" fill="#6b6a78">MPLS-only WAN</text>
+      <text x="167" y="257" font-weight="600" font-size="11.5" fill="#6b6a78">per-device CLI</text>
+      <text x="167" y="274" font-weight="600" font-size="11.5" fill="#6b6a78">campus &amp; WAN managed apart</text>
+
+      <line x1="288" y1="235" x2="325" y2="235" stroke="#4f46e5" stroke-width="3" marker-end="url(#hA)"/>
+
+      <!-- Migration -->
+      <rect x="342" y="185" width="215" height="100" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+      <text x="449" y="215" font-weight="800" font-size="15" fill="#4f46e5">MIGRATION</text>
+      <text x="449" y="240" font-weight="600" font-size="11.5" fill="#6b6a78">controllers first</text>
+      <text x="449" y="257" font-weight="600" font-size="11.5" fill="#6b6a78">templated site builds</text>
+      <text x="449" y="274" font-weight="600" font-size="11.5" fill="#6b6a78">wave-based rollout</text>
+
+      <line x1="570" y1="235" x2="607" y2="235" stroke="#4f46e5" stroke-width="3" marker-end="url(#hA)"/>
+
+      <!-- Post -->
+      <rect x="624" y="185" width="215" height="100" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="731" y="215" font-weight="800" font-size="15" fill="#14131c">POST DEPLOYMENT</text>
+      <text x="731" y="240" font-weight="600" font-size="11.5" fill="#1B6CA0">app-aware SD-WAN overlay</text>
+      <text x="731" y="257" font-weight="600" font-size="11.5" fill="#1B6CA0">fabric + WAN, one system</text>
+      <text x="731" y="274" font-weight="600" font-size="11.5" fill="#1B6CA0">segmentation end to end</text>
+    </g>
+  </svg>
+</figure>
+
+<!-- ===================== ARTICLE ===================== -->
+<main class="article">
+
+  <div class="eyebrow">Enterprise Networking &middot; Mar 2026</div>
+
+  <h1>Documenting Catalyst Center and SD-WAN Architectures at Scale</h1>
+
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">RM</div>
+    <div class="who">
+      <div class="name">Rajmohan M</div>
+      <div class="role">Principal Consultant, UC &amp; Contact Center</div>
+    </div>
+    <div class="meta">
+      4 min read &middot; March 2026<br>
+      <span class="ai-badge">AI-Assisted Documentation</span>
+    </div>
+  </div>
+
+  <p class="lede">Large network transformations are easiest to understand when they're told in three states: where the network started, how it moved, and where it landed. That's exactly how I documented this one.</p>
+
+  <p>The deployment spans nine sites across India, EMEA, and the Americas — Mumbai and Chennai as the India hubs with Bangalore, Delhi, and Noida branches, London and Frankfurt in EMEA, New Jersey and Dallas in the Americas. Here is the journey, state by state.</p>
+
+  <!-- ============ 01 PRIOR STATE ============ -->
+  <h3><span class="step-no">01.</span> Where we started</h3>
+  <p>A classic enterprise WAN: every site connected over MPLS in a hub-and-spoke pattern, each router configured by hand over CLI, and the campus network and WAN managed as two separate worlds.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prior state: nine sites hub-and-spoke over a single MPLS transport, per-device CLI management, campus and WAN managed separately">
+      <rect width="900" height="300" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <!-- MPLS cloud -->
+        <ellipse cx="450" cy="140" rx="130" ry="62" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+        <text x="450" y="135" font-weight="800" font-size="16" fill="#2e2d38">MPLS</text>
+        <text x="450" y="155" font-weight="600" font-size="11.5" fill="#6b6a78">single transport &middot; hub-and-spoke</text>
+
+        <!-- Sites around -->
+        <g font-weight="600" font-size="11.5">
+          <rect x="60" y="45" width="110" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="115" y="67" fill="#2e2d38">Mumbai DC</text>
+          <rect x="60" y="123" width="110" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="115" y="145" fill="#2e2d38">Chennai DC</text>
+          <rect x="60" y="201" width="110" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="115" y="223" fill="#2e2d38">India branches &times;3</text>
+
+          <rect x="730" y="45" width="110" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="785" y="67" fill="#2e2d38">London</text>
+          <rect x="730" y="123" width="110" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="785" y="145" fill="#2e2d38">Frankfurt</text>
+          <rect x="730" y="201" width="110" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="785" y="223" fill="#2e2d38">NJ &middot; Dallas</text>
+        </g>
+
+        <line x1="175" y1="62" x2="330" y2="115" stroke="#7a8ba0" stroke-width="2"/>
+        <line x1="175" y1="140" x2="320" y2="140" stroke="#7a8ba0" stroke-width="2"/>
+        <line x1="175" y1="218" x2="330" y2="165" stroke="#7a8ba0" stroke-width="2"/>
+        <line x1="725" y1="62" x2="570" y2="115" stroke="#7a8ba0" stroke-width="2"/>
+        <line x1="725" y1="140" x2="580" y2="140" stroke="#7a8ba0" stroke-width="2"/>
+        <line x1="725" y1="218" x2="570" y2="165" stroke="#7a8ba0" stroke-width="2"/>
+
+        <!-- Management reality strip -->
+        <rect x="150" y="248" width="280" height="36" rx="8" fill="#ffffff" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="290" y="271" font-weight="600" font-size="11.5" fill="#6b6a78">WAN: per-device CLI, box by box</text>
+        <rect x="470" y="248" width="280" height="36" rx="8" fill="#ffffff" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="610" y="271" font-weight="600" font-size="11.5" fill="#6b6a78">Campus: managed separately, per site</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 02 MANAGEMENT FOUNDATION ============ -->
+  <h3><span class="step-no">02.</span> The management foundation</h3>
+  <p>The design puts two management planes in place before any site migrates, each with a clear job. <strong>Catalyst Center</strong> automates the campus side — SD-Access fabric provisioning, software image management, and assurance analytics — working with ISE for identity and policy. The <strong>SD-WAN control plane</strong> runs the overlay: SD-WAN Manager for configuration and monitoring, vSmart for policy and routing, vBond for zero-touch onboarding.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The two management planes: Catalyst Center with ISE automating the SD-Access fabric, and the SD-WAN control plane managing WAN edges at all nine sites">
+      <rect width="900" height="360" fill="#ffffff"/>
+      <defs>
+        <marker id="m2" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <!-- Catalyst Center domain -->
+        <rect x="40" y="30" width="390" height="220" rx="12" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+        <text x="235" y="58" font-weight="800" font-size="15" fill="#14131c">CATALYST CENTER 2.3.7.x</text>
+        <text x="235" y="76" font-weight="600" font-size="11" fill="#6b6a78">New Jersey primary &middot; London DR</text>
+
+        <g font-weight="600" font-size="12">
+          <rect x="65" y="92" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="145" y="112" fill="#14131c">Fabric automation</text>
+          <text x="145" y="126" font-size="10.5" fill="#1B6CA0">SD-Access provisioning</text>
+
+          <rect x="245" y="92" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="325" y="112" fill="#14131c">Assurance</text>
+          <text x="325" y="126" font-size="10.5" fill="#1B6CA0">health &amp; AI analytics</text>
+
+          <rect x="65" y="146" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="145" y="166" fill="#14131c">Image management</text>
+          <text x="145" y="180" font-size="10.5" fill="#1B6CA0">golden images &middot; SWIM</text>
+
+          <rect x="245" y="146" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="325" y="166" fill="#14131c">ISE integration</text>
+          <text x="325" y="180" font-size="10.5" fill="#1B6CA0">PSNs: Mumbai &middot; Chennai</text>
+        </g>
+
+        <rect x="115" y="205" width="240" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="235" y="227" font-weight="700" font-size="12" fill="#2e2d38">SD-Access fabric &middot; hub campuses</text>
+
+        <!-- SD-WAN domain -->
+        <rect x="470" y="30" width="390" height="220" rx="12" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+        <text x="665" y="58" font-weight="800" font-size="15" fill="#14131c">SD-WAN CONTROL PLANE 20.15.x</text>
+        <text x="665" y="76" font-weight="600" font-size="11" fill="#6b6a78">Mumbai primary &middot; Chennai DR</text>
+
+        <g font-weight="600" font-size="12">
+          <rect x="495" y="92" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="575" y="112" fill="#14131c">SD-WAN Manager</text>
+          <text x="575" y="126" font-size="10.5" fill="#1B6CA0">config groups &middot; monitoring</text>
+
+          <rect x="675" y="92" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="755" y="112" fill="#14131c">vSmart</text>
+          <text x="755" y="126" font-size="10.5" fill="#1B6CA0">policy &middot; OMP routing</text>
+
+          <rect x="585" y="146" width="160" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="665" y="166" fill="#14131c">vBond</text>
+          <text x="665" y="180" font-size="10.5" fill="#1B6CA0">validator &middot; zero-touch onboarding</text>
+        </g>
+
+        <rect x="545" y="205" width="240" height="34" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="665" y="227" font-weight="700" font-size="12" fill="#2e2d38">WAN edges &middot; all 9 sites</text>
+
+        <!-- Integration link -->
+        <line x1="430" y1="112" x2="470" y2="112" stroke="#4f46e5" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <text x="450" y="100" font-weight="700" font-size="10.5" fill="#4f46e5">integrated</text>
+
+        <!-- Border handoff note -->
+        <line x1="355" y1="222" x2="545" y2="222" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#m2)"/>
+        <text x="450" y="212" font-weight="700" font-size="10.5" fill="#4f46e5">fabric border &#8596; WAN edge handoff</text>
+
+        <text x="450" y="290" font-weight="600" font-size="12" fill="#6b6a78">One design decision, documented once: the campus plane and the WAN plane meet only at the hub border handoff,</text>
+        <text x="450" y="310" font-weight="600" font-size="12" fill="#6b6a78">so each plane can evolve, upgrade, and troubleshoot independently.</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="chip"><span class="swatch new"></span> Management &amp; control functions</span>
+      <span class="chip"><span class="swatch existing"></span> Managed network layers</span>
+    </div>
+  </figure>
+
+  <!-- ============ 03 MIGRATION ============ -->
+  <h3><span class="step-no">03.</span> The migration</h3>
+  <p>With both planes up, sites moved in waves — a pilot branch first, then region by region, hubs last with their fabric handoff. Both transports ran side by side during the journey, so every site kept a clean path back until its wave was proven.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The migration: MPLS-only start, overlay built alongside, waves of sites moving, MPLS retained as one transport among several at the end">
+      <rect width="900" height="250" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <!-- Chevron band -->
+        <path d="M 40 40 L 230 40 L 260 85 L 230 130 L 40 130 Z" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="145" y="75" font-weight="800" font-size="13.5" fill="#2e2d38">Controllers live</text>
+        <text x="145" y="95" font-weight="600" font-size="11" fill="#6b6a78">both planes up &middot; DR tested</text>
+
+        <path d="M 245 40 L 435 40 L 465 85 L 435 130 L 245 130 L 275 85 Z" fill="#e4eff8" stroke="#1B6CA0" stroke-width="2"/>
+        <text x="360" y="75" font-weight="800" font-size="13.5" fill="#14131c">Pilot branch</text>
+        <text x="360" y="95" font-weight="600" font-size="11" fill="#1B6CA0">overlay proven on live traffic</text>
+
+        <path d="M 450 40 L 640 40 L 670 85 L 640 130 L 450 130 L 480 85 Z" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="565" y="75" font-weight="800" font-size="13.5" fill="#14131c">Region waves</text>
+        <text x="565" y="95" font-weight="600" font-size="11" fill="#1B6CA0">India &#8594; EMEA &#8594; Americas</text>
+
+        <path d="M 655 40 L 845 40 L 845 130 L 655 130 L 685 85 Z" fill="#4f46e5" stroke="#3730a3" stroke-width="2"/>
+        <text x="758" y="75" font-weight="800" font-size="13.5" fill="#ffffff">Hubs + handoff</text>
+        <text x="758" y="95" font-weight="600" font-size="11" fill="#c7d2fe">fabric borders meet WAN edges</text>
+
+        <!-- Transport timeline below -->
+        <line x1="60" y1="185" x2="840" y2="185" stroke="#c4c0f5" stroke-width="2.5"/>
+        <text x="150" y="172" font-weight="700" font-size="11" fill="#6b6a78">MPLS only</text>
+        <text x="450" y="172" font-weight="700" font-size="11" fill="#4f46e5">MPLS + overlay in parallel &middot; fallback per wave</text>
+        <text x="758" y="172" font-weight="700" font-size="11" fill="#1B6CA0">hybrid transports, app-aware</text>
+        <circle cx="150" cy="185" r="6" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+        <circle cx="450" cy="185" r="6" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+        <circle cx="758" cy="185" r="6" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+
+        <text x="450" y="228" font-weight="600" font-size="11.5" fill="#6b6a78">Every wave documented the same way: entry checks &middot; the build from its configuration group &middot; validation &middot; fallback</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 04 SEGMENTATION ============ -->
+  <h3><span class="step-no">04.</span> Segmentation, end to end</h3>
+  <p>The achievement I'm most pleased with: a policy decision made in the campus fabric stays intact across the WAN. Each SD-Access virtual network hands off at the hub border to its own SD-WAN VPN — the same mapping at every hub, documented once.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SD-Access virtual networks map through handoff VLANs to SD-WAN VPNs">
+      <rect width="900" height="320" fill="#ffffff"/>
+      <defs>
+        <marker id="m4" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <text x="215" y="34" font-family="Archivo, Arial, sans-serif" font-weight="800" font-size="14" fill="#6b6a78" text-anchor="middle">SD-ACCESS VIRTUAL NETWORK</text>
+      <text x="450" y="34" font-family="Archivo, Arial, sans-serif" font-weight="800" font-size="13" fill="#4f46e5" text-anchor="middle">HANDOFF VLAN</text>
+      <text x="685" y="34" font-family="Archivo, Arial, sans-serif" font-weight="800" font-size="14" fill="#1B6CA0" text-anchor="middle">SD-WAN VPN</text>
+
+      <g font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="13" text-anchor="middle">
+        <rect x="80" y="52" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="77" fill="#2e2d38">VN_CORPORATE</text>
+        <line x1="365" y1="72" x2="535" y2="72" stroke="#4f46e5" stroke-width="2" marker-end="url(#m4)"/>
+        <text x="450" y="64" font-size="11.5" fill="#4f46e5" font-weight="700">3001</text>
+        <rect x="550" y="52" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="77" fill="#14131c">VPN 10 &middot; Corporate</text>
+
+        <rect x="80" y="104" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="129" fill="#2e2d38">VN_GUEST</text>
+        <line x1="365" y1="124" x2="535" y2="124" stroke="#4f46e5" stroke-width="2" marker-end="url(#m4)"/>
+        <text x="450" y="116" font-size="11.5" fill="#4f46e5" font-weight="700">3002</text>
+        <rect x="550" y="104" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="129" fill="#14131c">VPN 20 &middot; Guest</text>
+
+        <rect x="80" y="156" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="181" fill="#2e2d38">VN_IOT</text>
+        <line x1="365" y1="176" x2="535" y2="176" stroke="#4f46e5" stroke-width="2" marker-end="url(#m4)"/>
+        <text x="450" y="168" font-size="11.5" fill="#4f46e5" font-weight="700">3003</text>
+        <rect x="550" y="156" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="181" fill="#14131c">VPN 30 &middot; IoT</text>
+
+        <rect x="80" y="208" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="233" fill="#2e2d38">VN_SERVERS</text>
+        <line x1="365" y1="228" x2="535" y2="228" stroke="#4f46e5" stroke-width="2" marker-end="url(#m4)"/>
+        <text x="450" y="220" font-size="11.5" fill="#4f46e5" font-weight="700">3004</text>
+        <rect x="550" y="208" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="233" fill="#14131c">VPN 40 &middot; Servers</text>
+
+        <rect x="80" y="260" width="270" height="40" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="215" y="285" fill="#2e2d38">VN_VOICE</text>
+        <line x1="365" y1="280" x2="535" y2="280" stroke="#4f46e5" stroke-width="2" marker-end="url(#m4)"/>
+        <text x="450" y="272" font-size="11.5" fill="#4f46e5" font-weight="700">3005</text>
+        <rect x="550" y="260" width="270" height="40" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="685" y="285" fill="#14131c">VPN 50 &middot; Voice</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="chip"><span class="swatch existing"></span> SD-Access fabric</span>
+      <span class="chip"><span class="swatch new"></span> SD-WAN overlay</span>
+    </div>
+  </figure>
+
+  <!-- ============ 05 POST DEPLOYMENT ============ -->
+  <h3><span class="step-no">05.</span> Where we landed</h3>
+  <p>The post-deployment state: nine sites on an application-aware overlay across MPLS, dual Internet, and LTE backup, with hub campuses running SD-Access fabric — and the whole system visible from two dashboards instead of dozens of terminal windows.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Post-deployment state: management layer on top, SD-WAN overlay across three transports in the middle, three regions of sites below">
+      <rect width="900" height="380" fill="#ffffff"/>
+      <defs>
+        <marker id="m5" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <!-- Management layer -->
+        <rect x="180" y="25" width="255" height="46" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="307" y="45" font-weight="700" font-size="12.5" fill="#4f46e5">Catalyst Center</text>
+        <text x="307" y="62" font-size="10.5" fill="#6b6a78">fabric &middot; assurance &middot; NJ / London</text>
+
+        <rect x="465" y="25" width="255" height="46" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="592" y="45" font-weight="700" font-size="12.5" fill="#4f46e5">SD-WAN Manager</text>
+        <text x="592" y="62" font-size="10.5" fill="#6b6a78">overlay &middot; policy &middot; Mumbai / Chennai</text>
+
+        <line x1="307" y1="71" x2="307" y2="105" stroke="#4f46e5" stroke-width="2" marker-end="url(#m5)"/>
+        <line x1="592" y1="71" x2="592" y2="105" stroke="#4f46e5" stroke-width="2" marker-end="url(#m5)"/>
+
+        <!-- Overlay band -->
+        <rect x="80" y="110" width="740" height="70" rx="14" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="450" y="138" font-weight="800" font-size="15" fill="#14131c">Application-aware SD-WAN overlay</text>
+        <text x="450" y="160" font-weight="600" font-size="11.5" fill="#1B6CA0">MPLS &middot; dual Internet &middot; LTE backup &mdash; per-VPN segmentation &middot; SLA-based path selection</text>
+
+        <!-- Region groups -->
+        <line x1="230" y1="180" x2="230" y2="212" stroke="#1B6CA0" stroke-width="2" marker-end="url(#m5)"/>
+        <line x1="450" y1="180" x2="450" y2="212" stroke="#1B6CA0" stroke-width="2" marker-end="url(#m5)"/>
+        <line x1="670" y1="180" x2="670" y2="212" stroke="#1B6CA0" stroke-width="2" marker-end="url(#m5)"/>
+
+        <g font-weight="600" font-size="11.5">
+          <rect x="105" y="218" width="250" height="118" rx="12" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+          <text x="230" y="242" font-weight="800" font-size="13" fill="#14131c">INDIA / APAC</text>
+          <rect x="125" y="256" width="100" height="32" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="175" y="277" fill="#14131c">Mumbai &#9733;</text>
+          <rect x="235" y="256" width="100" height="32" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="285" y="277" fill="#14131c">Chennai &#9733;</text>
+          <rect x="125" y="296" width="210" height="30" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="230" y="316" fill="#2e2d38">Bangalore &middot; Delhi &middot; Noida</text>
+
+        </g>
+
+        <g font-weight="600" font-size="11.5">
+          <rect x="375" y="218" width="180" height="118" rx="12" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+          <text x="465" y="242" font-weight="800" font-size="13" fill="#14131c">EMEA</text>
+          <rect x="392" y="256" width="70" height="32" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="427" y="277" fill="#14131c">London &#9733;</text>
+          <rect x="470" y="256" width="70" height="32" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="505" y="277" fill="#14131c">Frankfurt &#9733;</text>
+          <rect x="392" y="296" width="148" height="30" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="466" y="316" fill="#2e2d38">fabric at hub campuses</text>
+        </g>
+
+        <g font-weight="600" font-size="11.5">
+          <rect x="595" y="218" width="250" height="118" rx="12" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+          <text x="720" y="242" font-weight="800" font-size="13" fill="#14131c">AMERICAS</text>
+          <rect x="615" y="256" width="105" height="32" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="667" y="277" fill="#14131c">New Jersey &#9733;</text>
+          <rect x="730" y="256" width="95" height="32" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="777" y="277" fill="#14131c">Dallas &#9733;</text>
+          <rect x="615" y="296" width="210" height="30" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="720" y="316" fill="#2e2d38">dual WAN edges at every hub</text>
+        </g>
+
+        <text x="450" y="366" font-weight="600" font-size="11" fill="#6b6a78">&#9733; = SD-Access fabric border handoff to SD-WAN &middot; every hub carries the same VN &#8594; VPN mapping</text>
+      </g>
+    </svg>
+  </figure>
+
+  <hr class="section-break">
+
+  <h2>Where AI fits in</h2>
+
+  <p>A deployment like this produces over a hundred documentation sections across two guides. I bring the topology decisions, the two-plane management design, and the handoff details, and Claude helps me draft at scale — the per-region variations, the repeated site procedures, and the cross-references between chapters. Every page then passes a strict build check before anything gets published.</p>
+
+  <h2>Explore the full documentation</h2>
+
+  <p>Each state above unfolds into complete, navigable documentation — the discovery registers, architecture and control plane chapters, segmentation and handoff design, configuration templates, wave procedures, and the operations pack. Both guides are built as illustrative enterprise scenarios, so the structure and decision logic are fully visible for anyone who wants to learn from them or adapt them.</p>
+
+  <div class="doc-cta">
+    <div class="cta-eyebrow">Full Documentation Sites</div>
+    <h3>Cisco Catalyst SD-WAN &amp; SD-Access Implementation Guides</h3>
+    <p>The complete nine-site, three-region journey, published as browsable sites — <a href="https://sdwan.abhavtech.com">SD-WAN</a> and <a href="https://sdaccess.abhavtech.com">SD-Access &amp; ISE</a>.</p>
+    <a class="cta-btn" href="https://sdwan.abhavtech.com">Open the SD-WAN Guide &rarr;</a>
+  </div>
+
+  <div class="disclosure">
+    <strong>AI-assisted disclosure:</strong> This article and the documentation sites it references were produced with AI assistance (Claude, Anthropic) under the author's technical direction, as part of the AbhavTech knowledge-sharing portfolio. Content is illustrative and intended for learning; validate all designs and procedures independently before applying them to production environments.
+  </div>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>&copy; 2025&ndash;2026 AbhavTech &middot; Technical Insights</div>
+    <div><a href="https://abhavtech.com">&#127760; abhavtech.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
