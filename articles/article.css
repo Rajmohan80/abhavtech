@@ -265,13 +265,17 @@ hr.section-break::after {
    ============================================================ */
 
 figure.hero {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto 3rem;
   padding: 0 1.5rem;
 }
 
+/* Diagrams break out of the 680px reading column into a wider band
+   so the SVG content is fully readable. The break-out is centered on
+   the article column and clamped to viewport width on mobile. */
 figure.diagram {
-  margin: 2.25rem 0;
+  width: calc(min(1100px, 100vw - 3rem));
+  margin: 2.25rem 0 2.25rem calc((680px - min(1100px, 100vw - 3rem)) / 2);
 }
 
 figure.hero svg,
@@ -281,6 +285,14 @@ figure.diagram svg {
   display: block;
   border: 1px solid var(--hairline);
   border-radius: 10px;
+}
+
+/* On viewports narrower than the reading column, no break-out needed */
+@media (max-width: 720px) {
+  figure.diagram {
+    width: 100%;
+    margin: 2rem 0;
+  }
 }
 
 figcaption {
