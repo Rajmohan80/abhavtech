@@ -1,0 +1,456 @@
+/* ============================================================================
+   ABHAVTECH — TECHNICAL INSIGHTS ARTICLE STYLESHEET
+   ============================================================================
+   Shared by all articles under /articles/.
+   Design language: matches hub (abhavtech.com) — heavy grotesque display,
+   indigo accent, white paper — with a Medium-style serif reading column.
+   Diagram convention (portfolio standard):
+     existing/reused = grey  (#eef2f7 fill / #7a8ba0 stroke)
+     new components  = blue  (#d7ebf8 fill / #1B6CA0 stroke)
+   ============================================================================ */
+
+:root {
+  --ink:        #14131c;
+  --body-text:  #2e2d38;
+  --muted:      #6b6a78;
+  --accent:     #4f46e5;   /* hub indigo */
+  --accent-dk:  #3730a3;
+  --tint:       #f4f3ff;
+  --hairline:   #e9e8f0;
+  --paper:      #ffffff;
+  --code-bg:    #f6f6f9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+body {
+  background: var(--paper);
+  color: var(--body-text);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 1.1875rem;          /* 19px reading size */
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   TOP BAR — minimal, links back to hub
+   ============================================================ */
+
+.topbar {
+  border-bottom: 1px solid var(--hairline);
+  background: var(--paper);
+}
+
+.topbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar .brand {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.topbar .brand span { color: var(--accent); }
+
+.topbar .back-link {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+}
+
+.topbar .back-link:hover { color: var(--accent-dk); border-color: var(--accent-dk); }
+
+/* ============================================================
+   ARTICLE COLUMN
+   ============================================================ */
+
+.article {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* Eyebrow — category · date (matches hub card style) */
+.eyebrow {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+/* Byline row */
+.byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 2.25rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.85rem;
+}
+
+.byline .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #818cf8);
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.byline .who { line-height: 1.35; }
+.byline .who .name { font-weight: 700; color: var(--ink); }
+.byline .who .role { color: var(--muted); font-size: 0.78rem; }
+
+.byline .meta {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.ai-badge {
+  display: inline-block;
+  background: var(--tint);
+  color: var(--accent-dk);
+  border: 1px solid #d9d6fb;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   BODY TYPOGRAPHY
+   ============================================================ */
+
+.article p { margin-bottom: 1.5rem; }
+
+.article .lede {
+  font-size: 1.32rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.article h2 {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 3rem 0 1rem;
+  line-height: 1.25;
+}
+
+.article h3 {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.12rem;
+  color: var(--ink);
+  margin: 2.2rem 0 0.75rem;
+  line-height: 1.4;
+}
+
+/* Numbered step headings — "01." prefix in accent */
+.article h3 .step-no {
+  color: var(--accent);
+  margin-right: 0.4rem;
+}
+
+.article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: #c4c0f5;
+  text-underline-offset: 3px;
+}
+.article a:hover { color: var(--accent-dk); text-decoration-color: var(--accent-dk); }
+
+.article strong { color: var(--ink); }
+
+.article ul, .article ol {
+  margin: 0 0 1.5rem 1.4rem;
+}
+.article li { margin-bottom: 0.5rem; }
+
+.article blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.25rem 0 0.25rem 1.4rem;
+  margin: 2rem 0;
+  font-size: 1.3rem;
+  line-height: 1.55;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.article code {
+  font-family: "Roboto Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.82em;
+  background: var(--code-bg);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+.article pre {
+  background: var(--code-bg);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  margin: 0 0 1.5rem;
+}
+.article pre code { background: none; border: none; padding: 0; font-size: 0.82rem; line-height: 1.6; }
+
+hr.section-break {
+  border: none;
+  text-align: center;
+  margin: 2.75rem 0;
+}
+hr.section-break::after {
+  content: "· · ·";
+  color: var(--muted);
+  font-size: 1.2rem;
+  letter-spacing: 0.6em;
+}
+
+/* ============================================================
+   FIGURES — hero + inline diagrams
+   ============================================================ */
+
+figure.hero {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+figure.diagram {
+  margin: 2.25rem 0;
+}
+
+figure.hero svg,
+figure.diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+}
+
+figcaption {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.7rem;
+}
+
+/* Diagram legend chips */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.6rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.legend .chip { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legend .swatch {
+  width: 14px; height: 14px; border-radius: 3px; display: inline-block;
+}
+.legend .swatch.existing { background: #eef2f7; border: 1.5px solid #7a8ba0; }
+.legend .swatch.new      { background: #d7ebf8; border: 1.5px solid #1B6CA0; }
+
+/* ============================================================
+   RESULTS BAND — key outcomes
+   ============================================================ */
+
+.results {
+  background: var(--tint);
+  border: 1px solid #ddd9fb;
+  border-radius: 12px;
+  padding: 1.75rem 1.75rem 1rem;
+  margin: 2.5rem 0;
+}
+
+.results h2 {
+  margin-top: 0 !important;
+  font-size: 1.2rem !important;
+}
+
+.results ul { list-style: none; margin-left: 0; }
+.results li {
+  padding-left: 1.6rem;
+  position: relative;
+  margin-bottom: 0.85rem;
+  font-size: 1.05rem;
+}
+.results li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+}
+
+/* ============================================================
+   CTA — link to the full documentation site
+   ============================================================ */
+
+.doc-cta {
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin: 3rem 0 1rem;
+}
+
+.doc-cta .cta-eyebrow {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.doc-cta h3 {
+  margin: 0 0 0.6rem !important;
+  font-size: 1.25rem !important;
+}
+
+.doc-cta p { margin-bottom: 1.1rem; font-size: 1rem; }
+
+.doc-cta .cta-btn {
+  display: inline-block;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.doc-cta .cta-btn:hover { background: var(--accent-dk); color: #fff; }
+
+/* ============================================================
+   DISCLOSURE NOTE
+   ============================================================ */
+
+.disclosure {
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: var(--muted);
+  background: var(--code-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 2.5rem 0 0;
+}
+
+/* ============================================================
+   FOOTER — globe/abhavtech.com only
+   ============================================================ */
+
+.site-footer {
+  border-top: 1px solid var(--hairline);
+  margin-top: 4rem;
+}
+
+.site-footer .footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+}
+.site-footer a:hover { color: var(--accent-dk); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 640px) {
+  body { font-size: 1.0625rem; }
+  .article { padding: 2rem 1.25rem 3rem; }
+  .byline .meta { margin-left: 0; text-align: left; width: 100%; }
+  .article .lede { font-size: 1.18rem; }
+}
+
+/* Keyboard focus visibility */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Print */
+@media print {
+  .topbar, .site-footer, .doc-cta { display: none; }
+  .article { max-width: 100%; }
+}
