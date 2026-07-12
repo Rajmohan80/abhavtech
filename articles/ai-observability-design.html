@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing AI-Powered Observability — AbhavTech Technical Insights</title>
+<meta name="description" content="Three integrated domains — AI-enabled observability, Zero Trust, and AI-ready networking — designed as one platform on the Cisco stack, moving operations from reactive to predictive.">
+<meta name="author" content="Rajmohan M">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="article.css">
+<link rel="stylesheet" href="/articles/article.css">
+<style>
+/* Critical fallback — full styles live in article.css */
+body{margin:0;font-family:"Source Serif 4",Georgia,serif;font-size:1.1875rem;line-height:1.75;color:#2e2d38}
+.article{max-width:680px;margin:0 auto;padding:2.5rem 1.5rem}
+figure.hero{max-width:1100px;margin:2.5rem auto 2rem;padding:0 1.5rem}
+figure.hero svg,figure.diagram svg{width:100%;height:auto;display:block}
+figure.diagram{width:calc(min(1100px, 100vw - 3rem));margin:2.25rem 0 2.25rem calc((680px - min(1100px, 100vw - 3rem)) / 2)}
+@media (max-width:720px){figure.diagram{width:100%;margin:2rem 0}}
+.topbar-inner,.footer-inner{max-width:1100px;margin:0 auto;padding:0.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.eyebrow{font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#4f46e5;margin-bottom:1rem}
+h1{font-family:Archivo,Arial,sans-serif;font-weight:900;font-size:clamp(2rem,5.5vw,3rem);line-height:1.12;letter-spacing:-.025em;color:#14131c;margin:0 0 1.5rem}
+.article h2,.article h3{font-family:Archivo,Arial,sans-serif;color:#14131c;line-height:1.3}
+.byline{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;padding:1.1rem 0;border-top:1px solid #e9e8f0;border-bottom:1px solid #e9e8f0;margin-bottom:2.25rem;font-family:Archivo,Arial,sans-serif;font-size:.85rem}
+.byline .avatar{width:42px;height:42px;border-radius:50%;background:#4f46e5;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.byline .who .name{font-weight:700;color:#14131c}
+.byline .who .role{color:#6b6a78;font-size:.78rem}
+.byline .meta{margin-left:auto;color:#6b6a78;font-size:.78rem;text-align:right;line-height:1.5}
+.ai-badge{display:inline-block;background:#f4f3ff;color:#3730a3;border:1px solid #d9d6fb;padding:2px 10px;border-radius:12px;font-family:Archivo,Arial,sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">Abhav<span>Tech</span></a>
+    <a class="back-link" href="/#insights">All Insights &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO — three pillars, one intelligence ===================== -->
+<figure class="hero" style="margin-top:2.5rem;">
+  <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three domains — observability, zero trust, and AI-ready network — under one correlation layer">
+    <defs>
+      <linearGradient id="heroBg7" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f3ff"/>
+        <stop offset="1" stop-color="#eef2f7"/>
+      </linearGradient>
+      <marker id="g0" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+    </defs>
+    <rect width="900" height="340" fill="url(#heroBg7)"/>
+
+    <text x="60" y="80" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#14131c">Three Domains.</text>
+    <text x="60" y="117" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#4f46e5">One Nervous System.</text>
+    <text x="60" y="150" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="14.5" fill="#6b6a78">AI-powered observability, Zero Trust, and AI-ready networking &mdash; designed together</text>
+
+    <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+      <rect x="90" y="255" width="220" height="60" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="200" y="280" font-weight="800" font-size="13" fill="#14131c">AI OBSERVABILITY</text>
+      <text x="200" y="300" font-weight="600" font-size="10.5" fill="#1B6CA0">Splunk &middot; ThousandEyes &middot; AppD</text>
+
+      <rect x="340" y="255" width="220" height="60" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="450" y="280" font-weight="800" font-size="13" fill="#14131c">ZERO TRUST</text>
+      <text x="450" y="300" font-weight="600" font-size="10.5" fill="#1B6CA0">XDR &middot; FTD &middot; Duo &middot; ISE &middot; Umbrella</text>
+
+      <rect x="590" y="255" width="220" height="60" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="700" y="280" font-weight="800" font-size="13" fill="#14131c">AI-READY NETWORK</text>
+      <text x="700" y="300" font-weight="600" font-size="10.5" fill="#1B6CA0">Catalyst Center &middot; SD-WAN &middot; WiFi 7</text>
+
+      <rect x="240" y="185" width="420" height="46" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+      <text x="450" y="205" font-weight="800" font-size="13.5" fill="#4f46e5">AI CORRELATION LAYER</text>
+      <text x="450" y="222" font-weight="600" font-size="10.5" fill="#6b6a78">one signal from every domain &middot; predictive, not reactive</text>
+
+      <line x1="200" y1="250" x2="330" y2="233" stroke="#4f46e5" stroke-width="2" marker-end="url(#g0)"/>
+      <line x1="450" y1="250" x2="450" y2="236" stroke="#4f46e5" stroke-width="2" marker-end="url(#g0)"/>
+      <line x1="700" y1="250" x2="570" y2="233" stroke="#4f46e5" stroke-width="2" marker-end="url(#g0)"/>
+    </g>
+  </svg>
+</figure>
+
+<main class="article">
+
+  <div class="eyebrow">AI Operations &middot; Jul 2026</div>
+
+  <h1>Designing AI-Powered Observability: From Alert Noise to One Signal</h1>
+
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">RM</div>
+    <div class="who">
+      <div class="name">Rajmohan M</div>
+      <div class="role">Principal Consultant, UC &amp; Contact Center</div>
+    </div>
+    <div class="meta">
+      4 min read &middot; July 2026<br>
+      <span class="ai-badge">AI-Assisted Documentation</span>
+    </div>
+  </div>
+
+  <p class="lede">Enterprises rarely lack monitoring — they lack agreement between their monitors. The network tool, the app tool, and the security tool each see a fragment of the same incident and raise three unrelated alerts. This design makes them tell one story.</p>
+
+  <p>The platform is designed as three integrated domains on the Cisco stack — AI-enabled observability, Zero Trust security, and an AI-ready network — built as an illustrative enterprise scenario. What makes it one platform rather than three deployments is the correlation layer they all feed. Here is the design, domain by domain.</p>
+
+  <!-- ============ 01 THREE DOMAINS ============ -->
+  <h3><span class="step-no">01.</span> Three domains, designed together</h3>
+  <p>Each domain is a complete design on its own. The value comes from planning them as one system, so every platform lands with its telemetry integration already decided.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The three domain stacks with their component platforms">
+      <rect width="900" height="300" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="45" y="30" width="255" height="240" rx="14" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+        <text x="172" y="60" font-weight="800" font-size="14" fill="#14131c">AI OBSERVABILITY</text>
+        <g font-weight="600" font-size="11.5">
+          <rect x="65" y="78" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="172" y="100" fill="#14131c">Splunk ES + MLTK &middot; SIEM &amp; UEBA</text>
+          <rect x="65" y="120" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="172" y="142" fill="#14131c">ThousandEyes &middot; network intelligence</text>
+          <rect x="65" y="162" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="172" y="184" fill="#14131c">AppDynamics Cognition &middot; APM</text>
+          <rect x="65" y="204" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="172" y="226" fill="#14131c">OpenTelemetry pipelines</text>
+        </g>
+
+        <rect x="322" y="30" width="255" height="240" rx="14" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+        <text x="450" y="60" font-weight="800" font-size="14" fill="#14131c">ZERO TRUST</text>
+        <g font-weight="600" font-size="11.5">
+          <rect x="342" y="78" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="450" y="100" fill="#14131c">Cisco XDR &middot; event correlation</text>
+          <rect x="342" y="120" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="450" y="142" fill="#14131c">ASA &#8594; FTD migration &middot; Duo</text>
+          <rect x="342" y="162" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="450" y="184" fill="#14131c">ISE TrustSec segmentation</text>
+          <rect x="342" y="204" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="450" y="226" fill="#14131c">Umbrella DNS &middot; UEBA</text>
+        </g>
+
+        <rect x="599" y="30" width="255" height="240" rx="14" fill="none" stroke="#e9e8f0" stroke-width="2"/>
+        <text x="727" y="60" font-weight="800" font-size="14" fill="#14131c">AI-READY NETWORK</text>
+        <g font-weight="600" font-size="11.5">
+          <rect x="619" y="78" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="727" y="100" fill="#14131c">Catalyst Center AI/ML analytics</text>
+          <rect x="619" y="120" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="727" y="142" fill="#14131c">SD-WAN predictive path selection</text>
+          <rect x="619" y="162" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="727" y="184" fill="#14131c">WiFi 7 architecture</text>
+          <rect x="619" y="204" width="215" height="34" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="727" y="226" fill="#14131c">AIOps &amp; telemetry optimisation</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 02 CORRELATION HUB ============ -->
+  <h3><span class="step-no">02.</span> The correlation hub: many alerts in, one incident out</h3>
+  <p>Every telemetry source lands in the same place, where ML-based correlation turns overlapping fragments into a single incident with a probable cause — instead of three teams chasing three tickets for one outage.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Telemetry from network, application, and security sources converges in the correlation hub and exits as one enriched incident">
+      <rect width="900" height="280" fill="#ffffff"/>
+      <defs>
+        <marker id="g2" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <g font-weight="600" font-size="11.5">
+          <rect x="45" y="30" width="185" height="40" rx="20" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="137" y="55" fill="#2e2d38">Network telemetry &middot; TE</text>
+          <rect x="45" y="80" width="185" height="40" rx="20" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="137" y="105" fill="#2e2d38">Application traces &middot; AppD</text>
+          <rect x="45" y="130" width="185" height="40" rx="20" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="137" y="155" fill="#2e2d38">Security events &middot; XDR</text>
+          <rect x="45" y="180" width="185" height="40" rx="20" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="137" y="205" fill="#2e2d38">Identity &amp; access &middot; ISE</text>
+        </g>
+
+        <line x1="235" y1="50" x2="330" y2="115" stroke="#4f46e5" stroke-width="2" marker-end="url(#g2)"/>
+        <line x1="235" y1="100" x2="330" y2="125" stroke="#4f46e5" stroke-width="2" marker-end="url(#g2)"/>
+        <line x1="235" y1="150" x2="330" y2="135" stroke="#4f46e5" stroke-width="2" marker-end="url(#g2)"/>
+        <line x1="235" y1="200" x2="330" y2="145" stroke="#4f46e5" stroke-width="2" marker-end="url(#g2)"/>
+
+        <rect x="345" y="85" width="230" height="90" rx="14" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="460" y="115" font-weight="800" font-size="14" fill="#14131c">Correlation hub</text>
+        <text x="460" y="136" font-weight="600" font-size="11" fill="#1B6CA0">Splunk ES + MLTK &middot; Cisco AI Ops</text>
+        <text x="460" y="154" font-weight="600" font-size="11" fill="#1B6CA0">ML clustering &middot; UEBA &middot; dedup</text>
+
+        <line x1="580" y1="130" x2="650" y2="130" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#g2)"/>
+
+        <rect x="660" y="90" width="200" height="80" rx="12" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2.5"/>
+        <text x="760" y="118" font-weight="800" font-size="13" fill="#4f46e5">One incident</text>
+        <text x="760" y="138" font-weight="600" font-size="10.5" fill="#6b6a78">probable cause attached</text>
+        <text x="760" y="156" font-weight="600" font-size="10.5" fill="#6b6a78">routed to the right team once</text>
+
+        <text x="450" y="255" font-weight="600" font-size="11.5" fill="#6b6a78">The design goal: correlation absorbs the alert flood so people only see incidents worth their attention.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 03 REACTIVE TO PREDICTIVE ============ -->
+  <h3><span class="step-no">03.</span> From reactive to predictive</h3>
+  <p>The deeper shift is in the timeline. Traditional operations start the clock when a user complains; this design starts it when the anomaly models see a trend bending — before impact, while the fix is still cheap.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two timelines compared: reactive operations start at user impact, predictive operations detect anomalies before impact">
+      <rect width="900" height="250" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <text x="120" y="63" font-weight="800" font-size="13" fill="#6b6a78" text-anchor="start">REACTIVE</text>
+        <line x1="120" y1="90" x2="840" y2="90" stroke="#e9e8f0" stroke-width="3"/>
+        <circle cx="500" cy="90" r="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+        <text x="500" y="72" font-weight="700" font-size="11" fill="#991b1b">user impact</text>
+        <rect x="530" y="102" width="290" height="30" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="675" y="122" font-weight="600" font-size="11" fill="#2e2d38">detect &#8594; triage &#8594; fix &mdash; clock starts too late</text>
+
+        <text x="120" y="173" font-weight="800" font-size="13" fill="#4f46e5" text-anchor="start">PREDICTIVE</text>
+        <line x1="120" y1="200" x2="840" y2="200" stroke="#c4c0f5" stroke-width="3"/>
+        <circle cx="260" cy="200" r="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="260" y="182" font-weight="700" font-size="11" fill="#1B6CA0">anomaly detected</text>
+        <rect x="290" y="212" width="330" height="30" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+        <text x="455" y="232" font-weight="600" font-size="11" fill="#14131c">ML trend analysis &#8594; act before users feel anything</text>
+        <circle cx="700" cy="200" r="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+        <text x="700" y="182" font-weight="700" font-size="11" fill="#166534">impact avoided</text>
+
+        <text x="450" y="35" font-weight="600" font-size="11.5" fill="#6b6a78">Design targets of the documented platform: 90% lower mean time to detect, 85% fewer false positives through AI correlation.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 04 ZERO TRUST ============ -->
+  <h3><span class="step-no">04.</span> Security feeds the same brain</h3>
+  <p>Zero Trust here is not a parallel project. XDR correlates security events, TrustSec and Duo decide who reaches what, Umbrella filters at DNS — and every one of those decisions lands in the same correlation hub as the network and application telemetry, following NIST 800-207 principles.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zero trust enforcement points all report into the shared correlation hub with automated response flowing back">
+      <rect width="900" height="230" fill="#ffffff"/>
+      <defs>
+        <marker id="g4" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+        <marker id="g4b" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1B6CA0"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <g font-weight="700" font-size="11.5">
+          <rect x="45" y="35" width="160" height="40" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="125" y="60" fill="#14131c">FTD firewalls</text>
+          <rect x="45" y="85" width="160" height="40" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="125" y="110" fill="#14131c">Duo &middot; identity MFA</text>
+          <rect x="45" y="135" width="160" height="40" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="125" y="160" fill="#14131c">ISE TrustSec &middot; SGTs</text>
+          <rect x="230" y="85" width="160" height="40" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="310" y="110" fill="#14131c">Umbrella DNS</text>
+        </g>
+
+        <line x1="210" y1="55" x2="480" y2="100" stroke="#4f46e5" stroke-width="2" marker-end="url(#g4)"/>
+        <line x1="210" y1="105" x2="480" y2="110" stroke="#4f46e5" stroke-width="2" marker-end="url(#g4)"/>
+        <line x1="210" y1="155" x2="480" y2="120" stroke="#4f46e5" stroke-width="2" marker-end="url(#g4)"/>
+        <line x1="395" y1="105" x2="480" y2="110" stroke="#4f46e5" stroke-width="2" marker-end="url(#g4)"/>
+
+        <rect x="490" y="75" width="180" height="70" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+        <text x="580" y="102" font-weight="800" font-size="12.5" fill="#4f46e5">Cisco XDR</text>
+        <text x="580" y="121" font-weight="600" font-size="10.5" fill="#6b6a78">security correlation</text>
+        <text x="580" y="136" font-weight="600" font-size="10.5" fill="#6b6a78">&#8594; shared hub</text>
+
+        <line x1="675" y1="110" x2="730" y2="110" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#g4)"/>
+        <rect x="740" y="85" width="130" height="50" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="805" y="106" font-weight="700" font-size="11.5" fill="#4f46e5">Automated</text>
+        <text x="805" y="122" font-weight="700" font-size="11.5" fill="#4f46e5">response</text>
+
+        <path d="M 800 140 C 790 190, 300 205, 130 182" fill="none" stroke="#1B6CA0" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#g4b)"/>
+        <text x="465" y="212" font-weight="600" font-size="11" fill="#1B6CA0">response flows back to the enforcement points &mdash; quarantine, block, re-authenticate</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 05 AI-READY NETWORK ============ -->
+  <h3><span class="step-no">05.</span> A network that gets ready for AI on its own</h3>
+  <p>The third domain closes the loop: Catalyst Center's AI/ML analytics baseline the network's own behaviour, SD-WAN selects paths predictively rather than after brownouts, and the WiFi 7 design carries the density AI endpoints bring. The network stops being what the tools watch — it becomes one of the intelligent participants.</p>
+
+  <hr class="section-break">
+
+  <h2>Where AI fits in</h2>
+
+  <p>Three domains means three full design guides — platform architectures, integration matrices, and implementation checklists. Claude helped me draft that volume consistently, while the domain boundaries, the correlation-first design decision, and the platform selections are mine. Every page passed the same strict build gate as the rest of this portfolio.</p>
+
+  <h2>Explore the full design</h2>
+
+  <p>Each domain above unfolds into complete documentation — the Splunk and ThousandEyes architectures, the AppDynamics Cognition design, OpenTelemetry pipelines, the full Zero Trust framework with the ASA-to-FTD migration strategy, and the AI-ready network chapters. Built as an illustrative enterprise scenario so the structure and decision logic are fully visible.</p>
+
+  <div class="doc-cta">
+    <div class="cta-eyebrow">Full Documentation Site</div>
+    <h3>Cisco AI Observability &amp; Security Platform Design</h3>
+    <p>All three domains, published as a browsable site.</p>
+    <a class="cta-btn" href="https://ai-observability.abhavtech.com">Open the Platform Design &rarr;</a>
+  </div>
+
+  <div class="disclosure">
+    <strong>AI-assisted disclosure:</strong> This article and the documentation site it references were produced with AI assistance (Claude, Anthropic) under the author's technical direction, as part of the AbhavTech knowledge-sharing portfolio. Content is illustrative and intended for learning; performance figures are design targets of the documented scenario &mdash; validate all designs against official Cisco documentation and your own environment before production use.
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>&copy; 2025&ndash;2026 AbhavTech &middot; Technical Insights</div>
+    <div><a href="/">&#127760; abhavtech.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

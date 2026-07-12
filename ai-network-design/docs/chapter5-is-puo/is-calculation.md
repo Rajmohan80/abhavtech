@@ -1,5 +1,8 @@
 # IS — Impact Score Calculation
 
+!!! quote "Source attribution"
+    The Impact Score model was introduced by **Scott Andersen** in *Infrastructure for AI Network Design and Architecture* (BPB Publications, 2025 — [amzn.in/d/04OAa7V5](https://amzn.in/d/04OAa7V5)). The IS formula, PUO metric, and adjustment factor A originate from his work. The verdict thresholds, U_eff load unit weights, LL-to-RTT mapping, CS-to-bandwidth overhead percentages, and B_gap back-calculation are engineering extensions added by this workbook.
+
 The Impact Score (IS) is the primary go/no-go metric for AI deployment. It synthesises U_eff, AIW, CS, LL, B, and A into one dimensionless number that quantifies network stress at a specific link.
 
 ## The formula

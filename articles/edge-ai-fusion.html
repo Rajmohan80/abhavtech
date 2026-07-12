@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edge AI + Observability Fusion — AbhavTech Technical Insights</title>
+<meta name="description" content="Distributed AI inference at Mumbai and Chennai hub sites — 270 cameras, four edge nodes, and a multi-source validation architecture that keeps false positives under five percent.">
+<meta name="author" content="Rajmohan M">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="article.css">
+<link rel="stylesheet" href="/articles/article.css">
+<style>
+/* Critical fallback — full styles live in article.css */
+body{margin:0;font-family:"Source Serif 4",Georgia,serif;font-size:1.1875rem;line-height:1.75;color:#2e2d38}
+.article{max-width:680px;margin:0 auto;padding:2.5rem 1.5rem}
+figure.hero{max-width:1100px;margin:2.5rem auto 2rem;padding:0 1.5rem}
+figure.hero svg,figure.diagram svg{width:100%;height:auto;display:block}
+figure.diagram{width:calc(min(1100px, 100vw - 3rem));margin:2.25rem 0 2.25rem calc((680px - min(1100px, 100vw - 3rem)) / 2)}
+@media (max-width:720px){figure.diagram{width:100%;margin:2rem 0}}
+.topbar-inner,.footer-inner{max-width:1100px;margin:0 auto;padding:0.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.eyebrow{font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#4f46e5;margin-bottom:1rem}
+h1{font-family:Archivo,Arial,sans-serif;font-weight:900;font-size:clamp(2rem,5.5vw,3rem);line-height:1.12;letter-spacing:-.025em;color:#14131c;margin:0 0 1.5rem}
+.article h2,.article h3{font-family:Archivo,Arial,sans-serif;color:#14131c;line-height:1.3}
+.byline{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;padding:1.1rem 0;border-top:1px solid #e9e8f0;border-bottom:1px solid #e9e8f0;margin-bottom:2.25rem;font-family:Archivo,Arial,sans-serif;font-size:.85rem}
+.byline .avatar{width:42px;height:42px;border-radius:50%;background:#4f46e5;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.byline .who .name{font-weight:700;color:#14131c}
+.byline .who .role{color:#6b6a78;font-size:.78rem}
+.byline .meta{margin-left:auto;color:#6b6a78;font-size:.78rem;text-align:right;line-height:1.5}
+.ai-badge{display:inline-block;background:#f4f3ff;color:#3730a3;border:1px solid #d9d6fb;padding:2px 10px;border-radius:12px;font-family:Archivo,Arial,sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">Abhav<span>Tech</span></a>
+    <a class="back-link" href="/#insights">All Insights &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO — fusion convergence ===================== -->
+<figure class="hero" style="margin-top:2.5rem;">
+  <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four validation sources converge into one high-confidence automated decision">
+    <defs>
+      <linearGradient id="heroBg6" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f3ff"/>
+        <stop offset="1" stop-color="#eef2f7"/>
+      </linearGradient>
+      <marker id="f0" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#4f46e5"/></marker>
+    </defs>
+    <rect width="900" height="340" fill="url(#heroBg6)"/>
+
+    <text x="60" y="80" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#14131c">One Camera Sees It.</text>
+    <text x="60" y="117" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#4f46e5">Four Systems Confirm It.</text>
+    <text x="60" y="150" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="14.5" fill="#6b6a78">Edge AI + Observability Fusion at Mumbai &amp; Chennai hub sites</text>
+
+    <g font-family="Archivo, Arial, sans-serif" font-weight="700" font-size="11.5" text-anchor="middle">
+      <rect x="60" y="185" width="150" height="34" rx="17" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+      <text x="135" y="207" fill="#14131c">AI detection</text>
+      <rect x="60" y="228" width="150" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+      <text x="135" y="250" fill="#2e2d38">ISE identity</text>
+      <rect x="60" y="271" width="150" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+      <text x="135" y="293" fill="#2e2d38">BMS occupancy</text>
+      <rect x="230" y="228" width="150" height="34" rx="17" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+      <text x="305" y="250" fill="#2e2d38">Historical patterns</text>
+
+      <line x1="215" y1="202" x2="455" y2="238" stroke="#4f46e5" stroke-width="2" marker-end="url(#f0)"/>
+      <line x1="215" y1="245" x2="455" y2="245" stroke="#4f46e5" stroke-width="2" marker-end="url(#f0)"/>
+      <line x1="215" y1="288" x2="455" y2="252" stroke="#4f46e5" stroke-width="2" marker-end="url(#f0)"/>
+      <line x1="385" y1="245" x2="455" y2="245" stroke="#4f46e5" stroke-width="2" marker-end="url(#f0)"/>
+
+      <rect x="470" y="217" width="170" height="56" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+      <text x="555" y="240" fill="#4f46e5" font-size="12.5">FUSION GATE</text>
+      <text x="555" y="258" font-weight="600" font-size="10.5" fill="#6b6a78">multi-source validation</text>
+
+      <line x1="645" y1="245" x2="690" y2="245" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#f0)"/>
+
+      <rect x="700" y="207" width="160" height="76" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="780" y="235" fill="#14131c" font-size="12.5">Automated action</text>
+      <text x="780" y="255" font-weight="600" font-size="10.5" fill="#1B6CA0">&lt;500 ms end to end</text>
+      <text x="780" y="271" font-weight="600" font-size="10.5" fill="#1B6CA0">&lt;5% false positives</text>
+    </g>
+  </svg>
+</figure>
+
+<main class="article">
+
+  <div class="eyebrow">Edge AI &middot; Jul 2026</div>
+
+  <h1>Edge AI + Observability Fusion: Trusting the Machine to Act</h1>
+
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">RM</div>
+    <div class="who">
+      <div class="name">Rajmohan M</div>
+      <div class="role">Principal Consultant, UC &amp; Contact Center</div>
+    </div>
+    <div class="meta">
+      4 min read &middot; July 2026<br>
+      <span class="ai-badge">AI-Assisted Documentation</span>
+    </div>
+  </div>
+
+  <p class="lede">Edge AI that only watches is easy. Edge AI you trust to act — to lock a door, page a guard, adjust a building — is a different engineering problem, because a single camera's opinion isn't enough to act on. This design solves that with fusion.</p>
+
+  <p>The deployment runs distributed AI inference at the Mumbai and Chennai hub sites, built as an illustrative enterprise scenario. Every AI detection is validated against three independent sources before anything automated happens — and that fusion is what brings false positives from the 15&ndash;30% typical of camera-only edge AI down to under five percent.</p>
+
+  <!-- ============ 01 DEPLOYMENT ============ -->
+  <h3><span class="step-no">01.</span> The deployment at a glance</h3>
+  <p>Four edge nodes, two sites, one platform. Mumbai deploys first as the pilot, Chennai follows using the identical build.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Deployment summary: Mumbai and Chennai each with two edge AI nodes and 135 cameras, three shared use cases, sixteen week timeline">
+      <rect width="900" height="240" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="50" y="35" width="390" height="120" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="245" y="65" font-weight="800" font-size="15" fill="#14131c">MUMBAI &middot; weeks 1&ndash;8 (pilot)</text>
+        <text x="245" y="92" font-weight="600" font-size="12.5" fill="#1B6CA0">2 edge AI nodes &middot; primary + standby</text>
+        <text x="245" y="114" font-weight="600" font-size="12.5" fill="#1B6CA0">135 cameras &middot; all three use cases</text>
+        <text x="245" y="136" font-weight="600" font-size="12.5" fill="#1B6CA0">UCS XE9305 + XE130c M8 + NVIDIA L4 24GB</text>
+
+        <rect x="460" y="35" width="390" height="120" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="655" y="65" font-weight="800" font-size="15" fill="#14131c">CHENNAI &middot; weeks 9&ndash;12 (rollout)</text>
+        <text x="655" y="92" font-weight="600" font-size="12.5" fill="#1B6CA0">2 edge AI nodes &middot; identical build</text>
+        <text x="655" y="114" font-weight="600" font-size="12.5" fill="#1B6CA0">135 cameras &middot; all three use cases</text>
+        <text x="655" y="136" font-weight="600" font-size="12.5" fill="#1B6CA0">weeks 13&ndash;16: production hardening</text>
+
+        <g font-weight="700" font-size="12">
+          <rect x="50" y="175" width="255" height="42" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="177" y="194" fill="#2e2d38">UC1 &middot; Physical security</text>
+          <text x="177" y="209" font-weight="600" font-size="10.5" fill="#6b6a78">perimeter &amp; intrusion detection</text>
+          <rect x="322" y="175" width="255" height="42" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="449" y="194" fill="#2e2d38">UC2 &middot; Building automation</text>
+          <text x="449" y="209" font-weight="600" font-size="10.5" fill="#6b6a78">occupancy-driven HVAC via BMS</text>
+          <rect x="594" y="175" width="256" height="42" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="722" y="194" fill="#2e2d38">UC3 &middot; Safety compliance</text>
+          <text x="722" y="209" font-weight="600" font-size="10.5" fill="#6b6a78">zone &amp; PPE monitoring</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 02 ONE NEW LAYER ============ -->
+  <h3><span class="step-no">02.</span> One new layer, everything else reused</h3>
+  <p>The cameras, the Catalyst 9300/9500 network, and the Honeywell BMS were already there. The design adds a single new layer — edge AI compute in the same IDF room — which is why the camera-to-inference path is 4&nbsp;ms instead of the 15&ndash;20&nbsp;ms of a separate datacenter.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Existing cameras, Catalyst network, and BMS in grey, with the new edge AI layer in blue placed in the same IDF room">
+      <rect width="900" height="250" fill="#ffffff"/>
+      <defs>
+        <marker id="f2" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <g font-weight="700" font-size="12.5">
+          <rect x="50" y="75" width="180" height="60" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="140" y="100" fill="#2e2d38">Cameras &amp; sensors</text>
+          <text x="140" y="119" font-weight="600" font-size="10.5" fill="#6b6a78">existing &middot; SGT-70</text>
+
+          <rect x="280" y="75" width="180" height="60" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="370" y="100" fill="#2e2d38">Catalyst 9300 / 9500</text>
+          <text x="370" y="119" font-weight="600" font-size="10.5" fill="#6b6a78">existing network &middot; reused</text>
+
+          <rect x="510" y="75" width="180" height="60" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="600" y="95" fill="#14131c">Edge AI layer</text>
+          <text x="600" y="112" font-weight="600" font-size="10.5" fill="#1B6CA0">XE130c M8 + L4 GPU &middot; new</text>
+          <text x="600" y="127" font-weight="600" font-size="10.5" fill="#1B6CA0">same IDF room &middot; SGT-95</text>
+
+          <rect x="720" y="30" width="150" height="46" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="795" y="50" fill="#2e2d38">Honeywell BMS</text>
+          <text x="795" y="66" font-weight="600" font-size="10" fill="#6b6a78">occupancy-driven HVAC</text>
+
+          <rect x="720" y="134" width="150" height="46" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="795" y="154" fill="#2e2d38">Security team</text>
+          <text x="795" y="170" font-weight="600" font-size="10" fill="#6b6a78">validated alerts only</text>
+        </g>
+
+        <line x1="235" y1="105" x2="275" y2="105" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#f2)"/>
+        <line x1="465" y1="105" x2="505" y2="105" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#f2)"/>
+        <text x="485" y="93" font-weight="700" font-size="10.5" fill="#4f46e5">10G</text>
+        <line x1="695" y1="90" x2="715" y2="63" stroke="#4f46e5" stroke-width="2" marker-end="url(#f2)"/>
+        <line x1="695" y1="120" x2="715" y2="147" stroke="#4f46e5" stroke-width="2" marker-end="url(#f2)"/>
+
+        <text x="450" y="222" font-weight="600" font-size="11.5" fill="#6b6a78">Camera to inference: 4 ms in the same IDF room &mdash; versus 15&ndash;20 ms if the GPU lived in a separate datacenter.</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="chip"><span class="swatch existing"></span> Existing &middot; reused</span>
+      <span class="chip"><span class="swatch new"></span> New edge AI layer</span>
+    </div>
+  </figure>
+
+  <!-- ============ 03 THE 500MS TIMELINE ============ -->
+  <h3><span class="step-no">03.</span> Detection to action in under 500 ms</h3>
+  <p>The whole point of edge placement is the timeline. From the frame leaving the camera to an automated action firing, everything — inference, validation across four sources, and the action itself — completes in under half a second.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The sub-500 millisecond timeline: frame capture, GPU inference, multi-source validation, automated action">
+      <rect width="900" height="230" fill="#ffffff"/>
+      <defs>
+        <marker id="f3" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <line x1="60" y1="150" x2="840" y2="150" stroke="#c4c0f5" stroke-width="3"/>
+        <g font-weight="700" font-size="12">
+          <circle cx="110" cy="150" r="7" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+          <rect x="45" y="55" width="130" height="52" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="110" y="77" fill="#2e2d38">Frame capture</text>
+          <text x="110" y="95" font-weight="600" font-size="10.5" fill="#6b6a78">camera &#8594; IDF &middot; 4 ms</text>
+          <line x1="110" y1="107" x2="110" y2="140" stroke="#7a8ba0" stroke-width="2"/>
+
+          <circle cx="330" cy="150" r="7" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <rect x="265" y="55" width="130" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="330" y="77" fill="#14131c">GPU inference</text>
+          <text x="330" y="95" font-weight="600" font-size="10.5" fill="#1B6CA0">NVIDIA L4 &middot; on-site</text>
+          <line x1="330" y1="107" x2="330" y2="140" stroke="#1B6CA0" stroke-width="2"/>
+
+          <circle cx="565" cy="150" r="7" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <rect x="480" y="55" width="170" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="565" y="77" fill="#14131c">Multi-source validation</text>
+          <text x="565" y="95" font-weight="600" font-size="10.5" fill="#1B6CA0">ISE &middot; Splunk &middot; TE &middot; AppD</text>
+          <line x1="565" y1="107" x2="565" y2="140" stroke="#1B6CA0" stroke-width="2"/>
+
+          <rect x="779" y="139" width="22" height="22" fill="#4f46e5" transform="rotate(45 790 150)"/>
+          <rect x="725" y="55" width="130" height="52" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2.5"/>
+          <text x="790" y="77" fill="#4f46e5">Automated action</text>
+          <text x="790" y="95" font-weight="600" font-size="10.5" fill="#6b6a78">alert &middot; lock &middot; adjust</text>
+          <line x1="790" y1="107" x2="790" y2="136" stroke="#4f46e5" stroke-width="2"/>
+        </g>
+
+        <text x="110" y="182" font-weight="700" font-size="11" fill="#6b6a78">t = 0</text>
+        <text x="790" y="182" font-weight="700" font-size="11" fill="#4f46e5">t &lt; 500 ms</text>
+        <text x="450" y="212" font-weight="600" font-size="11.5" fill="#6b6a78">Millisecond-budgeted end to end &mdash; the design documents the timing at every hop.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 04 FUSION ============ -->
+  <h3><span class="step-no">04.</span> Why fusion beats a smarter camera</h3>
+  <p>Camera-only edge AI acts on one opinion, and pays for it with 15&ndash;30% false positives. Here, the AI detection is one vote of four: identity from ISE, building context from the BMS, and historical patterns from the observability stack all confirm or veto before any action fires.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An example detection validated by ISE identity, BMS occupancy, and historical patterns before an automated action fires">
+      <rect width="900" height="280" fill="#ffffff"/>
+      <defs>
+        <marker id="f4" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="40" y="105" width="185" height="64" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="132" y="130" font-weight="700" font-size="13" fill="#14131c">AI detection</text>
+        <text x="132" y="150" font-weight="600" font-size="11" fill="#1B6CA0">&ldquo;person at perimeter door&rdquo;</text>
+
+        <g font-weight="700" font-size="12">
+          <rect x="300" y="30" width="230" height="50" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="415" y="51" fill="#2e2d38">ISE &middot; identity check</text>
+          <text x="415" y="69" font-weight="600" font-size="10.5" fill="#6b6a78">badge seen on this door in last 60 s?</text>
+
+          <rect x="300" y="95" width="230" height="50" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="415" y="116" fill="#2e2d38">BMS &middot; building context</text>
+          <text x="415" y="134" font-weight="600" font-size="10.5" fill="#6b6a78">zone occupied? after hours?</text>
+
+          <rect x="300" y="160" width="230" height="50" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="415" y="181" fill="#2e2d38">History &middot; pattern check</text>
+          <text x="415" y="199" font-weight="600" font-size="10.5" fill="#6b6a78">is this normal for this hour &amp; door?</text>
+        </g>
+
+        <line x1="230" y1="122" x2="295" y2="58" stroke="#4f46e5" stroke-width="2" marker-end="url(#f4)"/>
+        <line x1="230" y1="137" x2="295" y2="120" stroke="#4f46e5" stroke-width="2" marker-end="url(#f4)"/>
+        <line x1="230" y1="152" x2="295" y2="182" stroke="#4f46e5" stroke-width="2" marker-end="url(#f4)"/>
+
+        <rect x="587" y="93" width="88" height="88" fill="#ffffff" stroke="#4f46e5" stroke-width="3" transform="rotate(45 631 137)"/>
+        <text x="631" y="132" font-weight="800" font-size="13" fill="#4f46e5">3 of 3</text>
+        <text x="631" y="150" font-weight="700" font-size="10.5" fill="#4f46e5">agree?</text>
+
+        <line x1="535" y1="58" x2="600" y2="105" stroke="#4f46e5" stroke-width="2" marker-end="url(#f4)"/>
+        <line x1="535" y1="120" x2="580" y2="130" stroke="#4f46e5" stroke-width="2" marker-end="url(#f4)"/>
+        <line x1="535" y1="185" x2="600" y2="170" stroke="#4f46e5" stroke-width="2" marker-end="url(#f4)"/>
+
+        <rect x="720" y="70" width="150" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="795" y="92" font-weight="700" font-size="12.5" fill="#14131c">Act automatically</text>
+        <text x="795" y="110" font-weight="600" font-size="10.5" fill="#1B6CA0">&lt;5% false positives</text>
+        <line x1="676" y1="118" x2="715" y2="100" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#f4)"/>
+        <text x="694" y="95" font-weight="700" font-size="10.5" fill="#4f46e5">yes</text>
+
+        <rect x="720" y="155" width="150" height="52" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+        <text x="795" y="177" font-weight="700" font-size="12.5" fill="#2e2d38">Route to a human</text>
+        <text x="795" y="195" font-weight="600" font-size="10.5" fill="#6b6a78">alert with full context</text>
+        <line x1="676" y1="158" x2="715" y2="176" stroke="#7a8ba0" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#f4)"/>
+        <text x="694" y="180" font-weight="700" font-size="10.5" fill="#7a8ba0">no</text>
+
+        <text x="450" y="258" font-weight="600" font-size="11.5" fill="#6b6a78">The machine only acts alone when independent systems agree &mdash; that is the difference between 5% and 30% false positives.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 05 PRIVACY ============ -->
+  <h3><span class="step-no">05.</span> Privacy is an architecture decision</h3>
+  <p>Two rules are wired into the design rather than written into a policy: no video ever leaves the site, and no facial recognition runs anywhere. Video is inferred on-site and discarded; only event metadata travels — over MACsec, between segmented zones.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Privacy boundary: video stays inside the site boundary and is processed on the edge node; only event metadata crosses out to the observability stack">
+      <rect width="900" height="230" fill="#ffffff"/>
+      <defs>
+        <marker id="f5" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="40" y="35" width="480" height="160" rx="14" fill="none" stroke="#1B6CA0" stroke-width="3"/>
+        <text x="280" y="25" font-weight="800" font-size="12.5" fill="#1B6CA0">SITE BOUNDARY &mdash; video never crosses this line</text>
+
+        <g font-weight="700" font-size="12">
+          <rect x="65" y="75" width="150" height="56" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="140" y="99" fill="#2e2d38">Camera video</text>
+          <text x="140" y="117" font-weight="600" font-size="10.5" fill="#6b6a78">SGT-70 segment</text>
+
+          <rect x="285" y="75" width="190" height="56" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="380" y="94" fill="#14131c">Edge AI node</text>
+          <text x="380" y="110" font-weight="600" font-size="10.5" fill="#1B6CA0">infer &amp; discard &middot; SGT-95</text>
+          <text x="380" y="124" font-weight="600" font-size="10.5" fill="#1B6CA0">no facial recognition</text>
+        </g>
+
+        <line x1="220" y1="103" x2="280" y2="103" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#f5)"/>
+        <text x="250" y="92" font-weight="700" font-size="10" fill="#4f46e5">MACsec</text>
+
+        <line x1="520" y1="103" x2="620" y2="103" stroke="#4f46e5" stroke-width="2.5" stroke-dasharray="2 0" marker-end="url(#f5)"/>
+        <text x="570" y="90" font-weight="700" font-size="10.5" fill="#4f46e5">metadata only</text>
+
+        <rect x="630" y="55" width="230" height="96" rx="12" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="745" y="83" font-weight="700" font-size="12.5" fill="#4f46e5">Observability stack</text>
+        <text x="745" y="103" font-weight="600" font-size="10.5" fill="#6b6a78">Splunk &middot; ThousandEyes &middot; AppD</text>
+        <text x="745" y="121" font-weight="600" font-size="10.5" fill="#6b6a78">FTD &middot; XDR &middot; ServiceNow</text>
+        <text x="745" y="139" font-weight="600" font-size="10.5" fill="#6b6a78">events, never frames</text>
+
+        <text x="450" y="218" font-weight="600" font-size="11.5" fill="#6b6a78">A privacy promise you can audit in the topology is stronger than one written in a policy document.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <hr class="section-break">
+
+  <h2>Where AI fits in</h2>
+
+  <p>The design spans four chapters and nine platform integrations, and Claude helped me draft it at scale — the per-use-case detection specifications, the millisecond timing tables, and the week-by-week roadmap — while the architecture decisions, the fusion logic, and the privacy boundaries are mine. Every page passed the same strict build gate as the rest of this portfolio.</p>
+
+  <h2>Explore the full design</h2>
+
+  <p>Everything above unfolds into complete documentation — the business case, the fusion architecture with full detection timelines, all three use case specifications, the zero-trust segmentation design, and the sixteen-week implementation roadmap. Built as an illustrative enterprise scenario so the structure and decision logic are fully visible.</p>
+
+  <div class="doc-cta">
+    <div class="cta-eyebrow">Full Documentation Site</div>
+    <h3>Edge AI + Observability Fusion Architecture</h3>
+    <p>The complete Mumbai &amp; Chennai edge AI design, published as a browsable site.</p>
+    <a class="cta-btn" href="https://edgeai.abhavtech.com">Open the Edge AI Guide &rarr;</a>
+  </div>
+
+  <div class="disclosure">
+    <strong>AI-assisted disclosure:</strong> This article and the documentation site it references were produced with AI assistance (Claude, Anthropic) under the author's technical direction, as part of the AbhavTech knowledge-sharing portfolio. Content is illustrative and intended for learning; performance figures are design targets of the documented scenario &mdash; validate all designs independently before applying them to production environments.
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>&copy; 2025&ndash;2026 AbhavTech &middot; Technical Insights</div>
+    <div><a href="/">&#127760; abhavtech.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

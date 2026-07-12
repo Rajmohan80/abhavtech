@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sizing Enterprise Networks for AI Workloads — AbhavTech Technical Insights</title>
+<meta name="description" content="A nine-step calculation framework that turns AI network readiness into a single go/no-go number — before procurement, not after go-live.">
+<meta name="author" content="Rajmohan M">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="article.css">
+<link rel="stylesheet" href="/articles/article.css">
+<style>
+/* Critical fallback — full styles live in article.css */
+body{margin:0;font-family:"Source Serif 4",Georgia,serif;font-size:1.1875rem;line-height:1.75;color:#2e2d38}
+.article{max-width:680px;margin:0 auto;padding:2.5rem 1.5rem}
+figure.hero{max-width:1100px;margin:2.5rem auto 2rem;padding:0 1.5rem}
+figure.hero svg,figure.diagram svg{width:100%;height:auto;display:block}
+figure.diagram{width:calc(min(1100px, 100vw - 3rem));margin:2.25rem 0 2.25rem calc((680px - min(1100px, 100vw - 3rem)) / 2)}
+@media (max-width:720px){figure.diagram{width:100%;margin:2rem 0}}
+.topbar-inner,.footer-inner{max-width:1100px;margin:0 auto;padding:0.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.eyebrow{font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#4f46e5;margin-bottom:1rem}
+h1{font-family:Archivo,Arial,sans-serif;font-weight:900;font-size:clamp(2rem,5.5vw,3rem);line-height:1.12;letter-spacing:-.025em;color:#14131c;margin:0 0 1.5rem}
+.article h2,.article h3{font-family:Archivo,Arial,sans-serif;color:#14131c;line-height:1.3}
+.byline{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;padding:1.1rem 0;border-top:1px solid #e9e8f0;border-bottom:1px solid #e9e8f0;margin-bottom:2.25rem;font-family:Archivo,Arial,sans-serif;font-size:.85rem}
+.byline .avatar{width:42px;height:42px;border-radius:50%;background:#4f46e5;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.byline .who .name{font-weight:700;color:#14131c}
+.byline .who .role{color:#6b6a78;font-size:.78rem}
+.byline .meta{margin-left:auto;color:#6b6a78;font-size:.78rem;text-align:right;line-height:1.5}
+.ai-badge{display:inline-block;background:#f4f3ff;color:#3730a3;border:1px solid #d9d6fb;padding:2px 10px;border-radius:12px;font-family:Archivo,Arial,sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">Abhav<span>Tech</span></a>
+    <a class="back-link" href="/#insights">All Insights &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO — the gate ===================== -->
+<figure class="hero" style="margin-top:2.5rem;">
+  <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Impact Score formula and its four verdict bands, from optimal to deployment blocker">
+    <defs>
+      <linearGradient id="heroBg5" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f3ff"/>
+        <stop offset="1" stop-color="#eef2f7"/>
+      </linearGradient>
+    </defs>
+    <rect width="900" height="340" fill="url(#heroBg5)"/>
+
+    <text x="60" y="80" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#14131c">Nine Steps. One Number.</text>
+    <text x="60" y="117" font-family="Archivo, Arial, sans-serif" font-weight="900" font-size="36" fill="#4f46e5">Go or No-Go.</text>
+    <text x="60" y="150" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="14.5" fill="#6b6a78">Based on Scott Andersen&rsquo;s Impact Score model &mdash; enterprise extensions by Rajmohan M</text>
+
+    <!-- Formula -->
+    <text x="450" y="205" font-family="Roboto Mono, Consolas, monospace" font-weight="500" font-size="24" fill="#14131c" text-anchor="middle">IS = (U<tspan font-size="15" dy="5">eff</tspan><tspan dy="-5"> &#215; AIW &#215; CS &#215; LL) / (B &#215; A)</tspan></text>
+
+    <!-- Verdict bands -->
+    <g font-family="Archivo, Arial, sans-serif" font-weight="700" font-size="12" text-anchor="middle">
+      <rect x="70" y="240" width="185" height="52" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+      <text x="162" y="262" fill="#166534">IS &#8804; 1.0</text>
+      <text x="162" y="280" fill="#166534" font-weight="600" font-size="11">Optimal &middot; spare headroom</text>
+
+      <rect x="265" y="240" width="185" height="52" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+      <text x="357" y="262" fill="#14131c">1.0 &lt; IS &#8804; 3.0</text>
+      <text x="357" y="280" fill="#1B6CA0" font-weight="600" font-size="11">Monitor &middot; QoS required</text>
+
+      <rect x="460" y="240" width="185" height="52" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+      <text x="552" y="262" fill="#92400e">3.0 &lt; IS &#8804; 10</text>
+      <text x="552" y="280" fill="#92400e" font-weight="600" font-size="11">Upgrade within 90 days</text>
+
+      <rect x="655" y="240" width="185" height="52" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+      <text x="747" y="262" fill="#991b1b">IS &gt; 10</text>
+      <text x="747" y="280" fill="#991b1b" font-weight="600" font-size="11">Blocker &middot; no AI go-live</text>
+    </g>
+  </svg>
+</figure>
+
+<!-- ===================== ARTICLE ===================== -->
+<main class="article">
+
+  <div class="eyebrow">AI Networking &middot; Jun 2026</div>
+
+  <h1>Sizing Enterprise Networks for AI Workloads</h1>
+
+  <div class="byline">
+    <div class="avatar" aria-hidden="true">RM</div>
+    <div class="who">
+      <div class="name">Rajmohan M</div>
+      <div class="role">Principal Consultant, UC &amp; Contact Center</div>
+    </div>
+    <div class="meta">
+      4 min read &middot; June 2026<br>
+      <span class="ai-badge">AI-Assisted Documentation</span>
+    </div>
+  </div>
+
+  <p class="lede">Most AI pilots succeed because they're small — ten agents, off-peak, no compliance overhead. The same design fails at two hundred agents at peak, because AI load doesn't scale linearly. Scott Andersen's Impact Score model gave me the right way to think about that problem. This workbook turns it into a nine-step engineering method.</p>
+
+  <blockquote>The core idea — quantifying AI's demand on network infrastructure as a single dimensionless score — comes from Scott Andersen's <em>Infrastructure for AI Network Design and Architecture</em> (BPB Publications, 2025). If you haven't read it, it belongs on your shelf. What I've built on top is the operational layer: weighted load units, latency-tier placement, verdict thresholds, and an upgrade back-calculation — all grounded in enterprise deployment experience.</blockquote>
+
+  <p>The nine steps work sequentially: each produces one input for the next, and the whole thing ends in a single go/no-go number. Here's the method.</p>
+
+  <!-- ============ 01 LOAD UNITS ============ -->
+  <h3><span class="step-no">01.</span> AI load is not human load</h3>
+  <p>The first step replaces headcount with effective load units. A human user is the baseline at 1.0; an AI-assisted agent generates three and a half times that, and an AI inference pod seven times. Size for headcount and the network is wrong on day one.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Load unit weights: human user 1.0, IoT device 0.2, AI-assisted agent 3.5, AI inference pod 7.0">
+      <rect width="900" height="250" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif">
+        <text x="450" y="34" font-weight="800" font-size="14" fill="#6b6a78" text-anchor="middle">EFFECTIVE LOAD UNITS PER ENDPOINT &mdash; U<tspan font-size="10" dy="3">eff</tspan><tspan dy="-3"> = (H&#215;1.0) + (AI&#215;3.5) + (IoT&#215;0.2) + (Pod&#215;7.0)</tspan></text>
+
+        <!-- Bars: scale 7.0 = 640px -->
+        <g font-weight="700" font-size="13">
+          <text x="60" y="83" fill="#2e2d38" text-anchor="start">IoT device</text>
+          <rect x="200" y="68" width="18" height="22" rx="4" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="232" y="85" fill="#6b6a78" font-weight="600" font-size="12">0.2</text>
+
+          <text x="60" y="128" fill="#2e2d38" text-anchor="start">Human user</text>
+          <rect x="200" y="113" width="91" height="22" rx="4" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="305" y="130" fill="#6b6a78" font-weight="600" font-size="12">1.0 &middot; baseline</text>
+
+          <text x="60" y="173" fill="#14131c" text-anchor="start">AI-assisted agent</text>
+          <rect x="200" y="158" width="319" height="22" rx="4" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="533" y="175" fill="#1B6CA0" font-weight="700" font-size="12">3.5&#215; &middot; inference + STT + context retrieval</text>
+
+          <text x="60" y="218" fill="#14131c" text-anchor="start">AI inference pod</text>
+          <rect x="200" y="203" width="638" height="22" rx="4" fill="#4f46e5"/>
+          <text x="826" y="218" fill="#ffffff" font-weight="700" font-size="12" text-anchor="end">7.0&#215;</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 02 THE CHAIN ============ -->
+  <h3><span class="step-no">02.</span> The nine-step chain</h3>
+  <p>Every step feeds the next: quantify true load, weight it by security and latency risk, size the link, then divide demand by available capacity. Nothing is estimated in isolation.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The nine-step chain: load analysis feeds risk factors, which feed capacity sizing, which feeds the Impact Score gate, then fairness, tier routing, and the upgrade plan">
+      <rect width="900" height="260" fill="#ffffff"/>
+      <defs>
+        <marker id="e2" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <g font-weight="700" font-size="12.5">
+          <rect x="40" y="45" width="180" height="58" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="130" y="69" fill="#2e2d38">LOAD</text>
+          <text x="130" y="88" font-weight="600" font-size="11" fill="#6b6a78">U<tspan font-size="8" dy="2">eff</tspan><tspan dy="-2"> load units &middot; AIW Mbps</tspan></text>
+
+          <rect x="255" y="45" width="180" height="58" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="345" y="69" fill="#2e2d38">RISK</text>
+          <text x="345" y="88" font-weight="600" font-size="11" fill="#6b6a78">CS security 1&ndash;5 &middot; LL latency 1&ndash;5</text>
+
+          <rect x="470" y="45" width="180" height="58" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="560" y="69" fill="#14131c">CAPACITY</text>
+          <text x="560" y="88" font-weight="600" font-size="11" fill="#1B6CA0">B = sized link + model sync</text>
+
+          <rect x="685" y="38" width="72" height="72" fill="#ffffff" stroke="#4f46e5" stroke-width="3" transform="rotate(45 721 74)"/>
+          <text x="721" y="70" fill="#4f46e5" font-size="13">IS</text>
+          <text x="721" y="86" fill="#4f46e5" font-size="10.5">gate</text>
+        </g>
+
+        <line x1="225" y1="74" x2="250" y2="74" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#e2)"/>
+        <line x1="440" y1="74" x2="465" y2="74" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#e2)"/>
+        <line x1="655" y1="74" x2="678" y2="74" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#e2)"/>
+
+        <!-- Downstream row -->
+        <g font-weight="700" font-size="12.5">
+          <rect x="470" y="165" width="180" height="58" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="560" y="189" fill="#14131c">FAIRNESS</text>
+          <text x="560" y="208" font-weight="600" font-size="11" fill="#1B6CA0">PUO = IS / U<tspan font-size="8" dy="2">eff</tspan></text>
+
+          <rect x="255" y="165" width="180" height="58" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="345" y="189" fill="#14131c">TIER ROUTING</text>
+          <text x="345" y="208" font-weight="600" font-size="11" fill="#1B6CA0">edge / regional / cloud MCP</text>
+
+          <rect x="40" y="165" width="180" height="58" rx="10" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2.5"/>
+          <text x="130" y="189" fill="#4f46e5">UPGRADE PLAN</text>
+          <text x="130" y="208" font-weight="600" font-size="11" fill="#6b6a78">B<tspan font-size="8" dy="2">gap</tspan><tspan dy="-2"> = B</tspan><tspan font-size="8" dy="2">req</tspan><tspan dy="-2"> &minus; B</tspan><tspan font-size="8" dy="2">current</tspan></text>
+        </g>
+
+        <path d="M 721 112 C 721 150, 680 194, 655 194" fill="none" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#e2)"/>
+        <line x1="465" y1="194" x2="440" y2="194" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#e2)"/>
+        <line x1="250" y1="194" x2="225" y2="194" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#e2)"/>
+
+        <text x="450" y="248" font-weight="600" font-size="11.5" fill="#6b6a78">Nine steps, one afternoon of calculation &mdash; versus discovering the same answer in production after the AI vendor has been paid.</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- ============ 03 THE GATE ============ -->
+  <h3><span class="step-no">03.</span> The gate: one number, four verdicts</h3>
+  <p>The Impact Score divides risk-weighted demand by available capacity. The verdict bands are written down before anyone calculates anything — so the go/no-go decision is read off a table, never negotiated in a meeting.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The four Impact Score verdict bands with their required actions">
+      <rect width="900" height="300" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif">
+        <text x="450" y="36" font-family="Roboto Mono, Consolas, monospace" font-weight="500" font-size="19" fill="#14131c" text-anchor="middle">IS = (U_eff &#215; AIW &#215; CS &#215; LL) / (B &#215; A)</text>
+
+        <!-- Scale bar -->
+        <rect x="70" y="70" width="190" height="34" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+        <rect x="260" y="70" width="190" height="34" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+        <rect x="450" y="70" width="190" height="34" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+        <rect x="640" y="70" width="190" height="34" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+        <g font-weight="800" font-size="13" text-anchor="middle">
+          <text x="165" y="92" fill="#166534">&#8804; 1.0</text>
+          <text x="355" y="92" fill="#14131c">1.0 &ndash; 3.0</text>
+          <text x="545" y="92" fill="#92400e">3.0 &ndash; 10</text>
+          <text x="735" y="92" fill="#991b1b">&gt; 10</text>
+        </g>
+
+        <g font-weight="700" font-size="13" text-anchor="middle">
+          <text x="165" y="135" fill="#166534">OPTIMAL</text>
+          <text x="355" y="135" fill="#1B6CA0">MONITOR</text>
+          <text x="545" y="135" fill="#92400e">UPGRADE REQUIRED</text>
+          <text x="735" y="135" fill="#991b1b">DEPLOYMENT BLOCKER</text>
+        </g>
+        <g font-weight="600" font-size="11" text-anchor="middle" fill="#6b6a78">
+          <text x="165" y="157">spare headroom &mdash;</text>
+          <text x="165" y="172">AI can grow into capacity</text>
+          <text x="355" y="157">manageable with 6-class QoS,</text>
+          <text x="355" y="172">alert set at IS &gt; 3</text>
+          <text x="545" y="157">AI will degrade &mdash; bandwidth or</text>
+          <text x="545" y="172">edge AI within 90 days</text>
+          <text x="735" y="157">live AI cannot run &mdash;</text>
+          <text x="735" y="172">redesign before any go-live</text>
+        </g>
+
+        <!-- Back-calculation note -->
+        <rect x="150" y="205" width="600" height="66" rx="12" fill="#f4f3ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="450" y="232" font-weight="700" font-size="13" fill="#4f46e5" text-anchor="middle" font-family="Archivo, Arial, sans-serif">The gate works backwards too</text>
+        <text x="450" y="254" font-family="Roboto Mono, Consolas, monospace" font-size="13.5" fill="#3730a3" text-anchor="middle">B_req = (U_eff &#215; AIW &#215; CS &#215; LL) / (3.0 &#215; A)&#160;&#160;&#8594;&#160;&#160;B_gap = B_req &minus; B_current</text>
+      </g>
+    </svg>
+    <figcaption>Set the target IS at 3.0 and the same formula tells you exactly how much bandwidth the upgrade needs.</figcaption>
+  </figure>
+
+  <!-- ============ 04 LATENCY PLACEMENT ============ -->
+  <h3><span class="step-no">04.</span> Latency decides where AI lives</h3>
+  <p>The latency factor maps each workload to an RTT budget, and the budget decides the tier. Agent assist survives a regional hub; real-time voice AI doesn't survive the WAN at all.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LL latency levels map workloads to RTT budgets and then to one of three MCP tiers: cloud frontier, regional edge hub, campus edge AI">
+      <rect width="900" height="330" fill="#ffffff"/>
+      <defs>
+        <marker id="e4" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4f46e5"/></marker>
+      </defs>
+      <g font-family="Archivo, Arial, sans-serif">
+        <text x="215" y="34" font-weight="800" font-size="13.5" fill="#6b6a78" text-anchor="middle">WORKLOAD &middot; RTT BUDGET</text>
+        <text x="685" y="34" font-weight="800" font-size="13.5" fill="#1B6CA0" text-anchor="middle">MCP TIER PLACEMENT</text>
+
+        <g font-weight="600" font-size="12" text-anchor="middle">
+          <rect x="60" y="50" width="310" height="42" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="215" y="68" font-weight="700" fill="#2e2d38">LL 1 &middot; batch analytics &amp; training</text>
+          <text x="215" y="84" fill="#6b6a78" font-size="11">500 ms budget</text>
+
+          <rect x="60" y="102" width="310" height="42" rx="8" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="215" y="120" font-weight="700" fill="#2e2d38">LL 2 &middot; chatbots &amp; NLP summaries</text>
+          <text x="215" y="136" fill="#6b6a78" font-size="11">200 ms budget</text>
+
+          <rect x="60" y="154" width="310" height="42" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2"/>
+          <text x="215" y="172" font-weight="700" fill="#14131c">LL 3 &middot; agent assist &amp; RAG retrieval</text>
+          <text x="215" y="188" fill="#1B6CA0" font-size="11">80 ms budget</text>
+
+          <rect x="60" y="206" width="310" height="42" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="215" y="224" font-weight="700" fill="#14131c">LL 4 &middot; real-time voice AI &amp; STT</text>
+          <text x="215" y="240" fill="#1B6CA0" font-size="11">31 ms budget &middot; WAN bypassed</text>
+
+          <rect x="60" y="258" width="310" height="42" rx="8" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="215" y="276" font-weight="700" fill="#14131c">LL 5 &middot; fraud detection &amp; robotics</text>
+          <text x="215" y="292" fill="#1B6CA0" font-size="11">20 ms budget &middot; zero WAN</text>
+        </g>
+
+        <!-- Tier boxes -->
+        <g font-weight="700" font-size="13" text-anchor="middle">
+          <rect x="530" y="50" width="310" height="66" rx="10" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2"/>
+          <text x="685" y="75" fill="#2e2d38">Tier 1 &middot; Cloud frontier</text>
+          <text x="685" y="95" font-weight="600" font-size="11" fill="#6b6a78">hyperscaler API &middot; any model &middot; any region</text>
+
+          <rect x="530" y="132" width="310" height="66" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="685" y="157" fill="#14131c">Tier 2 &middot; Regional edge hub</text>
+          <text x="685" y="177" font-weight="600" font-size="11" fill="#1B6CA0">city colocation &middot; 7B&ndash;13B models</text>
+
+          <rect x="530" y="214" width="310" height="66" rx="10" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+          <text x="685" y="239" fill="#14131c">Tier 3 &middot; Campus edge AI</text>
+          <text x="685" y="259" font-weight="600" font-size="11" fill="#1B6CA0">on-site GPU &middot; 3B&ndash;7B quantised</text>
+        </g>
+
+        <line x1="375" y1="71" x2="525" y2="80" stroke="#4f46e5" stroke-width="2" marker-end="url(#e4)"/>
+        <line x1="375" y1="123" x2="525" y2="90" stroke="#4f46e5" stroke-width="2" marker-end="url(#e4)"/>
+        <line x1="375" y1="175" x2="525" y2="163" stroke="#4f46e5" stroke-width="2" marker-end="url(#e4)"/>
+        <line x1="375" y1="227" x2="525" y2="240" stroke="#4f46e5" stroke-width="2" marker-end="url(#e4)"/>
+        <line x1="375" y1="279" x2="525" y2="252" stroke="#4f46e5" stroke-width="2" marker-end="url(#e4)"/>
+      </g>
+    </svg>
+    <figcaption>Placement is a calculation, not a preference &mdash; buying edge GPUs where cloud inference meets the budget is stranded capital.</figcaption>
+  </figure>
+
+  <!-- ============ 05 ATTRIBUTION ============ -->
+  <h3><span class="step-no">05.</span> Where the idea comes from</h3>
+  <p>The Impact Score formula — and the variables U, AIW, CS, LL, B, A, and PUO — are Scott Andersen's invention, published in <em>Infrastructure for AI Network Design and Architecture</em> (BPB Publications, 2025). I'm not claiming them as mine, and the workbook says so on its first page. What I built around them — the U_eff load unit weights, the LL-to-RTT mapping, the CS-to-bandwidth overhead percentages, the verdict thresholds, the B<sub>gap</sub> back-calculation, and the nine-step workflow — is my engineering extension of his model into enterprise practice.</p>
+
+  <p>Neither the original model nor my extensions are an industry standard. The field is too new for one. Treat the numbers as calibrated starting points, validate them against your own traffic telemetry, and credit the source.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="What originates from Scott Andersen's book versus what this workbook adds on top">
+      <rect width="900" height="200" fill="#ffffff"/>
+      <g font-family="Archivo, Arial, sans-serif" text-anchor="middle">
+        <rect x="40" y="30" width="380" height="140" rx="12" fill="#eef2f7" stroke="#7a8ba0" stroke-width="2.5"/>
+        <text x="230" y="62" font-weight="800" font-size="14.5" fill="#2e2d38">FROM SCOTT ANDERSEN&rsquo;S BOOK</text>
+        <g font-weight="600" font-size="12" fill="#2e2d38">
+          <text x="230" y="90">Impact Score (IS) model &amp; formula</text>
+          <text x="230" y="112">Variables: U, AIW, CS, LL, B, A</text>
+          <text x="230" y="134">PUO per-user output metric</text>
+          <text x="230" y="156">Adjustment factor A concept</text>
+        </g>
+
+        <rect x="480" y="30" width="380" height="140" rx="12" fill="#d7ebf8" stroke="#1B6CA0" stroke-width="2.5"/>
+        <text x="670" y="62" font-weight="800" font-size="14.5" fill="#14131c">WORKBOOK EXTENSIONS</text>
+        <g font-weight="600" font-size="12" fill="#14131c">
+          <text x="670" y="90">U_eff weighted load units per entity type</text>
+          <text x="670" y="112">LL-to-RTT mapping &middot; CS-to-BW overhead %</text>
+          <text x="670" y="134">IS verdict thresholds &middot; B_gap back-calculation</text>
+          <text x="670" y="156">MCP tier placement &middot; nine-step workflow</text>
+        </g>
+      </g>
+    </svg>
+  </figure>
+
+  <hr class="section-break">
+
+  <!-- ============ BOOK CALLOUT ============ -->
+  <div class="doc-cta" style="margin-bottom:1.5rem;">
+    <div class="cta-eyebrow">The book this workbook builds on</div>
+    <h3>Infrastructure for AI Network Design and Architecture</h3>
+    <p><strong>Scott Andersen</strong> &mdash; BPB Publications, December 2025. The book that introduced the Impact Score model. If you are working through this workbook, read the book first.</p>
+    <a class="cta-btn" href="https://amzn.in/d/04OAa7V5" target="_blank" rel="noopener">View on Amazon &rarr;</a>
+  </div>
+
+  <h2>Where AI fits in</h2>
+
+  <p>The workbook itself was drafted with Claude under my technical direction — nine chapters of formulas, worked examples, and a full enterprise contact-center case study, each passing the same strict build gate as every other site in this portfolio. The math and the thresholds are the part I own; the consistent structure at that scale is the part the model made affordable.</p>
+
+  <h2>Explore the full workbook</h2>
+
+  <p>Every step above unfolds into a complete chapter — the formula definitions, scoring rubrics for CS and LL, the master worksheet, layer-by-layer bandwidth analysis from branch to campus, and a worked enterprise contact-center example from first input to upgrade roadmap.</p>
+
+  <div class="doc-cta">
+    <div class="cta-eyebrow">Full Documentation Site</div>
+    <h3>Enterprise &amp; Edge AI — Network Design Prerequisites</h3>
+    <p>The complete nine-step calculation workbook, published as a browsable site.</p>
+    <a class="cta-btn" href="https://ai-network-design.abhavtech.com">Open the Workbook &rarr;</a>
+  </div>
+
+  <div class="disclosure">
+    <strong>AI-assisted disclosure &amp; attribution:</strong> This article and the workbook it references were produced with AI assistance (Claude, Anthropic) under the author's technical direction, as part of the AbhavTech knowledge-sharing portfolio. The Impact Score model (IS formula, variables U/AIW/CS/LL/B/A, and PUO) originates from Scott Andersen's <em>Infrastructure for AI Network Design and Architecture</em> (BPB Publications, 2025 &mdash; <a href="https://amzn.in/d/04OAa7V5" target="_blank" rel="noopener">amzn.in/d/04OAa7V5</a>). The U_eff load unit weights, LL-to-RTT mapping, CS-to-bandwidth overhead, verdict thresholds, B<sub>gap</sub> back-calculation, and nine-step workflow are engineering extensions by the author. Neither the original model nor these extensions are an industry standard &mdash; calibrate all values against your own measured traffic.
+  </div>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>&copy; 2025&ndash;2026 AbhavTech &middot; Technical Insights</div>
+    <div><a href="/">&#127760; abhavtech.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -4,9 +4,27 @@
 
 ---
 
-Authored by **Rajmohan M**   
-Version 1.0 — April 2026,
-abhavtech.com
+Authored by **Rajmohan M**
+Version 1.0 — April 2026 · abhavtech.com
+
+---
+
+## Built on the work of Scott Andersen
+
+The Impact Score model at the heart of this workbook was introduced by **Scott Andersen** in:
+
+> **Infrastructure for AI Network Design and Architecture: Building self-learning networks for the age of intelligence**
+> Scott Andersen — BPB Publications (December 2025)
+> [amzn.in/d/04OAa7V5](https://amzn.in/d/04OAa7V5)
+
+This workbook operationalises that model into a repeatable engineering method — adding the U_eff load unit weights, LL-to-RTT mapping, CS-to-bandwidth overhead translation, verdict thresholds, B_gap back-calculation, and a layer-by-layer analysis framework. If you are starting from scratch, **read the book first** — it explains why the model works. This workbook shows you how to run it.
+
+See the [full source attribution](chapter1-foundations/source-attribution.md) for a precise breakdown of what originates from Andersen's book and what this workbook adds.
+
+---
+
+!!! info "AI-Assisted Documentation"
+    This workbook was drafted with AI assistance (Claude, Anthropic) under Rajmohan M's technical direction. Every formula, threshold, and design decision reflects the author's engineering judgement. Content is illustrative and intended for learning — validate all values against your own measured traffic before applying them to production environments.
 
 ---
 

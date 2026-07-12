@@ -1,5 +1,9 @@
 # Formula Overview
 
+!!! quote "Source"
+    The Impact Score (IS) model and its core variables (U, AIW, CS, LL, B, A, PUO) were introduced by **Scott Andersen** in *Infrastructure for AI Network Design and Architecture* (BPB Publications, 2025). The formulas below operationalise that model with enterprise-specific extensions: weighted U_eff load units, LL-to-RTT mapping, CS-to-bandwidth overhead percentages, IS verdict thresholds, and the B_gap back-calculation.
+    Full attribution: [Source Attribution](source-attribution.md)
+
 All formulas used in this workbook, presented in calculation order with variable definitions and enterprise adaptation notes.
 
 ## Complete formula set
