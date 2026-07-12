@@ -962,10 +962,11 @@ footer strong{color:rgba(255,255,255,.78);
       Submit Rating
     </button>
   </div>
-  <div id="rating-thanks" style="display:none;max-width:480px;margin:0 auto;">
-    <div style="font-size:2.5rem;margin-bottom:.8rem;">⭐</div>
+  <div id="rating-thanks" style="display:none;max-width:480px;margin:0 auto;text-align:center;">
+    <div id="rating-stars-display" style="font-size:2rem;margin-bottom:.6rem;color:#FBBF24;"></div>
     <p style="color:#fff;font-family:'Archivo',sans-serif;font-weight:800;font-size:1.2rem;">Thank you!</p>
-    <p style="color:rgba(226,232,240,.65);font-size:.9rem;margin-top:.4rem;">Your rating helps improve this portfolio.</p>
+    <p id="rating-avg-text" style="color:rgba(226,232,240,.75);font-size:.95rem;margin-top:.4rem;font-family:'Archivo',sans-serif;font-weight:700;"></p>
+    <p style="color:rgba(226,232,240,.5);font-size:.8rem;margin-top:.3rem;">Resetting in <span id="rating-countdown">5</span>s…</p>
   </div>
 </section>
 
@@ -1087,7 +1088,7 @@ footer strong{color:rgba(255,255,255,.78);
 .star.hover,.star.selected{color:#FBBF24;transform:scale(1.15);}
 </style>
 <script>
-/* ── STAR RATING ── */
+/* ── STAR RATING with localStorage average + reset ── */
 let selectedRating = 0;
 const stars = document.querySelectorAll('.star');
 const ratingBtn = document.getElementById('rating-btn');
@@ -1109,25 +1110,47 @@ stars.forEach(s => {
 
 function submitRating() {
   if (!selectedRating) return;
-  ratingBtn.textContent = 'Sending…'; ratingBtn.disabled = true;
-  /* ── CHANGE THIS EMAIL when ready ── */
+  ratingBtn.textContent = 'Submitting…'; ratingBtn.disabled = true;
+
+  /* Save rating to localStorage and compute running average */
+  let ratings = JSON.parse(localStorage.getItem('abhav_ratings') || '[]');
+  ratings.push(selectedRating);
+  localStorage.setItem('abhav_ratings', JSON.stringify(ratings));
+  const avg = (ratings.reduce((a,b)=>a+b,0) / ratings.length).toFixed(1);
+  const count = ratings.length;
+
+  /* Show thank-you with average */
+  const filledStars = '★'.repeat(Math.round(+avg)) + '☆'.repeat(5 - Math.round(+avg));
+  document.getElementById('rating-stars-display').textContent = filledStars;
+  document.getElementById('rating-avg-text').textContent =
+    'Average rating: ' + avg + ' / 5' + (count > 1 ? ' (' + count + ' ratings)' : '');
+
+  document.getElementById('rating-wrap').style.display = 'none';
+  document.getElementById('rating-thanks').style.display = 'block';
+
+  /* Countdown and reset after 5 seconds */
+  let secs = 5;
+  const cd = document.getElementById('rating-countdown');
+  const timer = setInterval(() => {
+    secs--;
+    if (cd) cd.textContent = secs;
+    if (secs <= 0) {
+      clearInterval(timer);
+      selectedRating = 0;
+      stars.forEach(x => { x.textContent = '☆'; x.classList.remove('selected','hover'); });
+      ratingBtn.textContent = 'Submit Rating';
+      ratingBtn.disabled = true; ratingBtn.style.opacity = '.45';
+      document.getElementById('rating-thanks').style.display = 'none';
+      document.getElementById('rating-wrap').style.display = 'block';
+    }
+  }, 1000);
+
+  /* Also send to formsubmit (best-effort, non-blocking) */
   fetch('https://formsubmit.co/ajax/info@abhavtech.com', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({
-      _subject: 'AbhavTech Portfolio Star Rating',
-      rating: selectedRating + ' / 5 stars',
-      _captcha: 'false'
-    })
-  })
-  .then(() => {
-    document.getElementById('rating-wrap').style.display = 'none';
-    document.getElementById('rating-thanks').style.display = 'block';
-  })
-  .catch(() => {
-    document.getElementById('rating-wrap').style.display = 'none';
-    document.getElementById('rating-thanks').style.display = 'block';
-  });
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({_subject:'AbhavTech Rating',rating:selectedRating+'/5',avg:avg,_captcha:'false'})
+  }).catch(()=>{});
 }
 
 /* ── CONTACT FORM ── */
@@ -1141,11 +1164,15 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   const message = document.getElementById('cf-message').value.trim();
   if (!name || !email || !message) { err.textContent='Please fill in all required fields.'; err.style.display='block'; return; }
   btn.textContent = 'Sending…'; btn.disabled = true; err.style.display = 'none';
-  /* ── CHANGE THIS EMAIL when ready ── */
-  fetch('https://formsubmit.co/ajax/info@abhavtech.com', {
+  fetch('https://formsubmit.co/ajax/rajmohanmangattu@abhavtech.com', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({name, email, subject, message, _captcha:'false'})
+    body: JSON.stringify({
+      name, email, subject, message,
+      _subject: 'New message from AbhavTech Portfolio',
+      _captcha: 'false',
+      _template: 'table'
+    })
   })
   .then(r => r.json())
   .then(() => {
@@ -1153,7 +1180,7 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     document.getElementById('form-success').style.display = 'block';
   })
   .catch(() => {
-    err.textContent = 'Something went wrong — please try emailing info@abhavtech.com directly.';
+    err.textContent = 'Something went wrong — please email rajmohanmangattu@abhavtech.com directly.';
     err.style.display = 'block';
     btn.textContent = 'Send Message →'; btn.disabled = false;
   });
