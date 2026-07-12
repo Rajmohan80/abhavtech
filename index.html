@@ -305,10 +305,10 @@ nav{
   color:var(--accent);text-decoration:none;
   display:inline-flex;align-items:center;gap:.45rem;
   padding-bottom:.3rem;border-bottom:2px solid var(--accent);
-  transition:gap .2s;
+  transition:gap .2s;align-self:flex-end;
 }
 .link-all:hover{gap:.75rem;}
-.insight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;}
+.insight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.6rem;}
 .icard{
   background:#fff;border:1px solid var(--rule);border-radius:14px;
   overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;
@@ -708,7 +708,7 @@ footer strong{color:rgba(255,255,255,.78);
         <div class="dcard-num">01 / Practice</div>
         <h3>Collaboration &amp; Contact Center</h3>
         <p>End-to-end migration guides from legacy systems to modern cloud environments. Avaya to Webex transition playbooks, contact center transformations, and API integration frameworks.</p>
-        <a href="collaboration.html" class="dcard-link">View Documentation →</a>
+        <a href="collaboration.html" class="dcard-link" target="_blank" rel="noopener noreferrer">View Documentation →</a>
       </div>
       <div class="dcard reveal">
         <div class="dcard-ico">
@@ -717,7 +717,7 @@ footer strong{color:rgba(255,255,255,.78);
         <div class="dcard-num">02 / Practice</div>
         <h3>Enterprise Networking</h3>
         <p>Detailed architectures for Catalyst Center, SD-WAN, and WiFi 7 migrations. Complete with step-by-step implementation procedures, configuration templates, and validation checklists.</p>
-        <a href="networking.html" class="dcard-link">View Documentation →</a>
+        <a href="networking.html" class="dcard-link" target="_blank" rel="noopener noreferrer">View Documentation →</a>
       </div>
       <div class="dcard reveal">
         <div class="dcard-ico">
@@ -726,7 +726,7 @@ footer strong{color:rgba(255,255,255,.78);
         <div class="dcard-num">03 / Practice</div>
         <h3>Cybersecurity &amp; Forensics</h3>
         <p>Rigorous documentation for penetration testing, digital forensics, and compliance assessments. Provides security teams with actionable remediation steps and audit-ready reports.</p>
-        <a href="security.html" class="dcard-link">View Documentation →</a>
+        <a href="security.html" class="dcard-link" target="_blank" rel="noopener noreferrer">View Documentation →</a>
       </div>
       <div class="dcard reveal">
         <div class="dcard-ico">
@@ -735,7 +735,7 @@ footer strong{color:rgba(255,255,255,.78);
         <div class="dcard-num">04 / Practice</div>
         <h3>AI Networking</h3>
         <p>Cross-domain documentation bringing AI into the network — edge inference architectures, observability for AI-integrated systems, and AI-assisted network design frameworks.</p>
-        <a href="ai-networking.html" class="dcard-link">View AI Networking →</a>
+        <a href="ai-networking.html" class="dcard-link" target="_blank" rel="noopener noreferrer">View AI Networking →</a>
       </div>
     </div>
   </div>
@@ -749,9 +749,40 @@ footer strong{color:rgba(255,255,255,.78);
         <span class="eyebrow">Documentation Insights</span>
         <h2>Technical Insights.</h2>
       </div>
-      <a href="articles/" class="link-all">Explore All Frameworks →</a>
     </div>
     <div class="insight-grid">
+
+      <!-- Article 5 — AI Networking (NEW) -->
+      <a class="icard reveal" href="articles/sizing-networks-for-ai.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+        <div class="icard-img"><img src="assets/images/sizing-networks-for-ai.jpg" alt="Sizing Enterprise Networks for AI Workloads"></div>
+        <div class="icard-body">
+          <div class="icard-cat">AI Networking · Jun 2026</div>
+          <h3>Sizing Enterprise Networks for AI Workloads.</h3>
+          <p>How a nine-step Impact Score framework surfaces network readiness gaps before AI procurement — not after go-live.</p>
+        </div>
+      </a>
+
+      <!-- Article 6 — Edge AI (NEW) -->
+      <a class="icard reveal" href="articles/edge-ai-fusion.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+        <div class="icard-img"><img src="assets/images/edge-ai-fusion.jpg" alt="Edge AI and Observability Fusion"></div>
+        <div class="icard-body">
+          <div class="icard-cat">Edge AI · Jul 2026</div>
+          <h3>Edge AI + Observability Fusion: Trusting the Machine to Act.</h3>
+          <p>Distributed AI inference at Mumbai and Chennai — four validation sources, 270 cameras, under 500 ms end to end.</p>
+        </div>
+      </a>
+
+      <!-- Article 7 — AI Observability (NEW) -->
+      <a class="icard reveal" href="articles/ai-observability-design.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+        <div class="icard-img"><img src="assets/images/ai-observability-design.jpg" alt="Designing AI-Powered Observability"></div>
+        <div class="icard-body">
+          <div class="icard-cat">AI Operations · Jul 2026</div>
+          <h3>Designing AI-Powered Observability: From Alert Noise to One Signal.</h3>
+          <p>Three integrated domains — AI observability, Zero Trust, and AI-ready networking — designed as one correlation platform.</p>
+        </div>
+      </a>
+
+      <!-- Article 1 — Avaya / Webex (existing) -->
       <a class="icard reveal" href="articles/avaya-webex-runbooks.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
         <div class="icard-img"><img src="assets/images/accelerating-avaya-webex.jpg" alt="Avaya to Webex Migration Runbooks"></div>
         <div class="icard-body">
@@ -760,6 +791,8 @@ footer strong{color:rgba(255,255,255,.78);
           <p>How AI-assisted frameworks generate precise cutover documentation, reducing migration risk.</p>
         </div>
       </a>
+
+      <!-- Article 2 — Catalyst / SD-WAN (existing) -->
       <a class="icard reveal" href="articles/sdwan-catalyst-docs-at-scale.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
         <div class="icard-img"><img src="assets/images/documenting-catalyst-sdwan.jpg" alt="Catalyst Center and SD-WAN Documentation"></div>
         <div class="icard-body">
@@ -768,6 +801,8 @@ footer strong{color:rgba(255,255,255,.78);
           <p>A practical guide to generating standardized configuration templates and deployment procedures.</p>
         </div>
       </a>
+
+      <!-- Article 3 — Pentest / Forensics (existing) -->
       <a class="icard reveal" href="articles/pentest-forensics-reports.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
         <div class="icard-img"><img src="assets/images/standardizing-pentest.jpg" alt="Penetration Testing and Digital Forensics Reports"></div>
         <div class="icard-body">
@@ -776,6 +811,8 @@ footer strong{color:rgba(255,255,255,.78);
           <p>How automated documentation structures ensure compliance and clarity during security assessments.</p>
         </div>
       </a>
+
+      <!-- Article 4 — LLMs (existing) -->
       <a class="icard reveal" href="articles/llms-technical-writing.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
         <div class="icard-img"><img src="assets/images/role-of-llms.jpg" alt="LLMs in Enterprise Technical Writing"></div>
         <div class="icard-body">
@@ -784,6 +821,7 @@ footer strong{color:rgba(255,255,255,.78);
           <p>A realistic look at using Claude to draft complex technical documentation with strict validation.</p>
         </div>
       </a>
+
     </div>
   </div>
 </section>
@@ -805,7 +843,7 @@ footer strong{color:rgba(255,255,255,.78);
         </div>
         <h3>SLM for Webex Assistant</h3>
         <p>A lightweight Small Language Model assistant focused on Webex — exploring configuration, troubleshooting contact center flows, and planning migrations. Try the live demo and see the full build approach: HLD, LLD, and reference code.</p>
-        <a href="slm-webex-assistant.html" class="tool-link">Open the Demo →</a>
+        <a href="https://abhavtech.pages.dev/slm-webex-assistant.html" class="tool-link" target="_blank" rel="noopener noreferrer">Open the Demo →</a>
       </div></div>
 </section>
 
@@ -1123,5 +1161,3 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
 </script>
 </body>
 </html>
- 
- 
