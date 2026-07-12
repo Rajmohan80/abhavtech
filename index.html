@@ -1164,20 +1164,19 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   const message = document.getElementById('cf-message').value.trim();
   if (!name || !email || !message) { err.textContent='Please fill in all required fields.'; err.style.display='block'; return; }
   btn.textContent = 'Sending…'; btn.disabled = true; err.style.display = 'none';
-  fetch('https://formsubmit.co/ajax/rajmohanmangattu@abhavtech.com', {
+  fetch('https://formspree.io/f/xpqvagal', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({
-      name, email, subject, message,
-      _subject: 'New message from AbhavTech Portfolio',
-      _captcha: 'false',
-      _template: 'table'
-    })
+    body: JSON.stringify({name, email, subject, message})
   })
   .then(r => r.json())
-  .then(() => {
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
+  .then(data => {
+    if (data.ok) {
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } else {
+      throw new Error();
+    }
   })
   .catch(() => {
     err.textContent = 'Something went wrong — please email rajmohanmangattu@abhavtech.com directly.';
