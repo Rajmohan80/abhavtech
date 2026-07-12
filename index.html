@@ -1172,8 +1172,18 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   .then(r => r.json())
   .then(data => {
     if (data.ok) {
-      document.getElementById('contact-form').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('form-success');
+      form.style.display = 'none';
+      success.style.display = 'block';
+      /* Reset form and return to it after 5 seconds */
+      setTimeout(() => {
+        form.reset();
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        success.style.display = 'none';
+        form.style.display = 'block';
+      }, 5000);
     } else {
       throw new Error();
     }
