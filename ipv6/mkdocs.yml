@@ -35,7 +35,7 @@
 site_name: "AbhavTech IPv6 Migration Guide"
 site_description: "Comprehensive enterprise IPv6 migration across SD-WAN, SD-Access, multi-cloud, UC, observability, and security — a complete deployment roadmap from planning to production"
 site_author: "Raj Mohan"
-site_url: https://ipv6.abhavtech.com
+site_url: https://ipv6.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2025-2026 AbhavTech | AI-Assisted Documentation

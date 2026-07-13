@@ -16,7 +16,7 @@
 site_name: "Multi-Cloud Connectivity & Integration Guide"
 site_description: "Enterprise Cloud Integration with GCP Vertex AI, Azure SASE, and SD-WAN Cloud OnRamp - The Practitioner's Guide to Multi-Cloud Architecture"
 site_author: "AbhavTech - Raj Mohan"
-site_url: https://abhavtech.com/knowledge/networking/multicloud-connectivity
+site_url: https://cloud.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2025-2026 AbhavTech

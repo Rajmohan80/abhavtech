@@ -16,7 +16,7 @@
 site_name: "CUCM to Webex Calling Migration"
 site_description: "Enterprise migration from CUCM & UCCX to Webex Calling & Contact Center - Multi-region compliance, India DoT/TRAI, EMEA GDPR, AI-powered contact center"
 site_author: "AbhavTech - Collaboration Architecture Team"
-site_url: https://abhavtech.com
+site_url: https://cucm.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2025-2026 AbhavTech

@@ -35,7 +35,7 @@
 site_name: "Edge AI Networking Architecture"
 site_description: "Abhavtech Phase 4 - Edge AI deployment with observability fusion for Mumbai and Chennai hub sites"
 site_author: "Raj Mohan"
-site_url: https://edgeai.abhavtech.com
+site_url: https://edgeai.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2025-2026 AbhavTech. Technical documentation developed with Claude AI assistance.

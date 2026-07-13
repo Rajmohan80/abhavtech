@@ -16,7 +16,7 @@
 site_name: "Enterprise Network Automation Framework"
 site_description: "Infrastructure as Code for SD-Access, SD-WAN, ISE, Webex, and Zero Trust — The Practitioner's Guide to Network Automation"
 site_author: "Rajmohan M"
-site_url: https://automation.abhavtech.com
+site_url: https://automation.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2025-2026 abhavtech.com — AI-Assisted Documentation

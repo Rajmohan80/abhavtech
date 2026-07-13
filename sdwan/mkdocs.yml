@@ -14,7 +14,7 @@
 site_name: "Cisco Catalyst SD-WAN Implementation Guide"
 site_description: "Comprehensive enterprise SD-WAN deployment guide covering architecture, security, implementation, operations, and automation"
 site_author: "AbhavTech Network Architecture Team"
-site_url: https://sdwan.abhavtech.com
+site_url: https://sdwan.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2025-2026 AbhavTech

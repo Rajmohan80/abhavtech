@@ -17,7 +17,7 @@
 site_name: "Avaya to Webex Contact Center Migration Guide"
 site_description: "End-to-end enterprise migration guide — Avaya CC to Cisco Webex Contact Center. AI-assisted documentation covering discovery, design, implementation, operations, and AI integration."
 site_author: "Rajmohan M"
-site_url: https://abhavtech.com/contact-center-migration/
+site_url: https://knowledge.abhavtech.com/
 
 # Copyright footer
 copyright: Copyright &copy; 2024-2026 AbhavTech — AI-Assisted Documentation developed with Claude (Anthropic). All content is reference material only.
