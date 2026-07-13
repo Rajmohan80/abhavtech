@@ -1088,7 +1088,7 @@ footer strong{color:rgba(255,255,255,.78);
 .star.hover,.star.selected{color:#FBBF24;transform:scale(1.15);}
 </style>
 <script>
-/* ── STAR RATING with localStorage average + reset ── */
+/* ── STAR RATING ── */
 let selectedRating = 0;
 const stars = document.querySelectorAll('.star');
 const ratingBtn = document.getElementById('rating-btn');
@@ -1112,21 +1112,27 @@ function submitRating() {
   if (!selectedRating) return;
   ratingBtn.textContent = 'Submitting…'; ratingBtn.disabled = true;
 
-  /* Save rating to localStorage and compute running average */
-  let ratings = JSON.parse(localStorage.getItem('abhav_ratings') || '[]');
-  ratings.push(selectedRating);
-  localStorage.setItem('abhav_ratings', JSON.stringify(ratings));
-  const avg = (ratings.reduce((a,b)=>a+b,0) / ratings.length).toFixed(1);
-  const count = ratings.length;
-
-  /* Show thank-you with average */
-  const filledStars = '★'.repeat(Math.round(+avg)) + '☆'.repeat(5 - Math.round(+avg));
+  /* Show submitted stars immediately */
+  const filledStars = '★'.repeat(selectedRating) + '☆'.repeat(5 - selectedRating);
   document.getElementById('rating-stars-display').textContent = filledStars;
   document.getElementById('rating-avg-text').textContent =
-    'Average rating: ' + avg + ' / 5' + (count > 1 ? ' (' + count + ' ratings)' : '');
+    'You rated this ' + selectedRating + ' out of 5 — thank you!';
 
   document.getElementById('rating-wrap').style.display = 'none';
   document.getElementById('rating-thanks').style.display = 'block';
+
+  /* Send rating to Formspree so it's stored server-side */
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify({
+      access_key: '5f0b254e-8d16-4fc9-852b-846ae7d8b5d6',
+      subject: 'AbhavTech Portfolio Rating: ' + selectedRating + '/5',
+      from_name: 'AbhavTech Rating Widget',
+      rating: selectedRating + ' / 5 stars',
+      message: 'A visitor rated the portfolio ' + selectedRating + ' out of 5 stars.'
+    })
+  }).catch(() => {});
 
   /* Countdown and reset after 5 seconds */
   let secs = 5;
@@ -1144,13 +1150,6 @@ function submitRating() {
       document.getElementById('rating-wrap').style.display = 'block';
     }
   }, 1000);
-
-  /* Also send to formsubmit (best-effort, non-blocking) */
-  fetch('https://formsubmit.co/ajax/info@abhavtech.com', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({_subject:'AbhavTech Rating',rating:selectedRating+'/5',avg:avg,_captcha:'false'})
-  }).catch(()=>{});
 }
 
 /* ── CONTACT FORM ── */
@@ -1164,14 +1163,21 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   const message = document.getElementById('cf-message').value.trim();
   if (!name || !email || !message) { err.textContent='Please fill in all required fields.'; err.style.display='block'; return; }
   btn.textContent = 'Sending…'; btn.disabled = true; err.style.display = 'none';
-  fetch('https://formspree.io/f/xpqvagal', {
+  fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify({name, email, subject, message})
+    body: JSON.stringify({
+      access_key: '5f0b254e-8d16-4fc9-852b-846ae7d8b5d6',
+      subject: 'New message from AbhavTech Portfolio: ' + subject,
+      from_name: name,
+      name: name,
+      email: email,
+      message: 'Subject: ' + subject + '\n\nFrom: ' + name + ' (' + email + ')\n\n' + message
+    })
   })
   .then(r => r.json())
   .then(data => {
-    if (data.ok) {
+    if (data.success) {
       const form = document.getElementById('contact-form');
       const success = document.getElementById('form-success');
       form.style.display = 'none';
