@@ -1,3 +1,6 @@
+---
+description: AI network observability guide — AIOps, telemetry pipelines, real-time analytics, predictive fault detection, and intelligent NOC automation for enterprise networks.
+---
 # Cisco AI Observability & Security Platform Design
 
 **AI-Powered Enterprise Observability, Zero Trust Architecture, and AI-Ready Networks**

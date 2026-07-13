@@ -1,3 +1,6 @@
+---
+description: AI-driven network design guide — using machine learning for topology optimisation, capacity planning, anomaly detection, and autonomous network operations.
+---
 # Enterprise & Edge AI — Network Design Prerequisites
 
 **A step-by-step calculation workbook for designing enterprise and edge AI network infrastructure.**

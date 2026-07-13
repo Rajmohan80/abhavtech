@@ -1,3 +1,6 @@
+---
+description: Cisco Webex Contact Center greenfield deployment guide — tenant setup, routing design, agent configuration, integrations, and go-live checklist.
+---
 # Cisco Webex Contact Center - Greenfield Deployment Guide
 
 ## Project Overview

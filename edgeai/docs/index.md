@@ -1,3 +1,6 @@
+---
+description: Edge AI networking design guide — AI inference at the network edge, GPU cluster connectivity, low-latency fabric design, and intelligent traffic management.
+---
 # Edge AI Networking Architecture
 
 <span class="ai-badge">AI-Assisted Documentation</span>

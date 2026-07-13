@@ -1,3 +1,6 @@
+---
+description: Enterprise network security guide — penetration testing methodology, forensic investigation, firewall design, zero trust architecture, and incident response.
+---
 # Cybersecurity, Forensics & Penetration Testing <span class="ai-badge">AI-Assisted</span>
 
 

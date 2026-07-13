@@ -1,3 +1,6 @@
+---
+description: CUCM to Cisco Webex Calling migration guide — architecture, dial plan design, gateway cutover, and hybrid deployment for enterprise unified communications.
+---
 # CUCM & UCCX to Webex Calling & Contact Center Migration
 
 <span class="ai-badge">AI-ASSISTED DOCUMENTATION</span>

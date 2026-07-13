@@ -1,3 +1,6 @@
+---
+description: End-to-end Cisco Catalyst SD-WAN migration guide — design, security policy, topology, cutover planning, and TCO analysis for enterprise WAN transformation.
+---
 # Cisco Catalyst SD-WAN Implementation Guide
 
 <span class="ai-badge">AI-Assisted Documentation</span>

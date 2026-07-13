@@ -1,3 +1,6 @@
+---
+description: Multicloud connectivity and SD-WAN cloud integration guide — AWS, Azure, and GCP onboarding, security policy, and hybrid WAN architecture for enterprises.
+---
 # Multi-Cloud Connectivity & Integration Guide
 
 <span class="ai-badge">AI-Assisted Documentation</span>

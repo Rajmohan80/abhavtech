@@ -1,3 +1,6 @@
+---
+description: Wi-Fi 7 enterprise deployment guide — 802.11be design, multi-link operation, high-density planning, migration from Wi-Fi 6, and Cisco Catalyst wireless architecture.
+---
 # WiFi 7 Wireless-First Migration
 
 **A practitioner's guide to designing, deploying, and operating an enterprise WiFi 7 (802.11be) network — migrating from a wired-default to a wireless-first workspace across a global multi-site estate.**

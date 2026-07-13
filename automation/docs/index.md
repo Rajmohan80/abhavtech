@@ -1,3 +1,6 @@
+---
+description: Network automation and Cisco DNA Center guide — intent-based networking, Ansible, Python automation, DNAC APIs, and AIOps for enterprise networks.
+---
 # Enterprise Network Automation Framework
 
 <span class="ai-badge">AI-Assisted Documentation</span>

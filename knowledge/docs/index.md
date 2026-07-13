@@ -1,3 +1,6 @@
+---
+description: Avaya to Cisco Webex Contact Center migration — complete 7-chapter guide covering discovery, design, network readiness, implementation, and financial ROI analysis.
+---
 # Avaya to Webex Contact Center Migration Guide
 
 !!! warning "AI-Assisted Documentation"

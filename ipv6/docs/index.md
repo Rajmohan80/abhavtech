@@ -1,3 +1,6 @@
+---
+description: Enterprise IPv6 migration guide — dual-stack planning, address design, BGP and OSPF transition, security policy, and phased cutover for large-scale networks.
+---
 # AbhavTech Enterprise IPv6 Migration Guide
 
 <span class="ai-badge">AI-Assisted Documentation</span>
