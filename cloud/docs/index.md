@@ -4,7 +4,7 @@ description: Multicloud connectivity and SD-WAN cloud integration guide — AWS,
 # Multi-Cloud Connectivity & Integration Guide
 
 !!! info "AbhavTech Documentation Portfolio"
-    This guide is part of the [AbhavTech](https://abhavtech.com) technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
+    This guide is part of the <a href="https://abhavtech.com" target="_blank">AbhavTech</a> technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
 
 <span class="ai-badge">AI-Assisted Documentation</span>
 

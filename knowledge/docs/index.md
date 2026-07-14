@@ -4,7 +4,7 @@ description: Avaya to Cisco Webex Contact Center migration — complete 7-chapte
 # Avaya to Webex Contact Center Migration Guide
 
 !!! info "AbhavTech Documentation Portfolio"
-    This guide is part of the [AbhavTech](https://abhavtech.com) technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
+    This guide is part of the <a href="https://abhavtech.com" target="_blank">AbhavTech</a> technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
 
 !!! warning "AI-Assisted Documentation"
     This guide was developed using **AI-assisted tools (Claude)** combined with professional experience. All content is **reference material only** — validate with qualified engineers before production use. Always cross-verify with [official Cisco documentation](https://help.webex.com/contact-center). **[Read Full Disclaimer →](disclaimer.md)**
