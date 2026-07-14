@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GoogleBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://abhavtech.com/sitemap.xml
+Sitemap: https://sdwan.abhavtech.com/sitemap.xml
+Sitemap: https://sdaccess.abhavtech.com/sitemap.xml
+Sitemap: https://knowledge.abhavtech.com/sitemap.xml
+Sitemap: https://cucm.abhavtech.com/sitemap.xml
+Sitemap: https://uccx.abhavtech.com/sitemap.xml
+Sitemap: https://cybersecurity.abhavtech.com/sitemap.xml
+Sitemap: https://edgeai.abhavtech.com/sitemap.xml
+Sitemap: https://ai-network-design.abhavtech.com/sitemap.xml
+Sitemap: https://ai-observability.abhavtech.com/sitemap.xml
+Sitemap: https://greenfield.abhavtech.com/sitemap.xml
+Sitemap: https://cloud.abhavtech.com/sitemap.xml
+Sitemap: https://automation.abhavtech.com/sitemap.xml
+Sitemap: https://ipv6.abhavtech.com/sitemap.xml
+Sitemap: https://wifi7.abhavtech.com/sitemap.xml

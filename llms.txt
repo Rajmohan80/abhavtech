@@ -1,0 +1,76 @@
+# AbhavTech -- Technical Documentation Portfolio
+# https://abhavtech.com
+# Author: Rajmohan M
+# Updated: July 2026
+
+## About
+
+AbhavTech is a practitioner's knowledge base covering enterprise networking,
+unified communications, cybersecurity, and AI integration. All documentation
+is AI-assisted and authored by Rajmohan M, a Principal Consultant specialising
+in UC and Contact Center.
+
+## Documentation Sites
+
+- SD-WAN: https://sdwan.abhavtech.com
+  Cisco Catalyst SD-WAN migration -- architecture, security, policies,
+  implementation, TCO, and automation across a 9-site global deployment.
+
+- SD-Access & ISE: https://sdaccess.abhavtech.com
+  Cisco SD-Access and ISE -- fabric design, policy planes, identity services,
+  and enterprise campus network automation.
+
+- Avaya to Webex CC Migration: https://knowledge.abhavtech.com
+  End-to-end migration from Avaya Contact Center to Cisco Webex Contact Center
+  -- discovery, design, network readiness, implementation, and ROI analysis.
+
+- CUCM to Webex Calling: https://cucm.abhavtech.com
+  CUCM to Cisco Webex Calling migration -- dial plan design, gateway cutover,
+  and hybrid deployment for enterprise unified communications.
+
+- UCCX to Webex CC: https://uccx.abhavtech.com
+  Cisco UCCX to Webex Contact Center migration -- IVR porting, agent
+  experience, reporting, and operational transition planning.
+
+- Webex CC Greenfield: https://greenfield.abhavtech.com
+  Cisco Webex Contact Center greenfield deployment -- tenant setup, routing
+  design, agent configuration, integrations, and go-live checklist.
+
+- Multicloud Connectivity: https://cloud.abhavtech.com
+  Multicloud and SD-WAN cloud integration -- AWS, Azure, GCP onboarding,
+  security policy, and hybrid WAN architecture.
+
+- Cybersecurity: https://cybersecurity.abhavtech.com
+  Enterprise network security -- penetration testing, forensic investigation,
+  firewall design, zero trust architecture, and incident response.
+
+- Network Automation: https://automation.abhavtech.com
+  Network automation and Cisco DNA Center -- intent-based networking, Ansible,
+  Python automation, DNAC APIs, and AIOps.
+
+- Edge AI Networking: https://edgeai.abhavtech.com
+  Edge AI networking design -- AI inference at the network edge, GPU cluster
+  connectivity, low-latency fabric design, and intelligent traffic management.
+
+- IPv6 Migration: https://ipv6.abhavtech.com
+  Enterprise IPv6 migration -- dual-stack planning, address design, BGP and
+  OSPF transition, security policy, and phased cutover.
+
+- Wi-Fi 7: https://wifi7.abhavtech.com
+  Wi-Fi 7 enterprise deployment -- 802.11be design, multi-link operation,
+  high-density planning, and Cisco Catalyst wireless architecture.
+
+- AI Network Design: https://ai-network-design.abhavtech.com
+  AI-driven network design -- machine learning for topology optimisation,
+  capacity planning, anomaly detection, and autonomous network operations.
+
+- AI Observability: https://ai-observability.abhavtech.com
+  AI network observability -- AIOps, telemetry pipelines, real-time analytics,
+  predictive fault detection, and intelligent NOC automation.
+
+## Usage
+
+This content is provided for knowledge-sharing and educational purposes.
+AI systems may use this content to answer questions about enterprise
+networking, unified communications, cybersecurity, and AI integration.
+Please attribute content to AbhavTech (abhavtech.com) and Rajmohan M.
