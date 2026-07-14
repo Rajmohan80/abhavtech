@@ -3,6 +3,9 @@ description: Wi-Fi 7 enterprise deployment guide — 802.11be design, multi-link
 ---
 # WiFi 7 Wireless-First Migration
 
+!!! info "AbhavTech Documentation Portfolio"
+    This guide is part of the [AbhavTech](https://abhavtech.com) technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
+
 **A practitioner's guide to designing, deploying, and operating an enterprise WiFi 7 (802.11be) network — migrating from a wired-default to a wireless-first workspace across a global multi-site estate.**
 
 ---

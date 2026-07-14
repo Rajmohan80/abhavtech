@@ -3,6 +3,9 @@ description: Network automation and Cisco DNA Center guide — intent-based netw
 ---
 # Enterprise Network Automation Framework
 
+!!! info "AbhavTech Documentation Portfolio"
+    This guide is part of the [AbhavTech](https://abhavtech.com) technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
+
 <span class="ai-badge">AI-Assisted Documentation</span>
 
 **Infrastructure as Code for SD-Access, SD-WAN, ISE, Webex, and Zero Trust**

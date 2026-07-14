@@ -3,6 +3,9 @@ description: Enterprise IPv6 migration guide — dual-stack planning, address de
 ---
 # AbhavTech Enterprise IPv6 Migration Guide
 
+!!! info "AbhavTech Documentation Portfolio"
+    This guide is part of the [AbhavTech](https://abhavtech.com) technical documentation portfolio by **Rajmohan M** — covering Enterprise Networking, Unified Communications, Cybersecurity & AI.
+
 <span class="ai-badge">AI-Assisted Documentation</span>
 
 ---
