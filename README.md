@@ -79,7 +79,7 @@ abhavtech/
 **Rajmohan M (Raj)**  
 Senior Network & AI Solution Architect  
 CCIE Collaboration #55207 · CCDE Specialist  
-HCLTech · Hyderabad, India  
+Hyderabad, India  
 
 [![abhavtech.com](https://img.shields.io/badge/Web-abhavtech.com-1B6CA0?style=flat-square&logo=cloudflare)](https://abhavtech.com)
 
